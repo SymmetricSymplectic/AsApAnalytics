@@ -2,6 +2,8 @@ library(shiny)
 library(shinyjs)
 library(shinyWidgets)
 library(shinythemes)
+library(shinymanager)
+
 library(htmlwidgets)
 library(htmltools)
 library(xts)
@@ -20,7 +22,7 @@ library(lubridate)
 library(plotly)
 library(TSstudio)
 library(corrplot)
-#library(tsibble)
+library(tsibble)
 library(tibble)
 library(readr)
 
@@ -88,8 +90,11 @@ mex_choices <- c("Balanza Comercial",
                  "Vehículos Automotores")
 
 
+
 #definimos ui
 ui <-fluidPage(
+  #tags$h2("My secure application"),
+  #verbatimTextOutput("auth_output"),
   useShinyjs(),
   theme = shinytheme("cerulean"),
   titlePanel(title ="AsApAnalytics"),
@@ -184,7 +189,37 @@ ui <-fluidPage(
                       
                       
              ),
-             tabPanel("Estados Unidos")
-             
-  )
+             tabPanel("Estados Unidos"),
+             tabPanel("Suba su propio csv",
+                      sidebarPanel(
+                        #Selector for file upload
+                        fileInput('target_upload', 'Seleccione archivo para subir',
+                                  accept = c(
+                                    'text/csv',
+                                    'text/comma-separated-values',
+                                    '.csv'
+                                  )),
+                        radioButtons("separator","Separador: ",choices = c(";",",",":"), selected=";",inline=TRUE),
+                        uiOutput("selectseries2")
+                      ),
+
+                      #panel para outputs
+                      mainPanel(
+                        tabsetPanel(type = "tabs",
+                                    tabPanel("Tabla con los datos subidos",
+                                             DT::dataTableOutput("sample_table")
+                                             
+                                    ),#fin tabpanel ver tabla
+                                    tabPanel("Visualización de los datos",
+                                      plotlyOutput("usergraph")
+                                    )
+                        )
+                      )
+             )#fin tabpanel csv
+
+  )#fin navbars
 )
+
+# Wrap your UI with secure_app
+ui <- secure_app(ui)
+

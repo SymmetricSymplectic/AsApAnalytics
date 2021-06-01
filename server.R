@@ -1,7 +1,11 @@
+
+
+
 library(shiny)
 library(shinyjs)
 library(shinyWidgets)
 library(shinythemes)
+library(shinymanager)
 library(htmlwidgets)
 library(htmltools)
 library(xts)
@@ -23,9 +27,21 @@ library(corrplot)
 #library(tsibble)
 library(tibble)
 library(readr)
-
+# Init DB using credentials data
+credentials <- data.frame(
+  user = c("user", "Felix"),
+  password = c("user", "admin"),
+  # password will automatically be hashed
+  admin = c(FALSE, TRUE),
+  stringsAsFactors = FALSE
+)
 
 source("preprocessing_master.R", local = TRUE)
+
+
+
+
+
 
 #percentchange function for ts
 pch <- function(data, lag = 1) {
@@ -55,6 +71,17 @@ elapsed_months <- function(end_date, start_date) {
 
 #definimos servidor para graficar las series de tiempo
 server <- function(input, output, session){
+  # call the server part
+  # check_credentials returns a function to authenticate users
+  res_auth <- secure_server(
+    check_credentials = check_credentials(credentials)
+  )
+  
+  output$auth_output <- renderPrint({
+    reactiveValuesToList(res_auth)
+  })
+  
+  # your classic server logic
   #input condicional: serie de datos a analizar
   datasetInput <- reactive({
     switch(input$dataset,
@@ -271,4 +298,35 @@ server <- function(input, output, session){
     #source("PREPROCESSING/downloader.R", local = TRUE)
   })
   
-}
+  #data uploading system
+  df_products_upload <- reactive({
+    inFile <- input$target_upload
+    if (is.null(inFile))
+      return(NULL)
+    df <- read.csv(inFile$datapath, header = TRUE,sep = input$separator)
+    return(df)
+  })
+  
+  output$sample_table<- DT::renderDataTable({
+    df <- df_products_upload()
+    DT::datatable(df)
+  })
+  #crear los checkboxes de las series del usuario dinámicamente (principal)
+  output$selectseries2 <- renderUI({
+    selectizeInput("selectseries2", "Series a mostrar", names(df_products_upload()),
+                   multiple = TRUE
+    )
+  })
+  output$usergraph <- renderPlotly({
+    req(input$selectseries2)
+    df <- df_products_upload()
+    df <- df %>% 
+      select(all_of(input$selectseries2))
+    plot_ly(df)
+  })
+    
+
+  #end data uploading
+  
+  
+}#server end bracket

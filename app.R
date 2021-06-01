@@ -1,7 +1,11 @@
+
+
 library(shiny)
 library(shinyjs)
 library(shinyWidgets)
 library(shinythemes)
+library(shinymanager)
+
 library(htmlwidgets)
 library(htmltools)
 library(xts)
