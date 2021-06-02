@@ -36,9 +36,31 @@ credentials <- data.frame(
   stringsAsFactors = FALSE
 )
 
-source("preprocessing_master.R", local = TRUE)
 
+source("PREPROCESSING/balanza_proc.R", local = TRUE)
+source("PREPROCESSING/igae_proc.R", local = TRUE)
+source("PREPROCESSING/igae1_proc.R", local = TRUE)
+source("PREPROCESSING/pibmex_proc.R", local = TRUE)
+source("PREPROCESSING/actind_proc.R", local = TRUE)
+source("PREPROCESSING/imai_proc.R", local = TRUE)
+source("PREPROCESSING/ifb_proc.R", local = TRUE)
+source("PREPROCESSING/ifb(desest)_proc.R", local = TRUE)
+source("PREPROCESSING/banxico_proc.R", local = TRUE)
+source("PREPROCESSING/estab_proc.R", local = TRUE)
+source("PREPROCESSING/imcp_proc.R", local = TRUE)
+source("PREPROCESSING/imcp_desest_proc.R", local = TRUE)
+source("PREPROCESSING/confianza_proc.R", local= TRUE)
+source("PREPROCESSING/inpc_mensual_proc.R", local = TRUE)
+source("PREPROCESSING/inf_mensual_proc.R", local = TRUE)
+source("PREPROCESSING/inf_mensual_interanual_proc.R", local = TRUE)
+source("PREPROCESSING/inf_anual_proc.R", local = TRUE)
 
+source("PREPROCESSING/inpc_q_proc.R", local = TRUE)
+source("PREPROCESSING/inf_q_proc.R", local = TRUE)
+source("PREPROCESSING/sic_proc.R", local = TRUE)
+source("PREPROCESSING/des_proc.R", local = TRUE)
+source("PREPROCESSING/construc_proc.R", local = TRUE)
+source("PREPROCESSING/automot_proc.R", local = TRUE)
 
 
 
@@ -319,10 +341,40 @@ server <- function(input, output, session){
   })
   output$usergraph <- renderPlotly({
     req(input$selectseries2)
-    df <- df_products_upload()
-    df <- df %>% 
-      select(all_of(input$selectseries2))
-    plot_ly(df)
+    data <- df_products_upload()
+    rownames(data) <- data[,1]
+    data <- data[,-1]
+    selseries <- data[,input$selectseries2]
+    names(selseries) <- abbreviate(names(selseries), minlength = 16)
+    don <- xts(x = selseries, order.by = as.Date(rownames(data)))
+    equis <- rownames(data)
+    ts_plot(don, 
+            title = paste(input$dataset, ":", input$series[1], sep= ""),
+            Xtitle = "Fecha",
+            Xgrid = TRUE,
+            Ygrid = TRUE) %>%
+      layout(plot_bgcolor='transparent',
+             yaxis = list(gridcolor= "#AAAAAA", fixedrange = FALSE, autorange = TRUE,tickformat = "digit" ),
+             xaxis = list(gridcolor= "#AAAAAA", ticktext = equis
+                          #,rangeslider = list(type = "date")
+             ),
+             height = 650) %>% 
+      layout(legend = list(x = 0.05, y = 0.95)) %>%
+      layout(
+        images = list(
+          list(source = "https://i.ibb.co/2KDKzhg/logotipo-asapa-min-black.png",
+               xref = "paper",
+               yref = "paper",
+               x= 0.15,
+               y= 0.7,
+               sizex = 0.8,
+               sizey = 0.8,
+               #sizing = "stretch",
+               layer = "below",
+               opacity = 0.1
+          ))) %>%
+      config(displaylogo = FALSE)
+
   })
     
 
