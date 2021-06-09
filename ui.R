@@ -1,93 +1,40 @@
-library(shiny)
-library(shinyjs)
-library(shinyWidgets)
-library(shinythemes)
-library(shinymanager)
 
-library(htmlwidgets)
-library(htmltools)
-library(xts)
-library(readxl)
-library(forecast)
-library(sweep)
-library(zoo)
-library(scales)
-library(data.table)
-library(ggplot2)
-library(ggfortify)
-library(ggpubr)
-library(png)
-library(grid)
-library(lubridate)
-library(plotly)
-library(TSstudio)
-library(corrplot)
-library(tsibble)
-library(tibble)
-library(readr)
 
-#percentchange function for ts
-pch <- function(data, lag = 1) {
-  # argument verification
-  # return percent change
-  data / lag(data, -lag) - 1
-}
-
-#function to turn forecast objects into arrays
-gen_array <- function(forecast_obj){
-  
-  actuals <- forecast_obj$x
-  lower <- forecast_obj$lower[,2]
-  upper <- forecast_obj$upper[,2]
-  point_forecast <- forecast_obj$mean
-  
-  cbind(actuals, lower, upper, point_forecast)
-}
-
-#función que cuenta número de meses entre fechas
-elapsed_months <- function(end_date, start_date) {
-  ed <- as.POSIXlt(end_date)
-  sd <- as.POSIXlt(start_date)
-  12 * (ed$year - sd$year) + (ed$mon - sd$mon)
-}
-
-#logotipos y cosas gráficas extras
-asapa <- png::readPNG("www/logotipo-asapa.png")
-asapa_black <-png::readPNG("www/logotipo-asapa-min-black.png")
-asapa_logo <- rasterGrob(asapa, x = .15, y = .15, height = .15, width = .15,
-                         interpolate=TRUE)
-asapa_logo_black <- rasterGrob(asapa_black, x = .15, y = .15, height = .15, width = .15,
-                               interpolate=TRUE)
-back_image <- png::readPNG("www/asapa_back.png")
-#config del tema de ggplot2
-#escala del texto en las gráficas de ggplot2
-theme_set(theme_linedraw(base_size=19))
-
-mex_choices <- c("Balanza Comercial",
-                 "Establecimientos Comerciales",
-                 "Indicador Global de Actividad Económica (Original)",
-                 "Indicador Global de Actividad Económica (Desestacionalizado)",
-                 "Índice Mensual de Actividad Industrial (Original)",
-                 "Índice Mensual de Actividad Industrial (Desestacionalizado)",
-                 "Indicador Mensual de Consumo Privado en el Mercado Interior (Original)",
-                 "Indicador Mensual de Consumo Privado en el Mercado Interior (Desestacionalizado)",
-                 "Indicador de Confianza del Consumidor",
-                 "Índice Nacional de Precios al Consumidor (Mensual)",
-                 "Índice Nacional de Precios al Consumidor (Quincenal)",
-                 "Inflación (Mensual)",
-                 "Inflación (Mensual, Interanual)",
-                 "Inflación (Anual acumulada)",
-                 "Inflación (Quincenal)",
-                 "Inversión Fija Bruta (Original)",
-                 "Inversión Fija Bruta (Desestacionalizada)",
-                 "Producto Interno Bruto (a precios de 2013)",
-                 "Reservas Internacionales (Mensual)",
-                 "Reservas Internacionales (Semanal)",
-                 "Remesas",
-                 "Sistema de Indicadores Compuestos",
-                 "Tasa de Desocupación",
-                 "Valor de la construcción",
-                 "Vehículos Automotores")
+ind_choices <- c("Balanza Comercial" = "1",
+                 "Establecimientos Comerciales" = "2",
+                 "Indicador Global de Actividad Económica (Original)" = "3",
+                 "Indicador Global de Actividad Económica (Desestacionalizado)" = "4",
+                 "Índice Mensual de Actividad Industrial (Original)"= "5",
+                 "Índice Mensual de Actividad Industrial (Desestacionalizado)"= "6",
+                 "Indicador Mensual de Consumo Privado en el Mercado Interior (Original)" = "7",
+                 "Indicador Mensual de Consumo Privado en el Mercado Interior (Desestacionalizado)" = "8",
+                 "Indicador de Confianza del Consumidor" = "9",
+                 "Índice Nacional de Precios al Consumidor (Mensual)" = "10",
+                 "Índice Nacional de Precios al Consumidor (Quincenal)" = "11",
+                 "Inflación (Mensual)" = "12",
+                 "Inflación (Mensual, Interanual)" = "13",
+                 "Inflación (Anual acumulada)" = "14",
+                 "Inflación (Quincenal)" = "15",
+                 "Inversión Fija Bruta (Original)" = "16",
+                 "Inversión Fija Bruta (Desestacionalizada)" = "17",
+                 "Producto Interno Bruto (a precios de 2013)" = "18",
+                 "Reservas Internacionales (Mensual)" = "19",
+                 "Reservas Internacionales (Semanal)"= "20",
+                 "Remesas" = "21",
+                 "Sistema de Indicadores Compuestos" = "22",
+                 "Tasa de Desocupación" = "23",
+                 "Valor de la construcción" = "24",
+                 "Vehículos Automotores" = "25",
+                 #fin choices mex
+                 "Business Sales and Inventories" = "26",
+                  "University of Michigan: Surveys of Consumers" = "27",
+                  "Construction Spending" = "28",
+                 "Consumer Credit" = "29",
+                 "Annual GDP - Index (2012=100)" = "30",
+                 "Annual GDP - Seasonally Adjusted" = "31",
+                 "Consumer Price Index - 1982-1984=100" = "32",
+                 "Producer Price Index - Index Dec 1984=100"= "33"
+                  )
 
 
 
@@ -101,15 +48,18 @@ ui <-fluidPage(
   #grid de logotipo de asapa en background
   #setBackgroundImage(src= "asapa_back.png"),
   
-  navbarPage("Indicadores",
-             tabPanel("México",
+  navbarPage("InfoAsApA",
+             tabPanel("Indicadores Económicos",
                       #layout de sidebars
                       #sidebar para inputs
                       sidebarPanel(
+            
                         
                         #input: seleccionar indicador
-                        selectInput("dataset", "Seleccione el indicador deseado",
-                                    choices = mex_choices
+                        selectizeInput("dataset", "Seleccione el indicador deseado",
+                                    choices = ind_choices, selected = "1", multiple = TRUE,
+                                    options = list(maxItems = 5)
+                                    
                         ),
                         
                         #sidebars condicionales dependiendo de qué tabset selecciones
@@ -188,8 +138,7 @@ ui <-fluidPage(
                       )
                       
                       
-             ),
-             tabPanel("Estados Unidos"),
+             ), #fin tabpanel
              tabPanel("Suba su propio csv",
                       sidebarPanel(
                         #Selector for file upload

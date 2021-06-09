@@ -1,9 +1,9 @@
 #actind_url <- "https://www.inegi.org.mx/contenidos/temas/economia/cn/imai/tabulados/ori/IMAI_1.xlsx"
 #download.file(actind_url, destfile="DATA/actind.xlsx", mode='wb')
-
 #datos descargados a dataframe
 actind_ind <-read_excel("DATA/actind.xlsx")
-actind_ind <- transpose(actind_ind)
+transpose <- data.table::transpose
+actind_ind <- data.table::transpose(actind_ind)
 #quitamos filas basura de dato anual
 trashlength <- year(Sys.Date())-1993
 trashdates <-c()

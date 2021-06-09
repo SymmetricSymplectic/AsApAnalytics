@@ -9,6 +9,10 @@ names_balanza <- c("Exportaciones totales FOB",
                    "Export. B. de uso intermedio",
                    "Import. B. de uso intermedio",
                    "Export. B. de Capital",
-                   "Import. B. de Capital")
+                   "Import. B. de Capital",
+                   "Saldo Total",
+                   "Saldo sin exportaciones petroleras",
+                   "Saldo productos petroleros",
+                   "Saldo productos no petroleros")
 colnames(balanza_data) <-names_balanza
 rm(names_balanza)

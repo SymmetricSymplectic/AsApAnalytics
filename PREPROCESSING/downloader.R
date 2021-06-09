@@ -84,6 +84,10 @@ exp_b_uso <- inegi_series("33864", token_inegi)
 imp_b_uso <- inegi_series("33865", token_inegi)
 exp_b_cap <- inegi_series("33866", token_inegi)
 imp_b_cap <- inegi_series("33867", token_inegi)
+s1 <- inegi_series("897", token_inegi)
+s2 <- inegi_series("375922", token_inegi)
+s3 <- inegi_series("206784", token_inegi)
+s4 <- inegi_series("206785", token_inegi)
 sq <- seq(max(length(bal_exp_tot$date), length(exp_b_cap$date)))
 balanza <- data.frame(bal_exp_tot$date[sq], 
                       bal_exp_tot$values[sq],
@@ -93,10 +97,15 @@ balanza <- data.frame(bal_exp_tot$date[sq],
                       exp_b_uso$values[sq],
                       imp_b_uso$values[sq],
                       exp_b_cap$values[sq],
-                      imp_b_cap$values[sq]
+                      imp_b_cap$values[sq],
+                      s1$values[sq],
+                      s2$values[sq],
+                      s3$values[sq],
+                      s4$values[sq]
                       )
 
-rm(bal_exp_tot,bal_imp_tot,exp_b_cons,imp_b_cons,exp_b_uso,imp_b_uso,exp_b_cap,imp_b_cap, sq)
+rm(bal_exp_tot,bal_imp_tot,exp_b_cons,imp_b_cons,exp_b_uso,
+   imp_b_uso,exp_b_cap,imp_b_cap, s1,s2,s3,s4,sq)
 write.csv(balanza, "DATA/balanza_com.csv", row.names = FALSE)
 rm(balanza)
 
@@ -515,4 +524,213 @@ write.csv(serie,"DATA/remesas_fam.csv", row.names = FALSE )
 
 rm(idSeries)
 rm(serie)
+
+
+
+#series USA
+library(fredr)
+library(tidyr)
+
+api <- "04e993066c49173bd311b63234e2aad4"
+fredr_set_key(api)
+
+#business sales and inv
+mtis <- fredr_release_series(release_id = 25)
+if (requireNamespace("purrr", quietly = TRUE)) {
+   series <- mtis$id
+   library(purrr)
+   purrr::map_dfr(series, fredr)
+   
+   # Using purrr::pmap_dfr() allows you to use varying optional parameters
+   params <- list(
+      series_id = series,
+      frequency = c("m")
+   )
+   
+   df <- purrr::pmap_dfr(
+      .l = params,
+      .f = ~ fredr(series_id = .x, frequency = .y)
+   )
+   
+}
+df <-df %>% pivot_wider(id_cols = "date", names_from = "series_id")
+write.csv(df, "DATA/businessSalesInv.csv", row.names = FALSE)
+rm(df,mtis,params,series)
+
+
+#surveys of consumers
+consurvey <- fredr_release_series(release_id = 91)
+if (requireNamespace("purrr", quietly = TRUE)) {
+   series <- consurvey$id[c(1,2)]
+   library(purrr)
+   purrr::map_dfr(series, fredr)
+   
+   # Using purrr::pmap_dfr() allows you to use varying optional parameters
+   params <- list(
+      series_id = series,
+      frequency = c("m")
+   )
+   
+   df <- purrr::pmap_dfr(
+      .l = params,
+      .f = ~ fredr(series_id = .x, frequency = .y)
+   )
+   
+}
+df <-df %>% pivot_wider(id_cols = "date", names_from = "series_id")
+write.csv(df, "DATA/consurvey.csv", row.names = FALSE)
+rm(df,consurvey,params,series)
+
+
+#construction spending
+conspending <- fredr_release_series(release_id = 229)
+if (requireNamespace("purrr", quietly = TRUE)) {
+   series <- conspending$id
+   library(purrr)
+   purrr::map_dfr(series, fredr)
+   
+   # Using purrr::pmap_dfr() allows you to use varying optional parameters
+   params <- list(
+      series_id = series,
+      frequency = c("m")
+   )
+   
+   df <- purrr::pmap_dfr(
+      .l = params,
+      .f = ~ fredr(series_id = .x, frequency = .y)
+   )
+   
+}
+df <-df %>% pivot_wider(id_cols = "date", names_from = "series_id")
+write.csv(df, "DATA/conspending.csv", row.names = FALSE)
+rm(df,conspending,params,series)
+
+
+#consumer credit
+
+conscredit <- fredr_release_series(release_id = 14)
+if (requireNamespace("purrr", quietly = TRUE)) {
+   series <- conscredit$id
+   library(purrr)
+   purrr::map_dfr(series, fredr)
+   
+   # Using purrr::pmap_dfr() allows you to use varying optional parameters
+   params <- list(
+      series_id = series
+      #,frequency = c("m", "meop", "qeop")
+   )
+   
+   df <- purrr::pmap_dfr(
+      .l = params,
+      .f = ~ fredr(series_id = .x
+                   #, frequency = .y
+                   )
+   )
+   
+}
+df <-df %>% pivot_wider(id_cols = "date", names_from = "series_id")
+write.csv(df, "DATA/conscredit.csv", row.names = FALSE)
+rm(df,conscredit,params,series)
+
+#gdp index 2012
+gdp_index <- fredr_release_series(release_id = 53)
+if (requireNamespace("purrr", quietly = TRUE)) {
+   series <- gdp$id[which (gdp_index$units == "Index 2012=100" & gdp_index$frequency=="Annual" )]
+   library(purrr)
+   purrr::map_dfr(series, fredr)
+   
+   # Using purrr::pmap_dfr() allows you to use varying optional parameters
+   params <- list(
+      series_id = series
+      #,frequency = c("m", "meop", "qeop")
+   )
+   
+   df <- purrr::pmap_dfr(
+      .l = params,
+      .f = ~ fredr(series_id = .x
+                   #, frequency = .y
+      )
+   )
+   
+}
+df <-df %>% pivot_wider(id_cols = "date", names_from = "series_id")
+write.csv(df, "DATA/gdp_index.csv", row.names = FALSE)
+rm(df,gdp_index,params,series)
+
+
+#gdp dollars adjusted
+gdp <- fredr_release_series(release_id = 53)
+if (requireNamespace("purrr", quietly = TRUE)) {
+   series <-gdp$id[which (gdp$units == "Billions of Dollars"& gdp$seasonal_adjustment_short =="SAAR"  )]
+   library(purrr)
+   purrr::map_dfr(series, fredr)
+   
+   # Using purrr::pmap_dfr() allows you to use varying optional parameters
+   params <- list(
+      series_id = series
+      #,frequency = c("m", "meop", "qeop")
+   )
+   
+   df <- purrr::pmap_dfr(
+      .l = params,
+      .f = ~ fredr(series_id = .x
+                   #, frequency = .y
+      )
+   )
+   
+}
+df <-df %>% pivot_wider(id_cols = "date", names_from = "series_id")
+write.csv(df, "DATA/gdp_sa.csv", row.names = FALSE)
+rm(df,gdp,params,series)
+
+
+#cpi
+cpi <- fredr_release_series(release_id = 10)
+if (requireNamespace("purrr", quietly = TRUE)) {
+   series <-cpi$id[which (cpi$popularity >"50"& cpi$seasonal_adjustment_short =="SA"  )]
+   library(purrr)
+   purrr::map_dfr(series, fredr)
+   
+   # Using purrr::pmap_dfr() allows you to use varying optional parameters
+   params <- list(
+      series_id = series
+      #,frequency = c("m", "meop", "qeop")
+   )
+   
+   df <- purrr::pmap_dfr(
+      .l = params,
+      .f = ~ fredr(series_id = .x
+                   #, frequency = .y
+      )
+   )
+   
+}
+df <-df %>% pivot_wider(id_cols = "date", names_from = "series_id")
+write.csv(df, "DATA/cpi.csv", row.names = FALSE)
+rm(df,cpi,params,series)
+
+#ppi
+ppi <- fredr_release_series(release_id = 46)
+if (requireNamespace("purrr", quietly = TRUE)) {
+   series <-ppi$id[which (ppi$popularity > 23 & ppi$seasonal_adjustment_short =="NSA"  )]
+   library(purrr)
+   purrr::map_dfr(series, fredr)
+   
+   # Using purrr::pmap_dfr() allows you to use varying optional parameters
+   params <- list(
+      series_id = series
+      #,frequency = c("m", "meop", "qeop")
+   )
+   
+   df <- purrr::pmap_dfr(
+      .l = params,
+      .f = ~ fredr(series_id = .x
+                   #, frequency = .y
+      )
+   )
+   
+}
+df <-df %>% pivot_wider(id_cols = "date", names_from = "series_id")
+write.csv(df, "DATA/ppi.csv", row.names = FALSE)
+rm(df,cpi,params,series)
 
