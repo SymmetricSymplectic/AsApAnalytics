@@ -120,6 +120,7 @@ server <- function(input, output, session){
   output$plotly1<- renderPlotly({
     req(input$series)
     data <- datasetInput()
+    data <- data[order(as.Date(rownames(data), format="%d/%m/%Y")),]
     selseries <- data[,input$series]
     names(selseries) <- abbreviate(names(selseries), minlength = 24)
     don <- xts(x = selseries, order.by = as.Date(rownames(data)))
@@ -141,8 +142,7 @@ server <- function(input, output, session){
              yaxis = list(gridcolor= "#AAAAAA", fixedrange = FALSE, tickformat = ",.2r" ),
              xaxis = list(gridcolor= "#AAAAAA", ticktext = equis
                           #,rangeslider = list(type = "date")
-             ),
-             height = 650) %>% 
+             )) %>% 
       layout(legend = list(x = 0.05, y = 0.95)) %>%
       layout(
         images = list(
@@ -197,15 +197,15 @@ server <- function(input, output, session){
       layout(
         plot_bgcolor='transparent',
         yaxis = list(gridcolor= "#AAAAAA"),
-        xaxis = list(gridcolor= "#AAAAAA"),
-        height = 550) %>%       
+        xaxis = list(gridcolor= "#AAAAAA")
+        ) %>%       
       layout(paper_bgcolor='transparent')
     plot2 <- plot_forecast(fc2, color = "red") %>%
       layout(title = paste("Pronóstico ARIMA/ARFIMA de", input$seriesforecast, sep = " "),
              plot_bgcolor='transparent',
              yaxis = list(gridcolor= "#AAAAAA"),
-             xaxis = list(gridcolor= "#AAAAAA"),
-             height = 550) %>%       
+             xaxis = list(gridcolor= "#AAAAAA")
+             ) %>%       
       layout(paper_bgcolor='transparent')
     subplot(plot1, plot2, nrows = 2, shareX = TRUE)
   })
@@ -240,18 +240,76 @@ server <- function(input, output, session){
   #generamos el diagrama de dispersión
   output$scatterplot <- renderPlotly({
     data <- datasetInput()
+    data <- data[order(as.Date(rownames(data), format="%d/%m/%Y")),]
+
     #names(data) <- abbreviate(names(data), minlength = 8)
-    df <-data[,c(input$corr1, input$corr2)]
-    plot_ly(df, x =df[,1], y = df[,2], type = "scatter", mode = "markers")
+    df <-na.omit(data[,c(input$corr1, input$corr2)])
+    fit <-lm(df[,2]~df[,1], data=df)
+    plot_ly(df, x =df[,1], y = df[,2], type = "scatter", mode = "markers")%>%
+      add_lines(x = ~df[,1], y = fitted(fit))%>%
+      layout(showlegend = F)%>%
+      layout(xaxis = list(title=  paste(input$corr1)), yaxis=list(title= paste(input$corr2)) )%>%
+      layout(plot_bgcolor='transparent') %>% 
+      layout(legend = list(x = 0.05, y = 0.95)) %>%
+      layout(
+        images = list(
+          list(source = "https://i.ibb.co/2KDKzhg/logotipo-asapa-min-black.png",
+               xref = "paper",
+               yref = "paper",
+               x= 0.15,
+               y= 0.7,
+               sizex = 0.8,
+               sizey = 0.8,
+               #sizing = "stretch",
+               layer = "below",
+               opacity = 0.1
+          ))) %>%
+      config(displaylogo = FALSE)
   })
   
   #correlaciones de la base de datos
   output$corr <- renderPlot({
     data <- datasetInput()
+    data <- data[order(as.Date(rownames(data), format="%d/%m/%Y")),]
     names(data) <- abbreviate(names(data), minlength = 8)
     corrdata <- cor(na.omit(data))
     fig <- corrplot.mixed(corrdata, mar=c(1,1,1,1), tl.pos = "lt" ) 
     
+    
+  })
+  
+  
+  #rolling correlations
+  output$rollcorr <- renderPlotly({
+    data <- datasetInput()
+    data <- data[order(as.Date(rownames(data), format="%d/%m/%Y")),]
+    df <-xts(data[,c(input$corr1, input$corr2)], order.by = as.Date(rownames(data)))
+    roll <-rollapplyr(df, width=input$rollcorrperiod, function(x) cor(x[,1],x[,2]), by.column=FALSE)
+    ts_plot(roll,
+            title = paste("Correlación móvil de ", input$corr1, " vs ", input$corr2, sep= ""),
+            Xtitle = "Fecha",
+            Xgrid = TRUE,
+            Ygrid = TRUE) %>%
+      layout(plot_bgcolor='transparent',
+             yaxis = list(gridcolor= "#AAAAAA", fixedrange = FALSE, tickformat = ",.2r" ),
+             xaxis = list(gridcolor= "#AAAAAA", ticktext = rownames(data)
+                          ,rangeslider = list(type = "date")
+             )) %>% 
+      layout(legend = list(x = 0.05, y = 0.95)) %>%
+      layout(
+        images = list(
+          list(source = "https://i.ibb.co/2KDKzhg/logotipo-asapa-min-black.png",
+               xref = "paper",
+               yref = "paper",
+               x= 0.15,
+               y= 0.7,
+               sizex = 0.8,
+               sizey = 0.8,
+               #sizing = "stretch",
+               layer = "below",
+               opacity = 0.1
+          ))) %>%
+      config(displaylogo = FALSE)
     
   })
   
@@ -305,8 +363,7 @@ server <- function(input, output, session){
              yaxis = list(gridcolor= "#AAAAAA", fixedrange = FALSE, autorange = TRUE,tickformat = "digit" ),
              xaxis = list(gridcolor= "#AAAAAA", ticktext = equis
                           #,rangeslider = list(type = "date")
-             ),
-             height = 650) %>% 
+             )) %>% 
       layout(legend = list(x = 0.05, y = 0.95)) %>%
       layout(
         images = list(

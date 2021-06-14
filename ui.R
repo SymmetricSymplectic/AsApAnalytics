@@ -48,7 +48,7 @@ ui <-fluidPage(
   #grid de logotipo de asapa en background
   #setBackgroundImage(src= "asapa_back.png"),
   
-  navbarPage("InfoAsApA",
+  navbarPage("InfoAsApA Dashboard",
              tabPanel("Indicadores Económicos",
                       #layout de sidebars
                       #sidebar para inputs
@@ -74,12 +74,14 @@ ui <-fluidPage(
                         conditionalPanel(condition="input.tabselected==2",
                                          #input: seleccionar serie para pronóstico
                                          uiOutput("selectforecast"),
-                                         selectInput("fcperiod", "Seleccione el número de periodos a pronósticar",
+                                         selectInput("fcperiod", "Seleccione el número de periodos a pronosticar",
                                                      choices =c("6","12","24"))
                         ), #fin del tabset condicional para pronóstico
                         conditionalPanel(condition="input.tabselected==3",
                                          uiOutput("seriescorr1"),
-                                         uiOutput("seriescorr2")
+                                         uiOutput("seriescorr2"),
+                                         selectInput("rollcorrperiod", "Seleccione el número de periodos para la correlación móvil",
+                                                     choices =c("3","6","12","24"))
                         ),
                         # Input: seleccionar datos a descargar
                         # botón de descarga de los datos
@@ -92,8 +94,8 @@ ui <-fluidPage(
                         #output: tabset
                         #22-10-21 cambio de output de dygraph a plotly para TSstudio, comment las estáticas por obsoletas
                         tabsetPanel(type = "tabs",
-                                    tabPanel("Gráfica principal", value=1,
-                                             plotlyOutput("plotly1", height=500),
+                                    tabPanel("Visualización general", value=1,
+                                             plotlyOutput("plotly1", height=650),
                                              br(),
                                              br(),
                                              br(),
@@ -106,11 +108,11 @@ ui <-fluidPage(
                                              br(),
                                              dataTableOutput("tabla")
                                     ),
-                                    tabPanel("Pronóstico y Análisis", value = 2,
+                                    tabPanel("Econometría", value = 2,
                                              br(),
                                              textOutput("forecast_descrip"),
                                              br(),
-                                             plotlyOutput("dy_arima"),
+                                             plotlyOutput("dy_arima", height= 750),
                                              br(),
                                              br(),
                                              br(),
@@ -128,10 +130,13 @@ ui <-fluidPage(
                                              br()
                                              #verbatimTextOutput("arfimafc")
                                     ),
-                                    tabPanel("Análisis Comparativo de Correlación", value = 3,
+                                    tabPanel("Diagnósticos de Regresión", value = 3,
                                              plotlyOutput("scatterplot", height=500),
                                              br(),
+                                             plotlyOutput("rollcorr", height = 500),
+                                             br(),
                                              plotOutput("corr", height = 900)
+                                             
                                     ),
                                     id = "tabselected" #para cambiar el sidebar dependiendo del tab
                         )

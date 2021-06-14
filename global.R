@@ -111,7 +111,7 @@ credentials <- data.frame(
 pch <- function(data, lag = 1) {
   # argument verification
   # return percent change
-  data / lag(data, -lag) - 1
+  (data / lag(data, -lag) - 1)*100
 }
 
 #function to turn forecast objects into arrays
