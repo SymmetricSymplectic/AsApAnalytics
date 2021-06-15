@@ -331,7 +331,9 @@ server <- function(input, output, session){
     inFile <- input$target_upload
     if (is.null(inFile))
       return(NULL)
+    #df <- read_csv(inFile$datapath)
     df <- read.csv(inFile$datapath, header = TRUE,sep = input$separator)
+    #df <-data.frame(df)
     return(df)
   })
   
@@ -341,7 +343,8 @@ server <- function(input, output, session){
   })
   #crear los checkboxes de las series del usuario dinámicamente (principal)
   output$selectseries2 <- renderUI({
-    selectizeInput("selectseries2", "Series a mostrar", names(df_products_upload()),
+    data <- df_products_upload()
+    selectizeInput("selectseries2", "Series a mostrar", names(data[,-1]),
                    multiple = TRUE
     )
   })
@@ -352,7 +355,9 @@ server <- function(input, output, session){
     data <- data[,-1]
     selseries <- data[,input$selectseries2]
     names(selseries) <- abbreviate(names(selseries), minlength = 16)
-    don <- xts(x = selseries, order.by = as.Date(rownames(data)))
+    don <- xts(x = selseries, order.by = as.POSIXct(rownames(data), format="%d/%m/%Y"))
+    coredata(don) <- as.character(coredata(don))
+    storage.mode(don) <- "integer"
     equis <- rownames(data)
     ts_plot(don, 
             title = paste(input$dataset, ":", input$series[1], sep= ""),

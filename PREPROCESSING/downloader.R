@@ -635,7 +635,7 @@ rm(df,conscredit,params,series)
 #gdp index 2012
 gdp_index <- fredr_release_series(release_id = 53)
 if (requireNamespace("purrr", quietly = TRUE)) {
-   series <- gdp$id[which (gdp_index$units == "Index 2012=100" & gdp_index$frequency=="Annual" )]
+   series <- gdp_index$id[which (gdp_index$units == "Index 2012=100" & gdp_index$frequency=="Annual" )]
    library(purrr)
    purrr::map_dfr(series, fredr)
    
@@ -732,5 +732,5 @@ if (requireNamespace("purrr", quietly = TRUE)) {
 }
 df <-df %>% pivot_wider(id_cols = "date", names_from = "series_id")
 write.csv(df, "DATA/ppi.csv", row.names = FALSE)
-rm(df,cpi,params,series)
+rm(df,ppi,params,series)
 
