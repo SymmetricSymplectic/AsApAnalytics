@@ -33,7 +33,8 @@ ind_choices <- c("Balanza Comercial" = "1",
                  "Annual GDP - Index (2012=100)" = "30",
                  "Annual GDP - Seasonally Adjusted" = "31",
                  "Consumer Price Index - 1982-1984=100" = "32",
-                 "Producer Price Index - Index Dec 1984=100"= "33"
+                 "Producer Price Index - Index Dec 1984=100"= "33",
+                 "Manufacturers' New Orders: Durable Goods -Millions of Dollars" = "34"
                   )
 
 

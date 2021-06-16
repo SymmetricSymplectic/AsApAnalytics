@@ -734,3 +734,30 @@ df <-df %>% pivot_wider(id_cols = "date", names_from = "series_id")
 write.csv(df, "DATA/ppi.csv", row.names = FALSE)
 rm(df,ppi,params,series)
 
+
+#manufacturers orders, invs and shipments id 95
+manuf <- fredr_release_series(release_id = 95)
+if (requireNamespace("purrr", quietly = TRUE)) {
+   series <-manuf$id[which (manuf$popularity > 18 & manuf$seasonal_adjustment_short =="SA")]
+   library(purrr)
+   purrr::map_dfr(series, fredr)
+   
+   # Using purrr::pmap_dfr() allows you to use varying optional parameters
+   params <- list(
+      series_id = series
+      #,frequency = c("m", "meop", "qeop")
+   )
+   
+   df <- purrr::pmap_dfr(
+      .l = params,
+      .f = ~ fredr(series_id = .x
+                   #, frequency = .y
+      )
+   )
+   
+}
+df <-df %>% pivot_wider(id_cols = "date", names_from = "series_id")
+write.csv(df, "DATA/manuf.csv", row.names = FALSE)
+rm(df,manuf,params,series)
+
+#leading

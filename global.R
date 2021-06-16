@@ -89,7 +89,8 @@ database <- list(balanza_data,
                  gdpindex_data,
                  gdp_data,
                  cpi_data,
-                 ppi_data)
+                 ppi_data,
+                 manuf_data)
 
 
 

@@ -531,3 +531,30 @@ names(ppi_data) <-c("Producer Price Index by Industry: Oil and Gas Extraction",
  "Producer Price Index by Industry: New Industrial Building Construction",                             
  "Producer Price Index by Industry: Food Manufacturing")   
 
+#manufacturers orders, invs and shipments id 95
+manuf_data <-read.csv("DATA/manuf.csv")
+rownames(manuf_data) <-manuf_data[,1]
+manuf_data <- manuf_data[,-1]
+names(manuf_data) <-c("Manufacturers' New Orders: Primary Metals",                                 
+                      "Manufacturers' New Orders: Fabricated Metal Products",                      
+                      "Manufacturers' New Orders: Machinery",                                      
+                       "Manufacturers' New Orders: Other Electronic Component Manufacturing",       
+                       "Manufacturers' New Orders: Computers and Electronic Products" ,             
+                       "Manufacturers' New Orders: Electrical Equipment, Appliances and Components",
+                       "Manufacturers' New Orders: Transportation Equipment" ,                      
+                       "Manufacturers' New Orders: Consumer Durable Goods",                         
+                       "Manufacturers' New Orders: Consumer Goods",                                 
+                       "Manufacturers' New Orders: Durable Goods Excluding Defense",                
+                       "Manufacturers' New Orders: Durable Goods Excluding Transportation" ,        
+                       "Manufacturers' Total Inventories: Durable Goods" ,                          
+                       "Manufacturers' Unfilled Orders: Durable Goods",                             
+                       "Manufacturers' Value of Shipments: Durable Goods",                          
+                       "Manufacturers' New Orders: Total Manufacturing" ,                           
+                       "Manufacturers' Total Inventories: Total Manufacturing",                     
+                       "Manufacturers' Value of Shipments: Total Manufacturing",                    
+                       "Manufacturers' New Orders: Nondefense Capital Goods" ,                      
+                       "Manufacturers' New Orders: Capital Goods",                                  
+                       "Manufacturers' New Orders: Durable Goods",                                 
+                       "Manufacturers' New Orders: Nondefense Capital Goods Excluding Aircraft" )
+
+
