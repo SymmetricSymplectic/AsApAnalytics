@@ -2,17 +2,17 @@
 igae_data <- read.csv("DATA/igae.csv")
 rownames(igae_data)<-igae_data[,1]
 igae_data <- igae_data[,-1]
-names_igae <-c("Total",
-                 "Total Actividades primarias",
-                 "Total actividades secundarias",
+names_igae <-c("IGAE Total",
+                 "IGAE Total Actividades primarias",
+                 "IGAE Total actividades secundarias",
                  "21 Mineria",
-                 "22 Generación, transmisión y distribución de energía electrica, suministro de agua y de gas por ductos al consumidor final",
+                 "22 Generacion, transmision y distribución de energia electrica, suministro de agua y de gas por ductos al consumidor final",
                  "23 Construccion",
                  "31-33 Industrias manufactureras",
                  "Total actividades terciarias",
                  "43 Comercio al por mayor",
                  "46 Comercio al por menor",
-                 "48-49-51 Transportes, correos y almacenamiento; Información en medios masivos",
+                 "48-49-51 Transportes, correos y almacenamiento; Informacion en medios masivos",
                  "52-53 Sevicios financieros y de seguros; Servicios inmobiliarios y de alquiler de bienes muebles e intangibles",
                  "54-55-56 Servicios profesionales, cientificos y tecnicos; Corporativos; Servicios de apoyo a los negocios y manejo de desechos y servicios de remediacion",
                  "61-62 Servicios educativos;Servicios de salud y de asistencia social",

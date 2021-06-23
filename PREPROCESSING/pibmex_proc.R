@@ -31,3 +31,4 @@ names_pibmex <-c("Producto Interno Bruto, a precios de mercado",
 colnames(pibmex_data) <- names_pibmex
 rm(names_pibmex)
 
+attr(pibmex_data,"doc") <- ""

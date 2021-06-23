@@ -27,7 +27,11 @@ library(corrplot)
 library(tsibble)
 library(tibble)
 library(readr)
-
+#sjplot for model info visualization
+library(sjPlot)
+library(sjmisc)
+library(sjlabelled)
+library(broom)
 
 
 source("PREPROCESSING/balanza_proc.R", local = TRUE)
@@ -56,6 +60,10 @@ source("PREPROCESSING/construc_proc.R", local = TRUE)
 source("PREPROCESSING/automot_proc.R", local = TRUE)
 source("PREPROCESSING/USA_proc.R", local = TRUE)
 
+
+
+#metadata preproc
+source("PREPROCESSING/metadata.R", local = TRUE)
 
 database <- list(balanza_data,
                  establecimientos_data,
@@ -90,7 +98,8 @@ database <- list(balanza_data,
                  gdp_data,
                  cpi_data,
                  ppi_data,
-                 manuf_data)
+                 manuf_data
+                 )
 
 
 
@@ -131,10 +140,11 @@ elapsed_months <- function(end_date, start_date) {
   ed <- as.POSIXlt(end_date)
   sd <- as.POSIXlt(start_date)
   12 * (ed$year - sd$year) + (ed$mon - sd$mon)
-  
-  
-  
 }
+
+
+
+
 #logotipos y cosas gráficas extras
 asapa <- png::readPNG("www/logotipo-asapa.png")
 asapa_black <-png::readPNG("www/logotipo-asapa-min-black.png")

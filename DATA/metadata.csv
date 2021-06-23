@@ -1,0 +1,35 @@
+df,Nombre,Producido por,Frecuencia,Fecha de publicacion,Volatilidad,Revision,Direccion,Tiempo,Reaccion de mercado Renta Fija,Reaccion de mercado Renta variable,Reaccion de mercado cambiario
+balanza_data,Balanza Comercial,INEGI/BANXICO/SAT,Mensual,18ds despues de terminado el mes,Moderada,Dos semanas despues de los oportunos,Prociclico,Coincidente,Inversa,Directa,Directa
+establecimientos_data,Encuesta Mensual Sobre Establecimientos Comerciales,INEGI,Mensual,45ds despues del periodo de referencia,NA,NA,NA,NA,NA,NA,NA
+igae1_data,Indicador Global de Actividad Economica (Desest),INEGI,Mensual,50 dias desp de terminado el mes,Moderada,Mensual,Prociclico,Coincidente,Inversa,Directa,Directa
+igae_data,Indicador Global de Actividad Economica,INEGI,Mensual,50 dias desp de terminado el mes,Moderada,Mensual,Prociclico,Coincidente,Inversa,Directa,Directa
+actind_data,Indice Mensual de Actividad Industrial,INEGI,Mensual,2-3 dias despues de la balanza comercial,NA,NA,NA,NA,NA,NA,NA
+imai_data,Indice Mensual de Actividad Industrial (Desest),INEGI,Mensual,2-3 dias despues de la balanza comercial,NA,NA,NA,NA,NA,NA,NA
+imcp_data,Indicador Mensual de Consumo Privado en el Mercado Interior ,INEGI,Mensual,NA,NA,NA,NA,NA,NA,NA,NA
+imcp_desest_data,Indicador Mensual de Consumo Privado en el Mercado Interior (Desest),INEGI,Mensual,NA,NA,NA,NA,NA,NA,NA,NA
+confianza_data,Indice de Confianza del Consumidor,INEGI,Mensual,NA,NA,NA,NA,NA,NA,NA,NA
+inpc_mensual_data,Indice  Nacional de Precios al Consumidor,INEGI,Mensual,NA,NA,NA,NA,NA,NA,NA,NA
+inpc_q_data,Indice  Nacional de Precios al Consumidor,INEGI,Trimestral,NA,NA,NA,NA,NA,NA,NA,NA
+inf_mensual_data,Inflacion,INEGI,Mensual,,,,,,,,
+inf_mensual_interanual_data,Inflacion,INEGI,"Mensual, Interanual",,,,,,,,
+inf_anual_data,Inflacion,INEGI,"Anual, Acumulada",,,,,,,,
+inf_q_data,Inflacion,INEGI,Quincenal,,,,,,,,
+ifb_data,Inversión Fija Brut,INEGI,,,,,,,,,
+ifbdesest_data,Inversión Fija Bruta (Desest,INEGI,,,,,,,,,
+pibmex_data,Producto Interno Bruto (PIB),INEGI,Trimestral,Aprox. 50 dias despues de terminar el trimestre,Moderada,Anual (febrero),Prociclico,Coincidente,Inversa,Directa,Directa
+reservas_data,Reservas Internacionales,BANXICO,Mensual,,,,,,,,
+reservas_semanales_data,Reservas Internacionales,BANXICO,Semanal,,,,,,,,
+remesas_fam_data,Remesas Familiares,BANXICO,Mensual,,,,,,,,
+sic_data,Sistema de Indicadores Compuestos,INEGI,,,,,,,,,
+des_data,Tasa de Desocupacion,INEGI,Mensual,,,,,,,,
+construc_data,Valor de la Construccion,INEGI,Mensual,,,,,,,,
+automot_data,Vehiculos Automotores,INEGI,,,,,,,,,
+mtis_data,Business Sales and Inventories,,,,,,,,,,
+consurvey_data,Surveys of Consumers,,,,,,,,,,
+conspending_data,Construction Spending,,,,,,,,,,
+conscredit_data,Consumer Credit,,,,,,,,,,
+gdpindex_data,Annual GDP - Index (2012=100),,,,,,,,,,
+gdp_data,Annual GDP - Seasonally Adjusted,,,,,,,,,,
+cpi_data,Consumer Price Index - 1982-1984=100,,,,,,,,,,
+ppi_data,Producer Price Index - Index Dec 1984=100,,,,,,,,,,
+manuf_data,Manufacturers' New Orders: Durable Goods -Millions of Dollars,,,,,,,,,,

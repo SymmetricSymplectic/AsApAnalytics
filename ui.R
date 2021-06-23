@@ -8,7 +8,7 @@ ind_choices <- c("Balanza Comercial" = "1",
                  "Índice Mensual de Actividad Industrial (Desestacionalizado)"= "6",
                  "Indicador Mensual de Consumo Privado en el Mercado Interior (Original)" = "7",
                  "Indicador Mensual de Consumo Privado en el Mercado Interior (Desestacionalizado)" = "8",
-                 "Indicador de Confianza del Consumidor" = "9",
+                 "Indice de Confianza del Consumidor" = "9",
                  "Índice Nacional de Precios al Consumidor (Mensual)" = "10",
                  "Índice Nacional de Precios al Consumidor (Quincenal)" = "11",
                  "Inflación (Mensual)" = "12",
@@ -35,7 +35,7 @@ ind_choices <- c("Balanza Comercial" = "1",
                  "Consumer Price Index - 1982-1984=100" = "32",
                  "Producer Price Index - Index Dec 1984=100"= "33",
                  "Manufacturers' New Orders: Durable Goods -Millions of Dollars" = "34"
-                  )
+                 )
 
 
 
@@ -87,7 +87,7 @@ ui <-fluidPage(
                         # Input: seleccionar datos a descargar
                         # botón de descarga de los datos
                         downloadButton("downloadData", "Descargar Datos"),
-                        actionButton("updateData", "Actualizar Bases de Datos"),
+
                       ),
                       
                       #panel principal para mostrar outputs
@@ -97,15 +97,6 @@ ui <-fluidPage(
                         tabsetPanel(type = "tabs",
                                     tabPanel("Visualización general", value=1,
                                              plotlyOutput("plotly1", height=650),
-                                             br(),
-                                             br(),
-                                             br(),
-                                             br(),
-                                             br(),
-                                             br(),
-                                             br(),
-                                             br(),
-                                             textOutput("series_descrip"),
                                              br(),
                                              dataTableOutput("tabla")
                                     ),
@@ -133,6 +124,10 @@ ui <-fluidPage(
                                     ),
                                     tabPanel("Diagnósticos de Regresión", value = 3,
                                              plotlyOutput("scatterplot", height=500),
+                                             br(),
+                                             uiOutput("lm_ec"),
+                                             br(),
+                                             uiOutput("lm_info"),
                                              br(),
                                              plotlyOutput("rollcorr", height = 500),
                                              br(),
@@ -166,11 +161,18 @@ ui <-fluidPage(
                                              
                                     ),#fin tabpanel ver tabla
                                     tabPanel("Visualización de los datos",
-                                      plotlyOutput("usergraph")
+                                      plotlyOutput("usergraph", height = 650)
                                     )
                         )
                       )
-             )#fin tabpanel csv
+             ),#fin tabpanel csv
+             tabPanel("Información general de la base de datos",
+                      mainPanel(
+                        dataTableOutput("series_descrip"),
+                        br(),
+                        actionButton("updateData", "Actualizar Bases de Datos")
+                                     
+                      ))
 
   )#fin navbars
 )

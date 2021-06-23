@@ -17,7 +17,8 @@ server <- function(input, output, session){
   # your classic server logic
   #input condicional: serie de datos a analizar, permite combinar hasta 5 bases
   datasetInput <- reactive({
-
+    custom_data <- df_products_upload()
+    
     if (length(input$dataset)==2){
       data <- merge(database[[as.numeric(input$dataset[1])]],
                       database[[as.numeric(input$dataset[2])]],
@@ -80,6 +81,7 @@ server <- function(input, output, session){
       data <-data.frame(database[[as.numeric(input$dataset)]])
       data
     }
+    data <- data[order(as.Date(rownames(data), format="%d/%m/%Y")),]
     
 
   })
@@ -115,14 +117,24 @@ server <- function(input, output, session){
   output$seriescorr2 <- renderUI({
     selectInput("corr2", "Escoja la serie 2 para el análisis de dispersión", choices= names(datasetInput()))
   })     
+  #linear model input
+  lmInput <- reactive({
+    data <- datasetInput()
+    data <- data[order(as.Date(rownames(data), format="%d/%m/%Y")),]
+    df <-na.omit(data[,c(input$corr1, input$corr2)])
+    colnames(df) <- c(input$corr1, input$corr2)
+    lm_fit <-lm(formula = df[,2]~df[,1], data=df)
+    lm_fit
+  })
+  
+  
   
   #generamos la gráfica de las series principales
   output$plotly1<- renderPlotly({
     req(input$series)
     data <- datasetInput()
-    data <- data[order(as.Date(rownames(data), format="%d/%m/%Y")),]
     selseries <- data[,input$series]
-    names(selseries) <- abbreviate(names(selseries), minlength = 24)
+    names(selseries) <- abbreviate(names(selseries), minlength = 30)
     don <- xts(x = selseries, order.by = as.Date(rownames(data)))
     varmen <-pch(don)
     varan <- pch(don, lag = 12)
@@ -144,6 +156,7 @@ server <- function(input, output, session){
                           #,rangeslider = list(type = "date")
              )) %>% 
       layout(legend = list(x = 0.05, y = 0.95)) %>%
+      #layout(hovermode = "x unified") %>%
       layout(
         images = list(
           list(source = "https://i.ibb.co/2KDKzhg/logotipo-asapa-min-black.png",
@@ -163,8 +176,8 @@ server <- function(input, output, session){
   })
   
   #texto que describe la serie Inegi elegida
-  output$series_descrip <- renderText({
-    attr(datasetInput(),"doc")
+  output$series_descrip <- renderDataTable({
+    meta_data[,-1]
   })
   #tabla con los datos de la serie
   output$tabla <- renderDataTable( rownames_to_column(datasetInput(), var = "fecha") %>% as_tibble())
@@ -240,13 +253,16 @@ server <- function(input, output, session){
   #generamos el diagrama de dispersión
   output$scatterplot <- renderPlotly({
     data <- datasetInput()
-    data <- data[order(as.Date(rownames(data), format="%d/%m/%Y")),]
-
-    #names(data) <- abbreviate(names(data), minlength = 8)
     df <-na.omit(data[,c(input$corr1, input$corr2)])
-    fit <-lm(df[,2]~df[,1], data=df)
+    model <- lmInput()
     plot_ly(df, x =df[,1], y = df[,2], type = "scatter", mode = "markers")%>%
-      add_lines(x = ~df[,1], y = fitted(fit))%>%
+      add_lines(x = ~df[,1], y = fitted(model))%>%
+      add_ribbons(data = broom::augment(model,se_fit = TRUE),
+                  ymin = ~.fitted - 1.96 * .se.fit,
+                  ymax = ~.fitted + 1.96 * .se.fit,
+                  line = list(color = 'rgba(7, 164, 181, 0.05)'),
+                  fillcolor = 'rgba(7, 164, 181, 0.2)',
+                  name = '95% ribbon')%>%
       layout(showlegend = F)%>%
       layout(xaxis = list(title=  paste(input$corr1)), yaxis=list(title= paste(input$corr2)) )%>%
       layout(plot_bgcolor='transparent') %>% 
@@ -265,6 +281,17 @@ server <- function(input, output, session){
                opacity = 0.1
           ))) %>%
       config(displaylogo = FALSE)
+  })
+  
+  #info del ajuste lineal usando sjPlot
+  output$lm_info <- renderUI({
+    HTML(tab_model(lmInput(), title=paste("Ajuste Lineal de ",
+                                          input$corr2, "vs ", input$corr1))$knitr)
+  })
+  
+  #ecuacion ajuste lineal
+  output$lm_ec <- renderUI({
+    
   })
   
   #correlaciones de la base de datos
