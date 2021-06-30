@@ -159,6 +159,7 @@ ui <-fluidPage(
                                     '.csv'
                                   )),
                         radioButtons("separator","Separador: ",choices = c(";",",",":"), selected=";",inline=TRUE),
+                        actionButton("update", "Combine Data"),
                         uiOutput("selectseries2")
                       ),
 
