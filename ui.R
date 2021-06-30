@@ -68,6 +68,15 @@ ui <-fluidPage(
                                          #input: seleccionar serie vs varmensual vs varanual                 
                                          radioButtons("sertype", "Tipo de serie a mostrar:",
                                                       c("Principal" = "princ", "Variación Periodo a Periodo" = "varmensual", "Variación a 12 periodos"= "varanual")),
+                                         #input: seleccionar si usar el primer año común como año base
+                                         radioButtons("setbasis", "Convertir a índice con un año base",
+                                                      c("No" = "def", "Sí" = "indexed")),
+                                         #input: seleccionar año base para indexar
+                                         airYearpickerInput(
+                                           inputId = "baseyear",
+                                           label= "Seleccione el año base para el índice",
+                                           value = "2000"
+                                         ),
                                          #input: seleccionar series para gráficas principales (dinámicas)
                                          uiOutput("selectseries"),
                         ),#fin del tabset condicional para la serie principal

@@ -116,7 +116,16 @@ credentials <- data.frame(
 )
 
 
-
+# function for setting initial common period as base period: 
+baseperiod_function <- function(x, inputyear){
+  # input: x: xts object
+  # output: x_indexed, modified xts
+  x <-x[paste(inputyear, "/", sep = "")]
+  x_indexed <- as.xts(apply(na.omit(x), 2, function(v) 100*v/v[1]))
+  
+  return(x_indexed)
+  
+}
 #percentchange function for ts
 pch <- function(data, lag = 1) {
   # argument verification

@@ -136,10 +136,15 @@ server <- function(input, output, session){
     selseries <- data[,input$series]
     names(selseries) <- abbreviate(names(selseries), minlength = 30)
     don <- xts(x = selseries, order.by = as.Date(rownames(data)))
-    varmen <-pch(don)
-    varan <- pch(don, lag = 12)
+    setbasis <-switch(input$setbasis,
+                      def = don,
+                      indexed = baseperiod_function(don, input$baseyear)
+      
+    )
+    varmen <-pch(setbasis)
+    varan <- pch(setbasis, lag = 12)
     seriestype <- switch(input$sertype,
-                         princ=don,
+                         princ=setbasis,
                          varmensual = varmen,
                          varanual = varan
     )
