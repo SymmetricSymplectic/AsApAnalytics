@@ -17,6 +17,7 @@ server <- function(input, output, session){
   # your classic server logic
   #input condicional: serie de datos a analizar, permite combinar hasta 5 bases
   datasetInput <- reactive({
+
     if (length(input$dataset)==1){
       data <- database[[as.numeric(input$dataset[1])]]
       data
