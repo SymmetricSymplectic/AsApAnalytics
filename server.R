@@ -17,8 +17,10 @@ server <- function(input, output, session){
   # your classic server logic
   #input condicional: serie de datos a analizar, permite combinar hasta 5 bases
   datasetInput <- reactive({
-    custom_data <- df_products_upload()
-    
+    if (length(input$dataset)==1){
+      data <- database[[as.numeric(input$dataset[1])]]
+      data
+    }
     if (length(input$dataset)==2){
       data <- merge(database[[as.numeric(input$dataset[1])]],
                       database[[as.numeric(input$dataset[2])]],
@@ -370,29 +372,56 @@ server <- function(input, output, session){
   })
   
   output$sample_table<- DT::renderDataTable({
-    df <- df_products_upload()
+    df <- merged_data()
     DT::datatable(df)
   })
+  
+  #combinar datos con los datos del usuario
+  merged_data<-eventReactive(input$update,{
+    data2 <-datasetInput()
+    data1 <-df_products_upload()
+    rownames(data1)<- data1[,1]
+    data1 <- data1[,-1]
+    rownames(data1) <-as.Date(rownames(data1), format="%d/%m/%Y")
+    datam <- merge(data1,data2, by = 0, all=TRUE)
+    datam <- na.omit(datam)
+    rownames(datam) <-datam[,1]
+    datam <- datam[,-1]
+    return(datam)
+  })
+  
+  
+  
+  
   #crear los checkboxes de las series del usuario dinámicamente (principal)
   output$selectseries2 <- renderUI({
-    data <- df_products_upload()
-    selectizeInput("selectseries2", "Series a mostrar", names(data[,-1]),
+    selectizeInput("selectseries2", "Series a mostrar", names(merged_data()),
                    multiple = TRUE
     )
   })
   output$usergraph <- renderPlotly({
     req(input$selectseries2)
-    data <- df_products_upload()
-    rownames(data) <- data[,1]
-    data <- data[,-1]
+    data <- na.omit(merged_data())
     selseries <- data[,input$selectseries2]
-    names(selseries) <- abbreviate(names(selseries), minlength = 16)
-    don <- xts(x = selseries, order.by = as.POSIXct(rownames(data), format="%d/%m/%Y"))
+    #names(selseries) <- abbreviate(names(selseries), minlength = 16)
+    don <- xts(x = selseries, order.by = as.Date(rownames(data)))
     coredata(don) <- as.character(coredata(don))
     storage.mode(don) <- "integer"
+    setbasis <-switch(input$setbasis2,
+                      def = don,
+                      indexed = baseperiod_function(don, input$baseyear2)
+                      
+    )
+    varmen <-pch(setbasis)
+    varan <- pch(setbasis, lag = 12)
+    seriestype <- switch(input$sertype2,
+                         princ=setbasis,
+                         varmensual = varmen,
+                         varanual = varan
+    )
     equis <- rownames(data)
-    ts_plot(don, 
-            title = paste(input$dataset, ":", input$series[1], sep= ""),
+    ts_plot(seriestype, 
+            title = "Análisis Personalizado",
             Xtitle = "Fecha",
             Xgrid = TRUE,
             Ygrid = TRUE) %>%
