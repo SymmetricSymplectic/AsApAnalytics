@@ -68,6 +68,15 @@ ui <-fluidPage(
                                          #input: seleccionar serie vs varmensual vs varanual                 
                                          radioButtons("sertype", "Tipo de serie a mostrar:",
                                                       c("Principal" = "princ", "Variación Periodo a Periodo" = "varmensual", "Variación a 12 periodos"= "varanual")),
+                                         #input: seleccionar si usar el primer año común como año base
+                                         radioButtons("setbasis", "Convertir a índice con un año base",
+                                                      c("No" = "def", "Sí" = "indexed")),
+                                         #input: seleccionar año base para indexar
+                                         airYearpickerInput(
+                                           inputId = "baseyear",
+                                           label= "Seleccione el año base para el índice",
+                                           value = "2000"
+                                         ),
                                          #input: seleccionar series para gráficas principales (dinámicas)
                                          uiOutput("selectseries"),
                         ),#fin del tabset condicional para la serie principal
@@ -150,19 +159,33 @@ ui <-fluidPage(
                                     '.csv'
                                   )),
                         radioButtons("separator","Separador: ",choices = c(";",",",":"), selected=";",inline=TRUE),
+                        actionButton("update", "Combine Data"),
+                        #input: seleccionar serie vs varmensual vs varanual                 
+                        radioButtons("sertype2", "Tipo de serie a mostrar:",
+                                     c("Principal" = "princ", "Variación Periodo a Periodo" = "varmensual", "Variación a 12 periodos"= "varanual")),
+                        #input: seleccionar si usar el primer año común como año base
+                        radioButtons("setbasis2", "Convertir a índice con un año base",
+                                     c("No" = "def", "Sí" = "indexed")),
+                        #input: seleccionar año base para indexar
+                        airYearpickerInput(
+                          inputId = "baseyear2",
+                          label= "Seleccione el año base para el índice",
+                          value = "2000"
+                        ),
                         uiOutput("selectseries2")
                       ),
 
                       #panel para outputs
                       mainPanel(
                         tabsetPanel(type = "tabs",
-                                    tabPanel("Tabla con los datos subidos",
+                                    tabPanel("Visualización Personalizada",
+                                             plotlyOutput("usergraph", height = 650)
+                                    ),
+                                    tabPanel("Tabla con los datos combinados",
                                              DT::dataTableOutput("sample_table")
                                              
-                                    ),#fin tabpanel ver tabla
-                                    tabPanel("Visualización de los datos",
-                                      plotlyOutput("usergraph", height = 650)
-                                    )
+                                    )#fin tabpanel ver tabla
+
                         )
                       )
              ),#fin tabpanel csv
