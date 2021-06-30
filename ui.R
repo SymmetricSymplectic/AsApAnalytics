@@ -160,6 +160,7 @@ ui <-fluidPage(
                                   )),
                         radioButtons("separator","Separador: ",choices = c(";",",",":"), selected=";",inline=TRUE),
                         actionButton("update", "Combine Data"),
+<<<<<<< HEAD
                         #input: seleccionar serie vs varmensual vs varanual                 
                         radioButtons("sertype2", "Tipo de serie a mostrar:",
                                      c("Principal" = "princ", "Variación Periodo a Periodo" = "varmensual", "Variación a 12 periodos"= "varanual")),
@@ -172,6 +173,8 @@ ui <-fluidPage(
                           label= "Seleccione el año base para el índice",
                           value = "2000"
                         ),
+=======
+>>>>>>> 7ff56328b2e0afd2c671887190bcf2bd771655ae
                         uiOutput("selectseries2")
                       ),
 
