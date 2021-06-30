@@ -172,6 +172,7 @@ ui <-fluidPage(
                           label= "Seleccione el año base para el índice",
                           value = "2000"
                         ),
+
                         uiOutput("selectseries2")
                       ),
 
