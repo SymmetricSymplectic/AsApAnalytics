@@ -1,4 +1,4 @@
-df,Nombre,Producido por,Frecuencia,Fecha de publicacion,Volatilidad,Revision,Direccion,Tiempo,Reaccion de mercado Renta Fija,Reaccion de mercado Renta variable,Reaccion de mercado cambiario
+﻿df,Nombre,Producido por,Frecuencia,Fecha de publicacion,Volatilidad,Revision,Direccion,Tiempo,Reaccion de mercado Renta Fija,Reaccion de mercado Renta variable,Reaccion de mercado cambiario
 balanza_data,Balanza Comercial,INEGI/BANXICO/SAT,Mensual,18ds despues de terminado el mes,Moderada,Dos semanas despues de los oportunos,Prociclico,Coincidente,Inversa,Directa,Directa
 establecimientos_data,Encuesta Mensual Sobre Establecimientos Comerciales,INEGI,Mensual,45ds despues del periodo de referencia,NA,NA,NA,NA,NA,NA,NA
 igae1_data,Indicador Global de Actividad Economica (Desest),INEGI,Mensual,50 dias desp de terminado el mes,Moderada,Mensual,Prociclico,Coincidente,Inversa,Directa,Directa
@@ -10,26 +10,26 @@ imcp_desest_data,Indicador Mensual de Consumo Privado en el Mercado Interior (De
 confianza_data,Indice de Confianza del Consumidor,INEGI,Mensual,NA,NA,NA,NA,NA,NA,NA,NA
 inpc_mensual_data,Indice  Nacional de Precios al Consumidor,INEGI,Mensual,NA,NA,NA,NA,NA,NA,NA,NA
 inpc_q_data,Indice  Nacional de Precios al Consumidor,INEGI,Trimestral,NA,NA,NA,NA,NA,NA,NA,NA
-inf_mensual_data,Inflacion,INEGI,Mensual,,,,,,,,
-inf_mensual_interanual_data,Inflacion,INEGI,"Mensual, Interanual",,,,,,,,
-inf_anual_data,Inflacion,INEGI,"Anual, Acumulada",,,,,,,,
-inf_q_data,Inflacion,INEGI,Quincenal,,,,,,,,
-ifb_data,Inversión Fija Brut,INEGI,,,,,,,,,
-ifbdesest_data,Inversión Fija Bruta (Desest,INEGI,,,,,,,,,
+inf_mensual_data,Inflacion,INEGI,Mensual,aprox 10 dias despues de fin de mes,Moderada,NA,Prociclico,Coincidente ,Directa,Inversa ,Inversa
+inf_mensual_interanual_data,Inflacion,INEGI,"Mensual, Interanual",NA,NA,NA,Prociclico,Coincidente ,Directa,Inversa ,Inversa
+inf_anual_data,Inflacion,INEGI,"Anual, Acumulada",NA,NA,NA,Prociclico,Coincidente,Directa,Inversa ,Inversa
+inf_q_data,Inflacion,INEGI,Quincenal,NA,Moderada,NA,Prociclico,Adelantado,Directa,Inversa ,Inversa
+ifb_data,InversiÃ³n Fija Brut,INEGI,Mensual,aprox 8 días después de que acabe el mes ,Moderada,NA,Prociclico,Adelantado,Inversa,Directa,Inversa
+ifbdesest_data,InversiÃ³n Fija Bruta (Desestacionada),INEGI,Mensual,aprox 8 días después de que acabe el mes ,Moderada,NA,Prociclico,Adelantado,Inversa,Directa,Inversa
 pibmex_data,Producto Interno Bruto (PIB),INEGI,Trimestral,Aprox. 50 dias despues de terminar el trimestre,Moderada,Anual (febrero),Prociclico,Coincidente,Inversa,Directa,Directa
-reservas_data,Reservas Internacionales,BANXICO,Mensual,,,,,,,,
-reservas_semanales_data,Reservas Internacionales,BANXICO,Semanal,,,,,,,,
-remesas_fam_data,Remesas Familiares,BANXICO,Mensual,,,,,,,,
-sic_data,Sistema de Indicadores Compuestos,INEGI,,,,,,,,,
-des_data,Tasa de Desocupacion,INEGI,Mensual,,,,,,,,
-construc_data,Valor de la Construccion,INEGI,Mensual,,,,,,,,
-automot_data,Vehiculos Automotores,INEGI,,,,,,,,,
-mtis_data,Business Sales and Inventories,,,,,,,,,,
-consurvey_data,Surveys of Consumers,,,,,,,,,,
-conspending_data,Construction Spending,,,,,,,,,,
-conscredit_data,Consumer Credit,,,,,,,,,,
-gdpindex_data,Annual GDP - Index (2012=100),,,,,,,,,,
-gdp_data,Annual GDP - Seasonally Adjusted,,,,,,,,,,
-cpi_data,Consumer Price Index - 1982-1984=100,,,,,,,,,,
-ppi_data,Producer Price Index - Index Dec 1984=100,,,,,,,,,,
-manuf_data,Manufacturers' New Orders: Durable Goods -Millions of Dollars,,,,,,,,,,
+reservas_data,Reservas Internacionales,BANXICO,Mensual,Aprox primeros 12 días después de terminado el mes,NA,NA,Contraciclico,NA,NA,NA,Inversa
+reservas_semanales_data,Reservas Internacionales,BANXICO,Semanal,Segundo dí habil bancario de cada semana ,NA,NA,Contraciclico,NA,NA,NA,Inversa
+remesas_fam_data,Remesas Familiares,BANXICO,Mensual,NA,Moderada,NA,Prociclico,Coincidente,Inversa,Directa,Inversa
+sic_data,Sistema de Indicadores Compuestos,INEGI,NA,NA,NA,NA,Prociclico,Adelantado,Inversa,Directa,Inversa
+des_data,Tasa de Desocupacion,INEGI,Mensual,Detenida por emergencia sanitaria ,NA,NA,Contraciclico,Coincidente,Inversa,Inversa ,Directa
+construc_data,Valor de la Construccion,INEGI,Mensual,20 días después de iniciado el mes,NA,NA,Prociclico,Atrasado,Inversa,Directa,Inversa
+automot_data,Vehiculos Automotores,INEGI,Mensual,5 días después de que termina cada mes,NA,NA,Prociclico,Coincidente,Inversa,Directa,Inversa
+mtis_data,Business Sales and Inventories,DOC,Mensual,NA,Moderada,NA,Prociclico,Coincidente,Inversa,Directa,Directa
+consurvey_data,Surveys of Consumers,US bureau of labor statistics ,Mensual ,NA,Moderada,NA,Prociclico,Adelantada,Directa,Directa,NA
+conspending_data,Construction Spending,US bureau of labor statistics ,Mensual,NA,NA,NA,Prociclico,Atrasado, NA,Directa,NA
+conscredit_data,Consumer Credit,FED ,Cuatrimestral ,NA,NA,NA,Prociclico,Coincidente ,Inversa,Directa,NA
+gdpindex_data,Annual GDP - Index (2012=100),,Anual,NA,NA,NA,Prociclico,Coincidente ,Inversa,Directa,Directa
+gdp_data,Annual GDP - Seasonally Adjusted,,Anual,NA,NA,NA,Prociclico,Coincidente ,Inversa,Directa,Directa
+cpi_data,Consumer Price Index - 1982-1984=100,INDEX,Cosumer,Aprox 10 días después de que termine cada mes,NA,NA,NA,NA,NA,NA,NA
+ppi_data,Producer Price Index - Index Dec 1984=100,INDEX,Prducer,Aprox 10 días después de que termine cada mes,NA,NA,NA,NA,NA,NA,NA
+manuf_data,Manufacturers' New Orders: Durable Goods -Millions of Dollars,Census Bureau  C,Mensual,NA,NA,NA,Prociclico,Coincidente,Inversa,Directa,NA
