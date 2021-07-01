@@ -362,7 +362,7 @@ server <- function(input, output, session){
     if (is.null(inFile))
       return(NULL)
     #df <- read_csv(inFile$datapath)
-    df <- read.csv(inFile$datapath, header = TRUE,sep = input$separator)
+    df <- read.csv(inFile$datapath, header = TRUE,sep = input$separator, encoding = "UTF-8")
     #df <-data.frame(df)
     return(df)
   })
@@ -378,7 +378,8 @@ server <- function(input, output, session){
     data1 <-df_products_upload()
     rownames(data1)<- data1[,1]
     data1 <- data1[,-1]
-    rownames(data1) <-as.Date(rownames(data1), format="%d/%m/%Y")
+    #rownames(data1) <-as.Date(rownames(data1), format="%d/%m/%Y")
+    rownames(data1)<-anydate(rownames(data1))
     datam <- merge(data1,data2, by = 0, all=TRUE)
     datam <- na.omit(datam)
     rownames(datam) <-datam[,1]
