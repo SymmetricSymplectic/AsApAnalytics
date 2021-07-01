@@ -362,7 +362,7 @@ server <- function(input, output, session){
     if (is.null(inFile))
       return(NULL)
     #df <- read_csv(inFile$datapath)
-    df <- read.csv(inFile$datapath, header = TRUE,sep = input$separator)
+    df <- read.csv(inFile$datapath, header = TRUE,sep = input$separator, encoding = "UTF-8")
     #df <-data.frame(df)
     return(df)
   })
@@ -378,7 +378,8 @@ server <- function(input, output, session){
     data1 <-df_products_upload()
     rownames(data1)<- data1[,1]
     data1 <- data1[,-1]
-    rownames(data1) <-as.Date(rownames(data1), format="%d/%m/%Y")
+    #rownames(data1) <-as.Date(rownames(data1), format="%d/%m/%Y")
+    rownames(data1)<-anydate(rownames(data1))
     datam <- merge(data1,data2, by = 0, all=TRUE)
     datam <- na.omit(datam)
     rownames(datam) <-datam[,1]
@@ -401,8 +402,8 @@ server <- function(input, output, session){
     selseries <- data[,input$selectseries2]
     #names(selseries) <- abbreviate(names(selseries), minlength = 16)
     don <- xts(x = selseries, order.by = as.Date(rownames(data)))
-    coredata(don) <- as.character(coredata(don))
-    storage.mode(don) <- "integer"
+    #coredata(don) <- as.character(coredata(don))
+    storage.mode(don) <- "numeric"
     setbasis <-switch(input$setbasis2,
                       def = don,
                       indexed = baseperiod_function(don, input$baseyear2)
@@ -422,7 +423,7 @@ server <- function(input, output, session){
             Xgrid = TRUE,
             Ygrid = TRUE) %>%
       layout(plot_bgcolor='transparent',
-             yaxis = list(gridcolor= "#AAAAAA", fixedrange = FALSE, autorange = TRUE,tickformat = "digit" ),
+             yaxis = list(gridcolor= "#AAAAAA", fixedrange = FALSE, autorange = TRUE,tickformat = ".3f"),
              xaxis = list(gridcolor= "#AAAAAA", ticktext = equis
                           #,rangeslider = list(type = "date")
              )) %>% 
