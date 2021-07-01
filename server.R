@@ -402,8 +402,8 @@ server <- function(input, output, session){
     selseries <- data[,input$selectseries2]
     #names(selseries) <- abbreviate(names(selseries), minlength = 16)
     don <- xts(x = selseries, order.by = as.Date(rownames(data)))
-    coredata(don) <- as.character(coredata(don))
-    storage.mode(don) <- "integer"
+    #coredata(don) <- as.character(coredata(don))
+    storage.mode(don) <- "numeric"
     setbasis <-switch(input$setbasis2,
                       def = don,
                       indexed = baseperiod_function(don, input$baseyear2)
@@ -423,7 +423,7 @@ server <- function(input, output, session){
             Xgrid = TRUE,
             Ygrid = TRUE) %>%
       layout(plot_bgcolor='transparent',
-             yaxis = list(gridcolor= "#AAAAAA", fixedrange = FALSE, autorange = TRUE,tickformat = "digit" ),
+             yaxis = list(gridcolor= "#AAAAAA", fixedrange = FALSE, autorange = TRUE,tickformat = ".3f"),
              xaxis = list(gridcolor= "#AAAAAA", ticktext = equis
                           #,rangeslider = list(type = "date")
              )) %>% 
