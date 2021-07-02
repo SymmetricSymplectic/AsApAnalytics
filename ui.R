@@ -158,7 +158,9 @@ ui <-fluidPage(
                                     'text/comma-separated-values',
                                     '.csv'
                                   )),
-                        radioButtons("separator","Separador: ",choices = c(";",",",":"), selected=";",inline=TRUE),
+                        #radioButtons("separator","Separador: ",choices = c(";",",",":"), selected=";",inline=TRUE),
+                        radioButtons("exceldates", "El archivo utiliza fechas de MS Excel", choices = c("Sí", "No"),
+                                     selected ="Sí", inline = TRUE),
                         actionButton("update", "Combine Data"),
                         #input: seleccionar serie vs varmensual vs varanual                 
                         radioButtons("sertype2", "Tipo de serie a mostrar:",

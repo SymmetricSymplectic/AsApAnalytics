@@ -22,36 +22,36 @@ server <- function(input, output, session){
                       database[[as.numeric(input$dataset[2])]],
                       by = 0    )
       rownames(data) <- data[,1]
-      data <- data[,-1]
+      data <- data[,-1, drop = FALSE]
       data
     } else if (length(input$dataset)==3){
       data <- merge(database[[as.numeric(input$dataset[1])]],
                     database[[as.numeric(input$dataset[2])]],
                     by = 0    )
       rownames(data) <- data[,1]
-      data <- data[,-1]
+      data <- data[,-1, drop = FALSE]
       data <- merge(database[[as.numeric(input$dataset[3])]],
                     data,
                     by= 0)
       rownames(data) <- data[,1]
-      data <- data[,-1]
+      data <- data[,-1, drop = FALSE]
       data
     }else if (length(input$dataset)==4){
       data <- merge(database[[as.numeric(input$dataset[1])]],
                     database[[as.numeric(input$dataset[2])]],
                     by = 0    )
       rownames(data) <- data[,1]
-      data <- data[,-1]
+      data <- data[,-1, drop = FALSE]
       data <- merge(database[[as.numeric(input$dataset[3])]],
                     data,
                     by= 0)
       rownames(data) <- data[,1]
-      data <- data[,-1]
+      data <- data[,-1, drop = FALSE]
       data <- merge(database[[as.numeric(input$dataset[4])]],
                     data,
                     by= 0)
       rownames(data) <- data[,1]
-      data <- data[,-1]
+      data <- data[,-1, drop = FALSE]
       data
     }else if (length(input$dataset)==5){
       data <- merge(database[[as.numeric(input$dataset[1])]],
@@ -361,9 +361,18 @@ server <- function(input, output, session){
     inFile <- input$target_upload
     if (is.null(inFile))
       return(NULL)
-    #df <- read_csv(inFile$datapath)
-    df <- read.csv(inFile$datapath, header = TRUE,sep = input$separator, encoding = "UTF-8")
-    #df <-data.frame(df)
+    df <- read_csv(inFile$datapath)
+    #df <- read.csv(inFile$datapath, header = TRUE,sep = input$separator, encoding = "UTF-8")
+    df <-data.frame(df)
+    rownames(df)<- df[,1]
+    data1 <- df[,-1, drop= FALSE]
+    if (input$exceldates =="Sí"){
+      rownames(df)<-round_date(anydate(dmy(rownames(df))), unit="month")
+    }
+    if (input$exceldates =="No"){
+      rownames(df)<-round_date(anydate(rownames(df)), unit="month")
+    }
+
     return(df)
   })
   
@@ -376,12 +385,8 @@ server <- function(input, output, session){
   merged_data<-eventReactive(input$update,{
     data2 <-datasetInput()
     data1 <-df_products_upload()
-    rownames(data1)<- data1[,1]
-    data1 <- data1[,-1]
-    #rownames(data1) <-as.Date(rownames(data1), format="%d/%m/%Y")
-    rownames(data1)<-anydate(rownames(data1))
     datam <- merge(data1,data2, by = 0, all=TRUE)
-    datam <- na.omit(datam)
+    #datam <- na.approx(datam)
     rownames(datam) <-datam[,1]
     datam <- datam[,-1]
     return(datam)
