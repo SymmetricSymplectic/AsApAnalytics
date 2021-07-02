@@ -149,7 +149,7 @@ server <- function(input, output, session){
     
     equis <- rownames(data)
     ts_plot(seriestype, 
-            title = paste(input$dataset, ":", input$series[1], sep= ""),
+            title = paste(input$series[1]),
             Xtitle = "Fecha",
             Xgrid = TRUE,
             Ygrid = TRUE) %>%
@@ -173,6 +173,21 @@ server <- function(input, output, session){
                layer = "below",
                opacity = 0.1
           ))) %>%
+      #show recessions
+      layout(shapes=list(
+        list(type = "rect",
+             fillcolor = "blue", line = list(color = "blue"), opacity = 0.15,
+             x0 = "2001-03-01", x1 = "2001-11-01", xref = "x",
+             y0 = 0, y1 = 1, yref = "paper"),
+        list(type = "rect",
+             fillcolor = "blue", line = list(color = "blue"), opacity = 0.15,
+             x0 = "2007-12-01", x1 = "2009-06-01", xref = "x",
+             y0 = 0, y1 = 1, yref = "paper"),
+        list(type = "rect",
+             fillcolor = "blue", line = list(color = "blue"), opacity = 0.15,
+             x0 = "2020-02-01", x1 = "2021-07-01", xref = "x",
+             y0 = 0, y1 = 1, yref = "paper")
+        ))%>%
       plotly::config(displaylogo = FALSE)
     
     #will also accept paper_bgcolor='black' or paper_bgcolor='transparent'
