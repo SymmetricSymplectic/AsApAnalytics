@@ -397,7 +397,9 @@ server <- function(input, output, session){
   
   #crear los checkboxes de las series del usuario dinámicamente (principal)
   output$selectseries2 <- renderUI({
-    selectizeInput("selectseries2", "Series a mostrar", names(merged_data()),
+    data <- merged_data()
+    data <- data[,-1]
+    selectizeInput("selectseries2", "Series a mostrar", names(data),
                    multiple = TRUE
     )
   })
@@ -428,7 +430,7 @@ server <- function(input, output, session){
             Xgrid = TRUE,
             Ygrid = TRUE) %>%
       layout(plot_bgcolor='transparent',
-             yaxis = list(gridcolor= "#AAAAAA", fixedrange = FALSE, autorange = TRUE,tickformat = ".3f"),
+             yaxis = list(gridcolor= "#AAAAAA", fixedrange = FALSE, autorange = TRUE,tickformat = ",.2r"),
              xaxis = list(gridcolor= "#AAAAAA", ticktext = equis
                           #,rangeslider = list(type = "date")
              )) %>% 
