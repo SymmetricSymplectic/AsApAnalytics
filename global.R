@@ -34,6 +34,8 @@ library(sjlabelled)
 library(broom)
 #para detectar multiples fechas
 library(anytime)
+#para bajar precios
+library(quantmod)
 
 source("PREPROCESSING/balanza_proc.R", local = TRUE)
 source("PREPROCESSING/igae_proc.R", local = TRUE)

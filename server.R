@@ -400,15 +400,34 @@ server <- function(input, output, session){
   merged_data<-eventReactive(input$update,{
     data2 <-datasetInput()
     data1 <-df_products_upload()
-    if (is.null(data1))
-      return(data2)
-    datam <- merge(data1,data2, by = 0, all=TRUE)
+    data3 <-priceInput()
+    if (is.null(data1)){
+      if (is.null(data3))
+        return(data2)
+      datam <-merge(data3,data2, by = 0, all=TRUE)
+      rownames(datam) <-datam[,1]
+      datam <- datam[,-1]
+      return(datam)}
+    datam2 <- merge(data1,data2, by = 0, all=TRUE)
     #datam <- na.approx(datam)
-    rownames(datam) <-datam[,1]
-    datam <- datam[,-1]
-    return(datam)
+    rownames(datam2) <-datam2[,1]
+    datam2 <- datam2[,-1]
+    if(is.null(data3)){
+      return(datam2)}
+    datam3 <-merge(data3,datam2, by = 0, all=TRUE)
+    rownames(datam3) <-datam3[,1]
+    datam3 <- datam3[,-1]
+    return(datam3)
   })
   #end data uploading
+  
+  #bajar precio de instrumento en yfinance
+  priceInput <- reactive({
+    as.data.frame(getSymbols(input$symb, src = "yahoo",
+               from = input$ydates[1],
+               to = input$ydates[2],
+               auto.assign = FALSE))
+  })
   
   
 }#server end bracket

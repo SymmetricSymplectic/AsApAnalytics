@@ -78,6 +78,16 @@ ui <-fluidPage(
                         
                         #sidebars condicionales dependiendo de qué tabset selecciones
                         conditionalPanel(condition="input.tabselected==1",
+                                         #input: seleccionar series para gráficas principales (dinámicas)
+                                         uiOutput("selectseries"),
+                                         #input: seleccionar instrumento
+                                         helpText("Select a stock to examine. Information will be collected from Yahoo finance."),
+                                         textInput("symb", "Symbol", "SPY"),
+                                         
+                                         dateRangeInput("ydates",
+                                                        "Date range",
+                                                        start = "2013-01-01",
+                                                        end = as.character(Sys.Date())),
                                          #input: seleccionar serie vs varmensual vs varanual                 
                                          radioButtons("sertype", "Tipo de serie a mostrar:",
                                                       c("Principal" = "princ", "Variación Periodo a Periodo" = "varmensual", "Variación a 12 periodos"= "varanual")),
@@ -89,9 +99,7 @@ ui <-fluidPage(
                                            inputId = "baseyear",
                                            label= "Seleccione el año base para el índice",
                                            value = "2000"
-                                         ),
-                                         #input: seleccionar series para gráficas principales (dinámicas)
-                                         uiOutput("selectseries"),
+                                         )
                         ),#fin del tabset condicional para la serie principal
                         
                         conditionalPanel(condition="input.tabselected==2",
@@ -115,7 +123,7 @@ ui <-fluidPage(
                       #panel principal para mostrar outputs
                       mainPanel(
                         #output: tabset
-                        #22-10-21 cambio de output de dygraph a plotly para TSstudio, comment las estáticas por obsoletas
+                        #22-01-21 cambio de output de dygraph a plotly para TSstudio, comment las estáticas por obsoletas
                         tabsetPanel(type = "tabs",
                                     tabPanel("Visualización general", value=1,
                                              plotlyOutput("plotly1", height=650),
