@@ -528,8 +528,7 @@ names(ppi_data) <-c("Producer Price Index by Industry: Oil and Gas Extraction",
  "Producer Price Index by Industry: Industrial Sand Mining: Industrial Glass Sand",                    
  "Producer Price Index by Industry: Industrial Sand Mining: Hydraulic Fracturing Sand",                
  "Producer Price Index by Industry: Electric Power Generation: Utilities" ,                            
- "Producer Price Index by Industry: New Industrial Building Construction",                             
- "Producer Price Index by Industry: Food Manufacturing")   
+ "Producer Price Index by Industry: New Industrial Building Construction")   
 
 #manufacturers orders, invs and shipments id 95
 manuf_data <-read.csv("DATA/manuf.csv")

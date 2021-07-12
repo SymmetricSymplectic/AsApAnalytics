@@ -57,11 +57,24 @@ ui <-fluidPage(
             
                         
                         #input: seleccionar indicador
-                        selectizeInput("dataset", "Seleccione el indicador deseado",
+                        selectizeInput("dataset", "Seleccione el indicador de la base de datos",
                                     choices = ind_choices, selected = "1", multiple = TRUE,
                                     options = list(maxItems = 5)
                                     
                         ),
+                        #Selector for file upload
+                        fileInput('target_upload', 'Seleccione archivo para subir',
+                                  accept = c(
+                                    'text/csv',
+                                    'text/comma-separated-values',
+                                    '.csv'
+                                  )),
+                        #radioButtons("separator","Separador: ",choices = c(";",",",":"), selected=";",inline=TRUE),
+                        radioButtons("exceldates", "El archivo utiliza fechas de MS Excel", choices = c("Sí", "No"),
+                                     selected ="Sí", inline = TRUE),
+                        helpText("Si se ha subido un archivo compatible, el botón de acceso va a combinar el archivo con los indicadores
+                                 seleccionados. Si no, se accederá directamente a la base de datos"),
+                        actionButton("update", "Acceso a base de datos"),
                         
                         #sidebars condicionales dependiendo de qué tabset selecciones
                         conditionalPanel(condition="input.tabselected==1",
@@ -149,48 +162,7 @@ ui <-fluidPage(
                       
                       
              ), #fin tabpanel
-             tabPanel("Suba su propio csv",
-                      sidebarPanel(
-                        #Selector for file upload
-                        fileInput('target_upload', 'Seleccione archivo para subir',
-                                  accept = c(
-                                    'text/csv',
-                                    'text/comma-separated-values',
-                                    '.csv'
-                                  )),
-                        #radioButtons("separator","Separador: ",choices = c(";",",",":"), selected=";",inline=TRUE),
-                        radioButtons("exceldates", "El archivo utiliza fechas de MS Excel", choices = c("Sí", "No"),
-                                     selected ="Sí", inline = TRUE),
-                        actionButton("update", "Combine Data"),
-                        #input: seleccionar serie vs varmensual vs varanual                 
-                        radioButtons("sertype2", "Tipo de serie a mostrar:",
-                                     c("Principal" = "princ", "Variación Periodo a Periodo" = "varmensual", "Variación a 12 periodos"= "varanual")),
-                        #input: seleccionar si usar el primer año común como año base
-                        radioButtons("setbasis2", "Convertir a índice con un año base",
-                                     c("No" = "def", "Sí" = "indexed")),
-                        #input: seleccionar año base para indexar
-                        airYearpickerInput(
-                          inputId = "baseyear2",
-                          label= "Seleccione el año base para el índice",
-                          value = "2000"
-                        ),
-                        uiOutput("selectseries2")
-                      ),
-
-                      #panel para outputs
-                      mainPanel(
-                        tabsetPanel(type = "tabs",
-                                    tabPanel("Visualización Personalizada",
-                                             plotlyOutput("usergraph", height = 650)
-                                    ),
-                                    tabPanel("Tabla con los datos combinados",
-                                             DT::dataTableOutput("sample_table")
-                                             
-                                    )#fin tabpanel ver tabla
-
-                        )
-                      )
-             ),#fin tabpanel csv
+             #fin tabpanel csv
              tabPanel("Información general de la base de datos",
                       mainPanel(
                         dataTableOutput("series_descrip"),

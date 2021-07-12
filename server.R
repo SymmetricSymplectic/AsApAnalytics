@@ -100,24 +100,24 @@ server <- function(input, output, session){
   
   #crear los checkboxes de las series dinámicamente (principal)
   output$selectseries <- renderUI({
-    selectizeInput("series", "Series a mostrar", names(datasetInput()),
+    selectizeInput("series", "Series a mostrar", names(merged_data()),
                       multiple = TRUE
     )
   })
   #crear las listas de las series dinámicamente (pronóstico)
   output$selectforecast <- renderUI({
-    selectInput("seriesforecast", "Escoja una serie para pronóstico", choices = names(datasetInput()))
+    selectInput("seriesforecast", "Escoja una serie para pronóstico", choices = names(merged_data()))
   })
   #crear listas dinámicas (correlación)
   output$seriescorr1 <- renderUI({
-    selectInput("corr1", "Escoja la serie 1 para el análisis de dispersión", choices= names(datasetInput()))
+    selectInput("corr1", "Escoja la serie 1 para el análisis de dispersión", choices= names(merged_data()))
   })  
   output$seriescorr2 <- renderUI({
-    selectInput("corr2", "Escoja la serie 2 para el análisis de dispersión", choices= names(datasetInput()))
+    selectInput("corr2", "Escoja la serie 2 para el análisis de dispersión", choices= names(merged_data()))
   })     
   #linear model input
   lmInput <- reactive({
-    data <- datasetInput()
+    data <- na.omit(merged_data())
     data <- data[order(as.Date(rownames(data), format="%d/%m/%Y")),]
     df <-na.omit(data[,c(input$corr1, input$corr2)])
     colnames(df) <- c(input$corr1, input$corr2)
@@ -130,7 +130,7 @@ server <- function(input, output, session){
   #generamos la gráfica de las series principales
   output$plotly1<- renderPlotly({
     req(input$series)
-    data <- datasetInput()
+    data <- merged_data()
     selseries <- data[,input$series]
     names(selseries) <- abbreviate(names(selseries), minlength = 30)
     don <- xts(x = selseries, order.by = as.Date(rownames(data)))
@@ -214,7 +214,7 @@ server <- function(input, output, session){
   
   #generamos la predicción ARIMA/ARFIMA dinámica (update para plotly)
   output$dy_arima <-renderPlotly({
-    data <- datasetInput()
+    data <- na.omit(merged_data())
     selseries <- data[,input$seriesforecast]
     don00 <- xts(x = selseries, order.by = as.Date(rownames(data)))
     st <- format(as.Date(start(don00), format="%d/%m/%Y"),"%Y")
@@ -243,7 +243,7 @@ server <- function(input, output, session){
   
   #descomposición de la serie analizada (23-01-21)
   output$tsdecomp <-renderPlotly({
-    data <- datasetInput()
+    data <- na.omit(merged_data())
     selseries <- data[,input$seriesforecast]
     don00 <- xts(x = selseries, order.by = as.Date(rownames(data)))
     st <- format(as.Date(start(don00), format="%d/%m/%Y"),"%Y")
@@ -257,7 +257,7 @@ server <- function(input, output, session){
   })   
   #autocorrelaciones de la serie (23-01-21)
   output$tslag <-renderPlotly({
-    data <- datasetInput()
+    data <- na.omit(merged_data())
     selseries <- data[,input$seriesforecast]
     don00 <- xts(x = selseries, order.by = as.Date(rownames(data)))
     st <- format(as.Date(start(don00), format="%d/%m/%Y"),"%Y")
@@ -270,7 +270,7 @@ server <- function(input, output, session){
   
   #generamos el diagrama de dispersión
   output$scatterplot <- renderPlotly({
-    data <- datasetInput()
+    data <- na.omit(merged_data())
     df <-na.omit(data[,c(input$corr1, input$corr2)])
     model <- lmInput()
     plot_ly(df, x =df[,1], y = df[,2], type = "scatter", mode = "markers")%>%
@@ -314,7 +314,7 @@ server <- function(input, output, session){
   
   #correlaciones de la base de datos
   output$corr <- renderPlot({
-    data <- datasetInput()
+    data <- na.omit(merged_data())
     data <- data[order(as.Date(rownames(data), format="%d/%m/%Y")),]
     names(data) <- abbreviate(names(data), minlength = 8)
     corrdata <- cor(na.omit(data))
@@ -326,7 +326,7 @@ server <- function(input, output, session){
   
   #rolling correlations
   output$rollcorr <- renderPlotly({
-    data <- datasetInput()
+    data <- na.omit(merged_data())
     data <- data[order(as.Date(rownames(data), format="%d/%m/%Y")),]
     df <-xts(data[,c(input$corr1, input$corr2)], order.by = as.Date(rownames(data)))
     roll <-rollapplyr(df, width=input$rollcorrperiod, function(x) cor(x[,1],x[,2]), by.column=FALSE)
@@ -400,74 +400,14 @@ server <- function(input, output, session){
   merged_data<-eventReactive(input$update,{
     data2 <-datasetInput()
     data1 <-df_products_upload()
+    if (is.null(data1))
+      return(data2)
     datam <- merge(data1,data2, by = 0, all=TRUE)
     #datam <- na.approx(datam)
     rownames(datam) <-datam[,1]
     datam <- datam[,-1]
     return(datam)
   })
-  
-  
-  
-  
-  #crear los checkboxes de las series del usuario dinámicamente (principal)
-  output$selectseries2 <- renderUI({
-    data <- merged_data()
-    data <- data[,-1]
-    selectizeInput("selectseries2", "Series a mostrar", names(data),
-                   multiple = TRUE
-    )
-  })
-  output$usergraph <- renderPlotly({
-    req(input$selectseries2)
-    data <- na.omit(merged_data())
-    selseries <- data[,input$selectseries2]
-    #names(selseries) <- abbreviate(names(selseries), minlength = 16)
-    don <- xts(x = selseries, order.by = as.Date(rownames(data)))
-    #coredata(don) <- as.character(coredata(don))
-    storage.mode(don) <- "numeric"
-    setbasis <-switch(input$setbasis2,
-                      def = don,
-                      indexed = baseperiod_function(don, input$baseyear2)
-                      
-    )
-    varmen <-pch(setbasis)
-    varan <- pch(setbasis, lag = 12)
-    seriestype <- switch(input$sertype2,
-                         princ=setbasis,
-                         varmensual = varmen,
-                         varanual = varan
-    )
-    equis <- rownames(data)
-    ts_plot(seriestype, 
-            title = "Análisis Personalizado",
-            Xtitle = "Fecha",
-            Xgrid = TRUE,
-            Ygrid = TRUE) %>%
-      layout(plot_bgcolor='transparent',
-             yaxis = list(gridcolor= "#AAAAAA", fixedrange = FALSE, autorange = TRUE,tickformat = ",.2r"),
-             xaxis = list(gridcolor= "#AAAAAA", ticktext = equis
-                          #,rangeslider = list(type = "date")
-             )) %>% 
-      layout(legend = list(x = 0.05, y = 0.95)) %>%
-      layout(
-        images = list(
-          list(source = "https://i.ibb.co/2KDKzhg/logotipo-asapa-min-black.png",
-               xref = "paper",
-               yref = "paper",
-               x= 0.15,
-               y= 0.7,
-               sizex = 0.8,
-               sizey = 0.8,
-               #sizing = "stretch",
-               layer = "below",
-               opacity = 0.1
-          ))) %>%
-      config(displaylogo = FALSE)
-
-  })
-    
-
   #end data uploading
   
   
