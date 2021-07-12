@@ -60,33 +60,22 @@ ui <-fluidPage(
                         selectizeInput("dataset", "Seleccione el indicador de la base de datos",
                                     choices = ind_choices, selected = "1", multiple = TRUE,
                                     options = list(maxItems = 5)
-                                    
                         ),
-                        #Selector for file upload
-                        fileInput('target_upload', 'Seleccione archivo para subir',
-                                  accept = c(
-                                    'text/csv',
-                                    'text/comma-separated-values',
-                                    '.csv'
-                                  )),
-                        #radioButtons("separator","Separador: ",choices = c(";",",",":"), selected=";",inline=TRUE),
-                        radioButtons("exceldates", "El archivo utiliza fechas de MS Excel", choices = c("Sí", "No"),
-                                     selected ="Sí", inline = TRUE),
-                        helpText("Si se ha subido un archivo compatible, el botón de acceso va a combinar el archivo con los indicadores
-                                 seleccionados. Si no, se accederá directamente a la base de datos"),
-                        actionButton("update", "Acceso a base de datos"),
+                        actionButton("update", "Actualizar visualización"),
+                        helpText("El botón de actualización va a combinar el archivo proporcionado por el usuario con los indicadores
+                                 seleccionados. Si no, se accederá directamente al indicador en la base de datos"),
                         
                         #sidebars condicionales dependiendo de qué tabset selecciones
                         conditionalPanel(condition="input.tabselected==1",
                                          #input: seleccionar series para gráficas principales (dinámicas)
                                          uiOutput("selectseries"),
                                          #input: seleccionar instrumento
-                                         helpText("Select a stock to examine. Information will be collected from Yahoo finance."),
-                                         textInput("symb", "Symbol", "SPY"),
+                                         helpText("Seleccione un instrumento cotizado en bolsa para agregarlo a la visualización."),
+                                         textInput("symb", "Ticker"),
                                          
                                          dateRangeInput("ydates",
-                                                        "Date range",
-                                                        start = "2013-01-01",
+                                                        "Fechas para el instrumento",
+                                                        start = "2007-01-01",
                                                         end = as.character(Sys.Date())),
                                          #input: seleccionar serie vs varmensual vs varanual                 
                                          radioButtons("sertype", "Tipo de serie a mostrar:",
@@ -99,7 +88,17 @@ ui <-fluidPage(
                                            inputId = "baseyear",
                                            label= "Seleccione el año base para el índice",
                                            value = "2000"
-                                         )
+                                         ),
+                                         #Selector for file upload
+                                         fileInput('target_upload', 'Seleccione archivo para subir',
+                                                   accept = c(
+                                                     'text/csv',
+                                                     'text/comma-separated-values',
+                                                     '.csv'
+                                                   )),
+                                         #radioButtons("separator","Separador: ",choices = c(";",",",":"), selected=";",inline=TRUE),
+                                         radioButtons("exceldates", "El archivo utiliza fechas de MS Excel", choices = c("Sí", "No"),
+                                                      selected ="Sí", inline = TRUE),
                         ),#fin del tabset condicional para la serie principal
                         
                         conditionalPanel(condition="input.tabselected==2",

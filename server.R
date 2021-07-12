@@ -177,10 +177,6 @@ server <- function(input, output, session){
       layout(shapes=list(
         list(type = "rect",
              fillcolor = "blue", line = list(color = "blue"), opacity = 0.15,
-             x0 = "2001-03-01", x1 = "2001-11-01", xref = "x",
-             y0 = 0, y1 = 1, yref = "paper"),
-        list(type = "rect",
-             fillcolor = "blue", line = list(color = "blue"), opacity = 0.15,
              x0 = "2007-12-01", x1 = "2009-06-01", xref = "x",
              y0 = 0, y1 = 1, yref = "paper"),
         list(type = "rect",
