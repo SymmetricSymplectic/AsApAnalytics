@@ -537,7 +537,15 @@ fredr_set_key(api)
 #business sales and inv
 mtis <- fredr_release_series(release_id = 25)
 if (requireNamespace("purrr", quietly = TRUE)) {
-   series <- mtis$id
+   series <- c("TOTBUSSMSA",
+               "AMTMVS",
+               "RSXFS",
+               "WHLSLRSMSA",
+               "BUSINV",
+               "AMTMTI",
+               "RETAILIMSA",
+               "WHLSLRIMSA"
+   )
    library(purrr)
    purrr::map_dfr(series, fredr)
    
@@ -610,7 +618,12 @@ rm(df,conspending,params,series)
 
 conscredit <- fredr_release_series(release_id = 14)
 if (requireNamespace("purrr", quietly = TRUE)) {
-   series <- conscredit$id
+   series <- c(
+      "TOTALSL",
+      "FLREVOLSL",
+      "NONREVSL"
+      
+   )
    library(purrr)
    purrr::map_dfr(series, fredr)
    
@@ -687,7 +700,11 @@ rm(df,gdp,params,series)
 #cpi
 cpi <- fredr_release_series(release_id = 10)
 if (requireNamespace("purrr", quietly = TRUE)) {
-   series <-cpi$id[which (cpi$popularity >"50"& cpi$seasonal_adjustment_short =="SA"  )]
+   series <-c(
+      "CPIAUCSL",
+      "PCEPILFE",
+      "PCEPI"
+   )
    library(purrr)
    purrr::map_dfr(series, fredr)
    
@@ -712,7 +729,15 @@ rm(df,cpi,params,series)
 #ppi
 ppi <- fredr_release_series(release_id = 46)
 if (requireNamespace("purrr", quietly = TRUE)) {
-   series <-ppi$id[which (ppi$popularity > 23 & ppi$seasonal_adjustment_short =="NSA"  )]
+   series <-c("PPIACO",
+              "PCUOMFGOMFG",
+              "PCUATRNWRATRNWR",
+              "PCUADLVWRADLVWR",
+              "PCUOMINOMIN",
+              "PCUAWHLTRAWHLTR",
+              "PCUATRANSATRANS",
+              "PCUASHCASHC",
+              "PCUARETTRARETTR")
    library(purrr)
    purrr::map_dfr(series, fredr)
    
@@ -738,7 +763,11 @@ rm(df,ppi,params,series)
 #manufacturers orders, invs and shipments id 95
 manuf <- fredr_release_series(release_id = 95)
 if (requireNamespace("purrr", quietly = TRUE)) {
-   series <-manuf$id[which (manuf$popularity > 18 & manuf$seasonal_adjustment_short =="SA")]
+   series <-c("IPMAN",
+              "PCUOMFGOMFG",
+      "AMTMNO",
+              "ADXTNO",
+              "ADXDNO")
    library(purrr)
    purrr::map_dfr(series, fredr)
    
@@ -760,4 +789,34 @@ df <-df %>% pivot_wider(id_cols = "date", names_from = "series_id")
 write.csv(df, "DATA/manuf.csv", row.names = FALSE)
 rm(df,manuf,params,series)
 
-#leading
+#desempleo general EEUU
+if (requireNamespace("purrr", quietly = TRUE)) {
+   series <-c("UNRATE",
+              "UNEMPLOY",
+
+              "AWHNONAG",
+              "AHETPI"
+              
+   )
+   library(purrr)
+   purrr::map_dfr(series, fredr)
+   
+   # Using purrr::pmap_dfr() allows you to use varying optional parameters
+   params <- list(
+      series_id = series
+      #,frequency = c("m", "meop", "qeop")
+   )
+   
+   df <- purrr::pmap_dfr(
+      .l = params,
+      .f = ~ fredr(series_id = .x
+                   #, frequency = .y
+      )
+   )
+   
+}
+df <-df %>% pivot_wider(id_cols = "date", names_from = "series_id")
+write.csv(df, "DATA/unemp.csv", row.names = FALSE)
+rm(df,params,series)
+
+
