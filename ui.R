@@ -34,7 +34,8 @@ ind_choices <- c("Balanza Comercial" = "1",
                  "Annual GDP - Seasonally Adjusted" = "31",
                  "Consumer Price Index - 1982-1984=100" = "32",
                  "Producer Price Index - Index Dec 1984=100"= "33",
-                 "Manufacturers' New Orders: Durable Goods -Millions of Dollars" = "34"
+                 "Manufacturers' New Orders: Durable Goods -Millions of Dollars" = "34",
+                 "Unemployment" = "35"
                  )
 
 
@@ -61,9 +62,10 @@ ui <-fluidPage(
                                     choices = ind_choices, selected = "1", multiple = TRUE,
                                     options = list(maxItems = 5)
                         ),
-                        actionButton("update", "Actualizar visualización"),
-                        helpText("El botón de actualización va a combinar el archivo proporcionado por el usuario con los indicadores
-                                 seleccionados. Si no, se accederá directamente al indicador en la base de datos"),
+                        actionButton("update", "Mostrar series"),
+                        helpText("El botón muestra al indicador en la base de datos, y 
+                                 permite combinarlo con la base de datos proporcionada con el usuario,
+                                 y con el precio del instrumento de mercado"),
                         
                         #sidebars condicionales dependiendo de qué tabset selecciones
                         conditionalPanel(condition="input.tabselected==1",

@@ -4,46 +4,15 @@
 mtis_data <- read.csv("DATA/businessSalesInv.csv")
 rownames(mtis_data) <- mtis_data[,1]
 mtis_data <- mtis_data[,-1]
-names(mtis_data) <- c("Total Business Inventories",                      
- "Total Business: Inventories to Sales Ratio",      
- "Manufacturers Inventories",                       
- "Manufacturers Inventories" ,                      
- "Manufacturers: Inventories to Sales Ratio",       
- "Manufacturers: Inventories to Sales Ratio",       
- "Manufacturers Inventories",                       
- "Manufacturers Inventories",                       
- "Manufacturers Sales",                             
- "Manufacturers Sales",                             
- "Manufacturers Sales",                             
- "Manufacturers Sales",                             
- "Retailers Inventories",                           
- "Retailers Inventories" ,                          
- "Retailers: Inventories to Sales Ratio",           
- "Retailers: Inventories to Sales Ratio",           
- "Retailers Inventories",                           
- "Retailers Inventories",                           
- "Retailers Sales",                                 
- "Retailers Sales",                                 
- "Retailers Sales",                                 
- "Retailers Sales",                                 
- "Total Business Inventories",                      
- "Total Business: Inventories to Sales Ratio",      
- "Total Business Inventories",                      
- "Total Business Inventories",                      
- "Total Business Sales",                            
- "Total Business Sales",                            
- "Total Business Sales" ,                           
- "Total Business Sales",                            
- "Merchant Wholesalers Inventories",                
- "Merchant Wholesalers Inventories",                
- "Merchant Wholesalers: Inventories to Sales Ratio",
- "Merchant Wholesalers: Inventories to Sales Ratio",
- "Merchant Wholesalers Inventories",                
- "Merchant Wholesalers Inventories",                
- "Merchant Wholesalers Sales",                      
- "Merchant Wholesalers Sales",                      
- "Merchant Wholesalers Sales",                      
-"Merchant Wholesalers Sales") 
+names(mtis_data) <- c("Total business",
+                      "Total Manufacturers",
+                      "Retail Trade",
+                      "Merchant Wholesalers Sales",
+                      "Total business Inventories",
+                      "Total Manufacturers Inventories",
+                      "Retail Trade",
+                      "Merchant Wholesalers Inventories"
+) 
 
 
 #consumer surveys
@@ -207,128 +176,13 @@ names(conspending_data) <-titles
 rm(titles)
 
 #consumer credit
-#consumer surveys
 conscredit_data <- read.csv("DATA/conscredit.csv")
 rownames(conscredit_data) <- conscredit_data[,1]
 conscredit_data <- conscredit_data[,-1]
-names(conscredit_data) <- c("Total Automobile Credit Outstanding (DISCONTINUED)",                                      
-"Total Automobile Credit Outstanding (DISCONTINUED)",                                      
-"Average Amount Financed for New Car Loans at Finance Companies"   ,                       
- "Average Maturity of New Car Loans at Finance Companies, Amount of Finance Weighted",      
- "Motor Vehicle Loans Owned and Securitized, Flow",                                         
- "Motor Vehicle Loans Owned and Securitized, Flow" ,                                        
- "Nonrevolving Consumer Credit Owned and Securitized, Flow" ,                               
- "Nonrevolving Consumer Credit Owned and Securitized, Flow" ,                               
- "Nonrevolving Consumer Credit Owned and Securitized, Flow" ,                               
- "Nonrevolving Consumer Credit Owned and Securitized, Flow" ,                               
- "Nonrevolving Consumer Loans Owned by Commercial Banks, Flow (DISCONTINUED)" ,             
- "Nonrevolving Consumer Loans Owned by Commercial Banks, Flow (DISCONTINUED)" ,             
- "Nonrevolving Consumer Loans Owned by Credit Unions, Flow" ,                               
- "Nonrevolving Consumer Loans Owned by Credit Unions, Flow"  ,                              
- "Nonrevolving Consumer Loans Owned by Depository Institutions, Flow" ,                     
- "Nonrevolving Consumer Loans Owned by Depository Institutions, Flow" ,                     
- "Nonrevolving Consumer Loans Owned by Nonprofit and Educational Institutions, Flow" ,      
- "Nonrevolving Consumer Loans Owned by Nonprofit and Educational Institutions, Flow" ,      
- "Nonrevolving Consumer Loans Owned by Finance Companies, Flow" ,                           
- "Nonrevolving Consumer Loans Owned by Finance Companies, Flow" ,                           
- "Nonrevolving Consumer Loans Owned by Federal Government, Flow" ,                          
- "Nonrevolving Consumer Loans Owned by Federal Government, Flow",                           
- "Nonrevolving Consumer Loans Owned by Nonfinancial Business, Flow"  ,                      
- "Nonrevolving Consumer Loans Owned by Nonfinancial Business, Flow" ,                       
- "Nonrevolving Consumer Loans Owned by Savings Institutions, Flow (DISCONTINUED)" ,         
- "Nonrevolving Consumer Loans Owned by Savings Institutions, Flow (DISCONTINUED)",          
- "Securitized Consumer Nonrevolving Credit, Flow" ,                                         
- "Securitized Consumer Nonrevolving Credit, Flow" ,                                         
- "Consumer Revolving Credit Owned by Commercial Banks, Flow (DISCONTINUED)",                
- "Consumer Revolving Credit Owned by Commercial Banks, Flow (DISCONTINUED)" ,               
- "Consumer Revolving Credit Owned by Credit Unions, Flow" ,                                 
- "Consumer Revolving Credit Owned by Credit Unions, Flow" ,                                 
- "Consumer Revolving Credit Owned by Depository Institutions, Flow",                        
- "Consumer Revolving Credit Owned by Depository Institutions, Flow",                        
- "Consumer Revolving Credit Owned by Finance Companies, Flow",                              
- "Consumer Revolving Credit Owned by Finance Companies, Flow",                              
- "Consumer Revolving Credit Owned by Nonfinancial Business, Flow",                          
- "Consumer Revolving Credit Owned by Nonfinancial Business, Flow",                          
- "Revolving Consumer Credit Owned and Securitized, Flow" ,                                  
- "Revolving Consumer Credit Owned and Securitized, Flow"  ,                                 
- "Consumer Revolving Credit Owned by Savings Institutions, Flow (DISCONTINUED)" ,           
- "Consumer Revolving Credit Owned by Savings Institutions, Flow (DISCONTINUED)" ,           
- "Securitized Consumer Revolving Credit, Flow"       ,                                      
- "Securitized Consumer Revolving Credit, Flow",                                             
- "Revolving Consumer Credit Owned and Securitized, Flow" ,                                  
- "Revolving Consumer Credit Owned and Securitized, Flow" ,                                  
- "Student Loans Owned and Securitized, Flow" ,                                              
- "Student Loans Owned and Securitized, Flow",                                               
- "Total Consumer Loans Owned by Commercial Banks, Flow (DISCONTINUED)",                     
- "Total Consumer Loans Owned by Commercial Banks, Flow (DISCONTINUED)",                     
- "Total Consumer Loans Owned by Depository Institutions, Flow",                             
- "Total Consumer Loans Owned by Depository Institutions, Flow",                             
- "Total Consumer Loans Owned by Finance Companies, Flow" ,                                  
- "Total Consumer Loans Owned by Finance Companies, Flow" ,                                  
- "Total Consumer Loans Owned by Federal Government, Flow" ,                                 
- "Total Consumer Loans Owned by Federal Government, Flow" ,                                 
- "Total Consumer Loans Owned by Nonprofit and Educational Institutions, Flow",              
- "Total Consumer Loans Owned by Nonprofit and Educational Institutions, Flow",              
- "Total Consumer Loans Owned by Nonfinancial Business, Flow" ,                              
- "Total Consumer Loans Owned by Nonfinancial Business, Flow" ,                              
- "Total Consumer Credit Owned and Securitized, Flow",                                       
- "Total Consumer Credit Owned and Securitized, Flow" ,                                      
- "Total Consumer Loans Owned by Savings Institutions, Flow (DISCONTINUED)",                 
- "Total Consumer Loans Owned by Savings Institutions, Flow (DISCONTINUED)",                 
- "Securitized Total Consumer Loans, Flow",                                                  
- "Securitized Total Consumer Loans, Flow",                                                  
- "Total Consumer Credit Owned and Securitized, Flow",                                       
- "Total Consumer Credit Owned and Securitized, Flow",                                       
- "Total Consumer Loans Owned by Credit Unions, Flow",                                       
- "Total Consumer Loans Owned by Credit Unions, Flow",                                       
- "Motor Vehicle Loans Owned and Securitized, Outstanding",                                  
- "Total Nonrevolving Credit Owned and Securitized, Outstanding",                            
- "Total Nonrevolving Credit Owned and Securitized, Outstanding",                            
- "Total Nonrevolving Consumer Credit Owned and Securitized",                                
- "Nonrevolving Consumer Loans Owned by Commercial Banks, Outstanding (DISCONTINUED)",       
- "Nonrevolving Consumer Loans Owned by Credit Unions, Outstanding",                         
- "Nonrevolving Consumer Loans Owned by Depository Institutions, Outstanding",               
- "Nonrevolving Consumer Loans Owned by Nonprofit and Educational Institutions, Outstanding",
- "Nonrevolving Consumer Loans Owned by Finance Companies, Outstanding",                     
- "Nonrevolving Consumer Loans Owned by the Federal Government, Outstanding",                
- "Nonrevolving Consumer Loans Owned by Nonfinancial Businesses, Outstanding",               
- "Nonrevolving Consumer Loans Owned by Savings Institutions, Outstanding (DISCONTINUED)",   
- "Securitized Consumer Nonrevolving Credit, Outstanding",                                   
- "Total Other Credit Outstanding (DISCONTINUED)",                                           
- "Total Other Credit Outstanding (DISCONTINUED)" ,                                          
- "Consumer Revolving Credit Owned by Commercial Banks, Outstanding (DISCONTINUED)",         
- "Consumer Revolving Credit Owned by Credit Unions, Outstanding",                           
- "Consumer Revolving Credit Owned by Depository Institutions, Outstanding",                 
- "Consumer Revolving Credit Owned by Finance Companies, Outstanding" ,                      
- "Consumer Revolving Credit Owned by Nonfinancial Businesses, Outstanding",                 
- "Total Revolving Credit Owned and Securitized, Outstanding",                               
- "Consumer Revolving Credit Owned by Savings Institutions, Outstanding (DISCONTINUED)",     
- "Securitized Consumer Revolving Credit, Outstanding" ,                                     
- "Total Revolving Credit Owned and Securitized, Outstanding",                               
- "Total Revolving Consumer Credit Owned and Securitized" ,                                  
- "Average Finance Rate of New Car Loans at Finance Companies, Amount of Finance Weighted" , 
- "Finance Rate on Consumer Installment Loans at Commercial Banks, New Autos 60 Month Loan", 
- "Student Loans Owned and Securitized, Outstanding"  ,                                      
- "New Car Average Finance Rate at Auto Finance Companies (DISCONTINUED)",                   
- "Finance Rate on Consumer Installment Loans at Commercial Banks, New Autos 48 Month Loan" ,
- "Commercial Bank Interest Rate on Credit Card Plans, All Accounts" ,                       
- "Commercial Bank Interest Rate on Credit Card Plans, Accounts Assessed Interest" ,         
- "Finance Rate on Personal Loans at Commercial Banks, 24 Month Loan",                       
- "Average Amount Financed for New Car Loans at Auto Finance Companies (DISCONTINUED)" ,     
- "Loan-To-Value Ratio of New Car Loans at Auto Finance Companies (DISCONTINUED)",           
- "Weighted-Average Maturity of New Car Loans at Auto Finance Companies (DISCONTINUED)" ,    
- "Total Consumer Loans Owned by Commercial Banks, Outstanding (DISCONTINUED)",              
- "Total Consumer Loans Owned by Depository Institutions, Outstanding",                      
- "Total Consumer Loans Owned by Finance Companies, Outstanding" ,                           
- "Total Consumer Loans Owned by Federal Government, Outstanding" ,                          
- "Total Consumer Loans Owned by Nonprofit and Educational Institutions",                    
- "Total Consumer Loans Owned by Nonfinancial Businesses, Outstanding",                      
- "Total Consumer Credit Owned and Securitized, Outstanding" ,                               
- "Total Consumer Loans Owned by Savings Institutions, Outstanding (DISCONTINUED)" ,         
- "Securitized Total Consumer Loans, Outstanding" ,                                          
- "Total Consumer Credit Owned and Securitized, Outstanding" ,                               
- "Total Consumer Credit Owned and Securitized",                                             
- "Total Consumer Loans Owned by Credit Unions, Outstanding")
+names(conscredit_data) <- c("Total",
+                            "Revolving",
+                            "Nonrevolving"
+)
 
 #gdp index
 gdpindex_data <- read.csv("DATA/gdp_index.csv")
@@ -497,63 +351,56 @@ names(gdp_data) <- c("Private fixed investment: Residential: Structures",
 cpi_data <- read.csv("DATA/cpi.csv")
 rownames(cpi_data) <- cpi_data[,1]
 cpi_data <- cpi_data[,-1]
-names(cpi_data) <- c("Consumer Price Index for All Urban Consumers: All Items in U.S. City Average" ,                           
- "Consumer Price Index for All Urban Consumers: Food and Beverages in U.S. City Average",                   
- "Consumer Price Index for All Urban Consumers: All Items Less Food and Energy in U.S. City Average",       
- "Consumer Price Index for All Urban Consumers: Medical Care in U.S. City Average",                         
- "Consumer Price Index for All Urban Consumers: Men's and Boys' Apparel in U.S. City Average",              
- "Consumer Price Index for All Urban Consumers: Women's and Girls' Apparel in U.S. City Average",           
- "Consumer Price Index for All Urban Consumers: Cereals and Bakery Products in U.S. City Average",          
- "Consumer Price Index for All Urban Consumers: Personal Care in U.S. City Average",                        
- "Consumer Price Index for All Urban Consumers: Fuels and Utilities in U.S. City Average" ,                 
- "Consumer Price Index for All Urban Consumers: Household Energy in U.S. City Average",                     
- "Consumer Price Index for All Urban Consumers: Medical Care Commodities in U.S. City Average",             
- "Consumer Price Index for All Urban Consumers: Nondurables in U.S. City Average",                          
- "Consumer Price Index for All Urban Consumers: Dairy and Related Products in U.S. City Average",           
- "Consumer Price Index for All Urban Consumers: Rent of Primary Residence in U.S. City Average",            
- "Consumer Price Index for All Urban Consumers: Owners' Equivalent Rent of Residences in U.S. City Average",
- "Consumer Price Index for All Urban Consumers: Energy Services in U.S. City Average",                      
- "Consumer Price Index for All Urban Consumers: Utility (Piped) Gas Service in U.S. City Average",          
- "Consumer Price Index for All Urban Consumers: Video and Audio in U.S. City Average",                      
- "Consumer Price Index for All Urban Consumers: Used Cars and Trucks in U.S. City Average",                 
- "Consumer Price Index for All Urban Consumers: Public Transportation in U.S. City Average")                
+names(cpi_data) <- c("Consumer Price Index for All Urban Consumers: All Items in U.S. City Average",
+                     "Personal Consumption Expenditures Excluding Food and Energy (Chain-Type Price Index) ",
+                     "Personal Consumption Expenditures: Chain-type Price Index "
+                     )                
 
 #ppi
 ppi_data <- read.csv("DATA/ppi.csv")
 rownames(ppi_data) <- ppi_data[,1]
 ppi_data <- ppi_data[,-1]
-names(ppi_data) <-c("Producer Price Index by Industry: Oil and Gas Extraction",                                           
- "Producer Price Index by Industry: Gold Ore and Silver Ore Mining",                                   
- "Producer Price Index by Industry: Crushed and Broken Limestone Mining: Crushed and Broken Limestone",
- "Producer Price Index by Industry: Industrial Sand Mining: Industrial Glass Sand",                    
- "Producer Price Index by Industry: Industrial Sand Mining: Hydraulic Fracturing Sand",                
- "Producer Price Index by Industry: Electric Power Generation: Utilities" ,                            
- "Producer Price Index by Industry: New Industrial Building Construction")   
+names(ppi_data) <-c("Producer Price Index by Commodity: All Commodities",
+                    "Producer Price Index by Industry: Total Manufacturing Industries",
+                    "Producer Price Index by Industry: Transportation and Warehousing Industries ",
+                    "Producer Price Index by Industry: Delivery and Warehouse Industries",
+                    "Producer Price Index by Industry: Total Mining Industries",
+                    "Producer Price Index by Industry: Total Wholesale Trade Industries",
+                    "Producer Price Index by Industry: Transportation Industries",
+                    "Producer Price Index by Industry: Selected Health Care Industries")   
 
 #manufacturers orders, invs and shipments id 95
 manuf_data <-read.csv("DATA/manuf.csv")
 rownames(manuf_data) <-manuf_data[,1]
 manuf_data <- manuf_data[,-1]
-names(manuf_data) <-c("Manufacturers' New Orders: Primary Metals",                                 
-                      "Manufacturers' New Orders: Fabricated Metal Products",                      
-                      "Manufacturers' New Orders: Machinery",                                      
-                       "Manufacturers' New Orders: Other Electronic Component Manufacturing",       
-                       "Manufacturers' New Orders: Computers and Electronic Products" ,             
-                       "Manufacturers' New Orders: Electrical Equipment, Appliances and Components",
-                       "Manufacturers' New Orders: Transportation Equipment" ,                      
-                       "Manufacturers' New Orders: Consumer Durable Goods",                         
-                       "Manufacturers' New Orders: Consumer Goods",                                 
-                       "Manufacturers' New Orders: Durable Goods Excluding Defense",                
-                       "Manufacturers' New Orders: Durable Goods Excluding Transportation" ,        
-                       "Manufacturers' Total Inventories: Durable Goods" ,                          
-                       "Manufacturers' Unfilled Orders: Durable Goods",                             
-                       "Manufacturers' Value of Shipments: Durable Goods",                          
-                       "Manufacturers' New Orders: Total Manufacturing" ,                           
-                       "Manufacturers' Total Inventories: Total Manufacturing",                     
-                       "Manufacturers' Value of Shipments: Total Manufacturing",                    
-                       "Manufacturers' New Orders: Nondefense Capital Goods" ,                      
-                       "Manufacturers' New Orders: Capital Goods",                                  
-                       "Manufacturers' New Orders: Durable Goods",                                 
-                       "Manufacturers' New Orders: Nondefense Capital Goods Excluding Aircraft" )
+names(manuf_data) <-c("Industrial Production: Manufacturing",
+"Producer Price Index by Industry: Total Manufacturing Industries ",
+"New Orders Total Manufacturing",
+"New Orders Exc. Transp",
+"New Orders Excl. Defense")
+
+#unemp general
+unemp_data <-read.csv("DATA/unemp.csv")
+rownames(unemp_data) <-unemp_data[,1]
+unemp_data <- manuf_data[,-1]
+names(unemp_data) <-c("Unemployment Rate",
+"Unemployment Level",
+"Average Weekly Hours of Production and Nonsupervisory Employees, Total Private",
+"Average Hourly Earnings of Production and Nonsupervisory Employees, Total Private"
+)
+
+#jobless claims
+#"All Employees, Total Nonfarm",
+#"Initial Claims",
+#"Continued Claims (Insured Unemployment)",
+#"4-Week Moving Average of Initial Claims"
+
+#"PAYEMS",
+
+#"ICSA",
+#"CCSA",
+#"IC4WSA"
+
+
 
 

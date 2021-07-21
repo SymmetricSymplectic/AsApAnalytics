@@ -101,7 +101,8 @@ database <- list(balanza_data,
                  gdp_data,
                  cpi_data,
                  ppi_data,
-                 manuf_data
+                 manuf_data,
+                 unemp_data
                  )
 
 
