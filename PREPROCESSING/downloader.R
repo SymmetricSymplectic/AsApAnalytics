@@ -793,7 +793,6 @@ rm(df,manuf,params,series)
 if (requireNamespace("purrr", quietly = TRUE)) {
    series <-c("UNRATE",
               "UNEMPLOY",
-
               "AWHNONAG",
               "AHETPI"
               
@@ -818,5 +817,240 @@ if (requireNamespace("purrr", quietly = TRUE)) {
 df <-df %>% pivot_wider(id_cols = "date", names_from = "series_id")
 write.csv(df, "DATA/unemp.csv", row.names = FALSE)
 rm(df,params,series)
+
+
+#seguro de desempleo EEUU
+if (requireNamespace("purrr", quietly = TRUE)) {
+   series <-c("ICSA",
+              "CCSA",
+              "IC4WSA"
+   )
+   library(purrr)
+   purrr::map_dfr(series, fredr)
+   
+   # Using purrr::pmap_dfr() allows you to use varying optional parameters
+   params <- list(
+      series_id = series
+      #,frequency = c("m", "meop", "qeop")
+   )
+   
+   df <- purrr::pmap_dfr(
+      .l = params,
+      .f = ~ fredr(series_id = .x
+                   #, frequency = .y
+      )
+   )
+   
+}
+df <-df %>% pivot_wider(id_cols = "date", names_from = "series_id")
+write.csv(df, "DATA/claims.csv", row.names = FALSE)
+rm(df,params,series)
+
+#personal income
+if (requireNamespace("purrr", quietly = TRUE)) {
+   series <-c("PI",
+              "W209RC1",
+              "A576RC1",
+              "A132RC1",
+              "B202RC1",
+              "B040RC1M027SBEA",
+              "A041RC1",
+              "B042RC1",
+              "A045RC1",
+              "A048RC1",
+                 "PIROA",
+              "PII",
+              "PDI",
+              "PCTR",
+              "A063RC1",
+              "W823RC1",
+              "W825RC1",
+              
+              "B931RC1",
+              "A061RC1",
+              "W055RC1",
+              "DSPI",
+              "A068RC1",
+              "PCE",
+              "B069RC1",
+              "W211RC1Q027SBEA",
+              "PMSAVE",
+              "PSAVERT",
+              
+              "A229RC0",
+              
+              "POPTHM"
+   )
+   library(purrr)
+   purrr::map_dfr(series, fredr)
+   
+   # Using purrr::pmap_dfr() allows you to use varying optional parameters
+   params <- list(
+      series_id = series
+      #,frequency = c("m", "meop", "qeop")
+   )
+   
+   df <- purrr::pmap_dfr(
+      .l = params,
+      .f = ~ fredr(series_id = .x
+                   #, frequency = .y
+      )
+   )
+   
+}
+df <-df %>% pivot_wider(id_cols = "date", names_from = "series_id")
+write.csv(df, "DATA/income.csv", row.names = FALSE)
+rm(df,params,series)
+
+#wholesale trade
+if (requireNamespace("purrr", quietly = TRUE)) {
+   series <-c("S42SMSM144SCEN",
+              "S423SMM144SCEN",
+              "S4231SM144SCEN",
+              "S4232SM144SCEN",
+              "S4233SM144SCEN",
+              "S42343M144SCEN",
+              "S42343M144SCEN",
+              "S4235SM144SCEN",
+              "S4236SM144SCEN",
+              "S4237SM144SCEN",
+              "S4238SM144SCEN",
+              "S4239SM144SCEN",
+              "S4241SM144SCEN",
+              "S4242SM144SCEN",
+              "S4243SM144SCEN",
+              "S4244SM144SCEN",
+              "S4245SM144SCEN",
+              "S4246SM144SCEN",
+              "S4247SM144SCEN",
+              "S4248SM144SCEN",
+              "S4249SM144SCEN",
+              "I42IMSM144SCEN",
+              "I4231IM144SCEN",
+              "I4232IM144SCEN",
+              "I4233IM144SCEN",
+              "I4234IM144SCEN",
+              "I42343M144SCEN",
+              "I4235IM144SCEN",
+              "I4236IM144SCEN",
+              "I4237IM144SCEN",
+              "I4238IM144SCEN",
+              "I4239IM144SCEN",
+              "I4239IM144SCEN",
+              "I4241IM144SCEN",
+              "I4242IM144SCEN",
+              "I4243IM144SCEN",
+              "I4244IM144SCEN",
+              "I4245IM144SCEN",
+                 "I4246IM144SCEN",
+                 "I4247IM144SCEN",
+                 "I4248IM144SCEN",
+                 "I4249IM144SCEN",
+                 "R42IRSM163SCEN",
+                 "R423IRM163SCEN",
+                 "R4231IM163SCEN",
+                 "R4232IM163SCEN",
+                 "R4233IM163SCEN",
+                 "R4234IM163SCEN",
+                 "R42343M163SCEN",
+                 "R4235IM163SCEN",
+                 "R4236IM163SCEN",
+                 "R4237IM163SCEN",
+                 "R4238IM163SCEN",
+                 "R4239IM163SCEN",
+                 "R424IRM163SCEN",
+                 "R4241IM163SCEN",
+                 "R4242IM163SCEN",
+                 "R4243IM163SCEN",
+                 "R4244IM163SCEN",
+                 "R4245IM163SCEN",
+                 "R4246IM163SCEN",
+                 "R4247IM163SCEN",
+                 "R4248IM163SCEN",
+                 "R4249IM163SCEN"
+                 
+   )
+   library(purrr)
+   purrr::map_dfr(series, fredr)
+   
+   # Using purrr::pmap_dfr() allows you to use varying optional parameters
+   params <- list(
+      series_id = series
+      #,frequency = c("m", "meop", "qeop")
+   )
+   
+   df <- purrr::pmap_dfr(
+      .l = params,
+      .f = ~ fredr(series_id = .x
+                   #, frequency = .y
+      )
+   )
+   
+}
+df <-df %>% distinct() %>% pivot_wider(id_cols = "date", names_from = "series_id")
+write.csv(df, "DATA/wholesale.csv", row.names = FALSE)
+rm(df,params,series)
+
+#advance retail
+if (requireNamespace("purrr", quietly = TRUE)) {
+   series <-c("RSAFS",
+              "RSFSXMV"
+   )
+   library(purrr)
+   purrr::map_dfr(series, fredr)
+   
+   # Using purrr::pmap_dfr() allows you to use varying optional parameters
+   params <- list(
+      series_id = series
+      #,frequency = c("m", "meop", "qeop")
+   )
+   
+   df <- purrr::pmap_dfr(
+      .l = params,
+      .f = ~ fredr(series_id = .x
+                   #, frequency = .y
+      )
+   )
+   
+}
+df <-df %>% pivot_wider(id_cols = "date", names_from = "series_id")
+write.csv(df, "DATA/advretail.csv", row.names = FALSE)
+rm(df,params,series)
+
+#ventas autos
+if (requireNamespace("purrr", quietly = TRUE)) {
+   series <-c("LAUTONSA",
+              "LTRUCKNSA",
+              "LTOTALNSA",
+              "TOTALNSA",
+              "LAUTOSA",
+              "LTRUCKSA",
+              "ALTSALES",
+              "TOTALSA"
+   )
+   library(purrr)
+   purrr::map_dfr(series, fredr)
+   
+   # Using purrr::pmap_dfr() allows you to use varying optional parameters
+   params <- list(
+      series_id = series
+      #,frequency = c("m", "meop", "qeop")
+   )
+   
+   df <- purrr::pmap_dfr(
+      .l = params,
+      .f = ~ fredr(series_id = .x
+                   #, frequency = .y
+      )
+   )
+   
+}
+df <-df %>% pivot_wider(id_cols = "date", names_from = "series_id")
+write.csv(df, "DATA/autos.csv", row.names = FALSE)
+rm(df,params,series)
+
+
+
+
 
 

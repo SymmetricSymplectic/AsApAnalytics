@@ -367,7 +367,8 @@ names(ppi_data) <-c("Producer Price Index by Commodity: All Commodities",
                     "Producer Price Index by Industry: Total Mining Industries",
                     "Producer Price Index by Industry: Total Wholesale Trade Industries",
                     "Producer Price Index by Industry: Transportation Industries",
-                    "Producer Price Index by Industry: Selected Health Care Industries")   
+                    "Producer Price Index by Industry: Selected Health Care Industries",
+                    "Total Retail Trade Industries")   
 
 #manufacturers orders, invs and shipments id 95
 manuf_data <-read.csv("DATA/manuf.csv")
@@ -389,18 +390,144 @@ names(unemp_data) <-c("Unemployment Rate",
 "Average Hourly Earnings of Production and Nonsupervisory Employees, Total Private"
 )
 
+
+
 #jobless claims
+claims_data <-read.csv("DATA/claims.csv")
+rownames(claims_data) <-claims_data[,1]
+claims_data <- na.omit(claims_data[,-1])
+names(claims_data) <-c("Initial Claims",
+                      "Continued Claims (Insured Unemployment)",
+                      "4-Week Moving Average of Initial Claims"
+)
 #"All Employees, Total Nonfarm",
-#"Initial Claims",
-#"Continued Claims (Insured Unemployment)",
-#"4-Week Moving Average of Initial Claims"
+#"PAYEMS"
 
-#"PAYEMS",
+#personal income
+income_data <-read.csv("DATA/income.csv")
+rownames(income_data) <-income_data[,1]
+income_data <- na.omit(income_data[,-1])
+names(income_data) <-c("Personal income",
+                       "Compensation of employees, received",
+                       "Wage and salary disbursements",
+                       "Private industries",
+                       "Government",
+                      "Supplements to wages and salaries",
+                       "Proprietors income with inventory valuation and capital consumption adjustments",
+     "Farm",
+     "Nonfarm",
+   "Rental income of persons with capital consumption adjustment",
+   "Personal income receipts on assets",
+     "Personal interest income",
+     "Personal dividend income",
+   "Personal current transfer receipts",
+     "Government social benefits to persons",
+"Social security",
+"Unemployment insurance",
+     "Other current transfer receipts, from business (net)",
+   "Less: Contributions for government social insurance",
+"Less: Personal current taxes",
+"Equals: Disposable personal income",
+"Less: Personal outlays",
+"Personal consumption expenditures",
+  "Personal interest payments",
+ "Personal current transfer payments",
+"Equals: Personal saving",
+  "Personal saving as a percentage of disposable personal income",
+     " Disposable Personal Income: Per capita: Current dollars",
+  "Population (midperiod, thousands)"
+)
 
-#"ICSA",
-#"CCSA",
-#"IC4WSA"
+#wholesale
+wholesale_data <-read.csv("DATA/wholesale.csv")
+rownames(wholesale_data) <-wholesale_data[,1]
+wholesale_data <- na.omit(wholesale_data[,-1])
+names(wholesale_data) <-c("Total Merchant Wholesalers, Except Manufacturers Sales Branches and Offices",
+"Durable Goods",
+"Motor Vehicle & Motor Vehicle Parts & Supplies",
+"Furniture & Home Furnishings",
+"Lumber & Other Construction Materials",
+"Professional & Commercial Equipment & Supplies",
+"Computer & Computer Peripheral Equipment & Software",
+"Metals & Minerals, Except Petroleum",
+"Electrical & Electronic Goods",
+"Hardware, & Plumbing, Heating Equipment, & Supplies",
+"Machinery, Equipment, & Supplies",
+"Miscellaneous Durable Goods",
+"Paper & Paper Products",
+"Drugs & Druggists Sundries",
+"Apparel, Piece Goods, & Notions",
+"Grocery & Related Products",
+"Farm Product Raw Materials",
+"Chemicals & Allied Products",
+"Petroleum & Petroleum Products",
+"Beer, Wine, & Distilled Alcoholic Beverages",
+"Miscellaneous Nondurable Goods",
+"Inventories Total Merchant Wholesalers, Except Manufacturers Sales Branches and Offices",
+"Inventories Motor Vehicle & Motor Vehicle Parts & Supplies",
+"Inventories Furniture & Home Furnishings",
+"Inventories Lumber & Other Construction Materials",
+"Inventories Professional & Commercial Equipment & Supplies",
+"Inventories Computer & Computer Peripheral Equipment & Software",
+"Inventories Metals & Minerals, Except Petroleum",
+"Inventories Electrical & Electronic Goods",
+"Inventories Hardware, & Plumbing, Heating Equipment, & Supplies",
+"Inventories Machinery, Equipment, & Supplies",
+"Inventories Miscellaneous Durable Goods",
+"Inventories Nondurable Goods",
+"Inventories Paper & Paper Products",
+"Inventories Drugs & Druggists Sundries",
+"Inventories Apparel, Piece Goods, & Notions",
+"Inventories Grocery & Related Products",
+"Inventories Farm Product Raw Materials",
+"Inventories Chemicals & Allied Products",
+"Inventories Petroleum & Petroleum Products",
+"Inventories Beer, Wine, & Distilled Alcoholic Beverages",
+"Inventories Miscellaneous Nondurable Goods",
+"Inventories/Sales Ratio Total Merchant Wholesalers, Except Manufacturers Sales Branches and Offices",
+"Inventories/Sales Ratio Durable Goods",
+"Inventories/Sales Ratio Motor Vehicle & Motor Vehicle Parts & Supplies",
+"Inventories/Sales Ratio Furniture & Home Furnishings",
+"Inventories/Sales Ratio Lumber & Other Construction Materials",
+"Inventories/Sales Ratio Professional & Commercial Equipment & Supplies",
+"Inventories/Sales Ratio Computer & Computer Peripheral Equipment & Software",
+"Inventories/Sales Ratio Metals & Minerals, Except Petroleum",
+"Inventories/Sales Ratio Electrical & Electronic Goods",
+"Inventories/Sales Ratio Hardware, & Plumbing, Heating Equipment, & Supplies",
+"Inventories/Sales Ratio Machinery, Equipment, & Supplies",
+"Inventories/Sales Ratio Miscellaneous Durable Goods",
+"Inventories/Sales Ratio Nondurable Goods",
+"Inventories/Sales Ratio Paper & Paper Products",
+"Inventories/Sales Ratio Drugs & Druggists Sundries",
+"Inventories/Sales Ratio Apparel, Piece Goods, & Notions",
+"Inventories/Sales Ratio Grocery & Related Products",
+"Inventories/Sales Ratio Farm Product Raw Materials",
+"Inventories/Sales Ratio Chemicals & Allied Products",
+"Inventories/Sales Ratio Petroleum & Petroleum Products"#,
+#"Inventories/Sales Ratio Beer, Wine, & Distilled Alcoholic Beverages",
+#"Inventories/Sales Ratio Miscellaneous Nondurable Goods"
+)
 
+#advance retail
+advretail_data <-read.csv("DATA/advretail.csv")
+rownames(advretail_data) <-advretail_data[,1]
+advretail_data <- advretail_data[,-1]
+names(advretail_data) <-c("Advance Retail Sales: Retail Trade and Food Services",
+                      " Advance Retail Sales: Retail Trade and Food Services, Excluding Motor Vehicle and Parts Dealers"
+)
 
+#autos
+autos_data <-read.csv("DATA/autos.csv")
+rownames(autos_data) <-autos_data[,1]
+autos_data <- autos_data[,-1]
+names(autos_data) <-c("Autos  -- not seasonally adjusted (Thousands)",
+                      "Light Trucks  -- not seasonally adjusted (Thousands) ",
+                      "Light Total  --not seasonally adjusted (Thousands)",
+                      "Total  -- not seasonally adjusted (Thousands)",
+                      "Autos -- seasonally adjusted at annual rates (Millions)",
+                      "Light Trucks -- seasonally adjusted at annual rates (Millions)",
+                      "Light Total -- seasonally adjusted at annual rates (Millions)",
+                      "Total -- seasonally adjusted at annual rates (Millions)"
+)
 
 

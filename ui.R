@@ -35,7 +35,12 @@ ind_choices <- c("Balanza Comercial" = "1",
                  "Consumer Price Index - 1982-1984=100" = "32",
                  "Producer Price Index - Index Dec 1984=100"= "33",
                  "Manufacturers' New Orders: Durable Goods -Millions of Dollars" = "34",
-                 "Unemployment" = "35"
+                 "Unemployment" = "35",
+                 "Unemployment claims" = "36",
+                 "Personal Income and Consumption" = "37",
+                 "Wholesale Trade" = "38",
+                 "Advance Retail" = "39",
+                 "Car Sales" = "40"
                  )
 
 

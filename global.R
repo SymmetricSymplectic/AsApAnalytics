@@ -102,7 +102,12 @@ database <- list(balanza_data,
                  cpi_data,
                  ppi_data,
                  manuf_data,
-                 unemp_data
+                 unemp_data,
+                 claims_data,
+                 income_data,
+                 wholesale_data,
+                 advretail_data,
+                 autos_data
                  )
 
 
@@ -154,6 +159,8 @@ elapsed_months <- function(end_date, start_date) {
   sd <- as.POSIXlt(start_date)
   12 * (ed$year - sd$year) + (ed$mon - sd$mon)
 }
+
+
 
 
 
