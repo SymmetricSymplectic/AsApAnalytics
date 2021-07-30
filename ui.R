@@ -68,25 +68,26 @@ ui <-fluidPage(
                                     options = list(maxItems = 5)
                         ),
                         actionButton("update", "Mostrar series"),
-                        helpText("El botón muestra al indicador en la base de datos, y 
-                                 permite combinarlo con la base de datos proporcionada con el usuario,
-                                 y con el precio del instrumento de mercado"),
+                        helpText("El botón 'Mostrar series' permite acceder al indicador en la base de datos, 
+                                 así como combinarlo con la base de datos proporcionada con el usuario
+                                 y con el precio del instrumento de mercado en una misma tabla"),
                         
                         #sidebars condicionales dependiendo de qué tabset selecciones
                         conditionalPanel(condition="input.tabselected==1",
                                          #input: seleccionar series para gráficas principales (dinámicas)
                                          uiOutput("selectseries"),
                                          #input: seleccionar instrumento
-                                         helpText("Seleccione un instrumento cotizado en bolsa para agregarlo a la visualización."),
-                                         textInput("symb", "Ticker"),
                                          
+                                         textInput("symb", "Seleccione un instrumento cotizado para agregarlo a la visualización"),
+                                         helpText("Utilizar el ticker de Yahoo Finance"),
                                          dateRangeInput("ydates",
-                                                        "Fechas para el instrumento",
+                                                        "Intervalo de fechas para el instrumento",
                                                         start = "2007-01-01",
                                                         end = as.character(Sys.Date())),
                                          #input: seleccionar serie vs varmensual vs varanual                 
                                          radioButtons("sertype", "Tipo de serie a mostrar:",
-                                                      c("Principal" = "princ", "Variación Periodo a Periodo" = "varmensual", "Variación a 12 periodos"= "varanual")),
+                                                      c("Principal" = "princ", "Variación Periodo a Periodo" = "varmensual", "Variación a 12 periodos"= "varanual",
+                                                        "Variación a 4 periodos"="vartrim")),
                                          #input: seleccionar si usar el primer año común como año base
                                          radioButtons("setbasis", "Convertir a índice con un año base",
                                                       c("No" = "def", "Sí" = "indexed")),
@@ -103,9 +104,13 @@ ui <-fluidPage(
                                                      'text/comma-separated-values',
                                                      '.csv'
                                                    )),
+                                         helpText("Al momento de subir el archivo, es importante que el formato de fechas sea
+                                                  dd/mm/yyyy"),
                                          #radioButtons("separator","Separador: ",choices = c(";",",",":"), selected=";",inline=TRUE),
                                          radioButtons("exceldates", "El archivo utiliza fechas de MS Excel", choices = c("Sí", "No"),
                                                       selected ="Sí", inline = TRUE),
+                                         helpText("Si el archivo se editó en MS Excel, seleccione esta opción para
+                                                  que las fechas de las series se lean correctamente.")
                         ),#fin del tabset condicional para la serie principal
                         
                         conditionalPanel(condition="input.tabselected==2",
@@ -144,8 +149,6 @@ ui <-fluidPage(
                                              textOutput("forecast_descrip"),
                                              br(),
                                              plotlyOutput("dy_arima", height= 750),
-                                             br(),
-                                             br(),
                                              br(),
                                              br(),
                                              plotlyOutput("tsdecomp"),

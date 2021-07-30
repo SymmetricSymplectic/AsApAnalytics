@@ -145,10 +145,12 @@ server <- function(input, output, session){
     )
     varmen <-pch(setbasis)
     varan <- pch(setbasis, lag = 12)
+    vartr<- pch(setbasis, lag = 4)
     seriestype <- switch(input$sertype,
                          princ=setbasis,
                          varmensual = varmen,
-                         varanual = varan
+                         varanual = varan,
+                         vartrim = vartr
     )
     
     equis <- rownames(data)
