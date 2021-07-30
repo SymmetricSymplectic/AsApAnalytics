@@ -89,11 +89,15 @@ server <- function(input, output, session){
   #input condicional: periodos a pronosticar
   fcperiodInput <- reactive({
     switch(input$fcperiod,
+           "4"=4,
            "6"=6,
            "12"=12,
-           "24"=24)
+           "24"=24,
+           "48"=48)
     
   })
+  
+
   
   
   
@@ -160,6 +164,7 @@ server <- function(input, output, session){
              )) %>% 
       layout(legend = list(x = 0.05, y = 0.95)) %>%
       #layout(hovermode = "x unified") %>%
+      #logotipo Asapa
       layout(
         images = list(
           list(source = "https://i.ibb.co/2KDKzhg/logotipo-asapa-min-black.png",
@@ -198,14 +203,7 @@ server <- function(input, output, session){
   
   #texto que describe los modelos arima y arfima
   output$forecast_descrip <- renderText({
-    paste("El modelo ARIMA es una metodología econométrica basada en modelos dinámicos 
-    que utiliza datos de series temporales. La metodología utilizada en los modelos ARIMA 
-          fue inicialmente descrita por Box y Jenkins (1970) en su libro: Análisis de series temporales. 
-          Predicción y control (Time Series Análisis: Forecasting and Control).",
-          
-          "A continuación se muestra un pronóstico, usando un modelo ARIMA convencional, y un modelo ARFIMA que
-          asume que las series consideradas tienen memoria larga.", 
-          sep = "\n" )
+    paste("El pronóstico resultante depende del tipo de modelo que se utilice.")
   })
   
   #generamos la predicción ARIMA/ARFIMA dinámica (update para plotly)
@@ -217,24 +215,36 @@ server <- function(input, output, session){
     freq <- 12/elapsed_months(time(don00)[2],time(don00)[1])
     fit1 <- auto.arima(ts(don00, start= st, frequency = freq ))
     fit2 <- arfima(ts(don00, start= st, frequency = freq ))
+    fit3 <- ets(ts(don00, start= st, frequency = freq ))
     h <- fcperiodInput()
     fc1 <- forecast(fit1, h)
     fc2 <- forecast(fit2, h)
-    plot1 <- plot_forecast(fc1, color = "blue") %>%
+    fc3 <- forecast(fit3, h)
+    forecast_type <- switch(input$fctype,
+                            "ARIMA" = fc1,
+                            "ETS" = fc3,
+                            "ARFIMA" = fc2
+                            )
+    plot <- plot_forecast(forecast_type, color = "blue") %>%
       layout(
         plot_bgcolor='transparent',
         yaxis = list(gridcolor= "#AAAAAA"),
         xaxis = list(gridcolor= "#AAAAAA")
-        ) %>%       
+        ) %>%
+      layout(
+        images = list(
+          list(source = "https://i.ibb.co/2KDKzhg/logotipo-asapa-min-black.png",
+               xref = "paper",
+               yref = "paper",
+               x= 0.15,
+               y= 0.7,
+               sizex = 0.8,
+               sizey = 0.8,
+               #sizing = "stretch",
+               layer = "below",
+               opacity = 0.1
+          ))) %>%
       layout(paper_bgcolor='transparent')
-    plot2 <- plot_forecast(fc2, color = "red") %>%
-      layout(title = paste("Pronóstico ARIMA/ARFIMA de", input$seriesforecast, sep = " "),
-             plot_bgcolor='transparent',
-             yaxis = list(gridcolor= "#AAAAAA"),
-             xaxis = list(gridcolor= "#AAAAAA")
-             ) %>%       
-      layout(paper_bgcolor='transparent')
-    subplot(plot1, plot2, nrows = 2, shareX = TRUE)
   })
   
   #descomposición de la serie analizada (23-01-21)

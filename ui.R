@@ -111,8 +111,11 @@ ui <-fluidPage(
                         conditionalPanel(condition="input.tabselected==2",
                                          #input: seleccionar serie para pronóstico
                                          uiOutput("selectforecast"),
+                                         selectInput("fctype", "Seleccione el tipo de modelo para pronosticar",
+                                                     choices =c("ARIMA","ETS","ARFIMA")),
                                          selectInput("fcperiod", "Seleccione el número de periodos a pronosticar",
-                                                     choices =c("6","12","24"))
+                                                     choices =c("4","6","12","24","48"))
+                                         
                         ), #fin del tabset condicional para pronóstico
                         conditionalPanel(condition="input.tabselected==3",
                                          uiOutput("seriescorr1"),
@@ -141,10 +144,6 @@ ui <-fluidPage(
                                              textOutput("forecast_descrip"),
                                              br(),
                                              plotlyOutput("dy_arima", height= 750),
-                                             br(),
-                                             br(),
-                                             br(),
-                                             br(),
                                              br(),
                                              br(),
                                              br(),
