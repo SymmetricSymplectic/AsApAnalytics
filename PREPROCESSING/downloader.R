@@ -991,10 +991,13 @@ df <-df %>% distinct() %>% pivot_wider(id_cols = "date", names_from = "series_id
 write.csv(df, "DATA/wholesale.csv", row.names = FALSE)
 rm(df,params,series)
 
-#advance retail
+# retail
 if (requireNamespace("purrr", quietly = TRUE)) {
-   series <-c("RSAFS",
-              "RSFSXMV"
+   series <-c("MRTSSM44X72USS",
+              "MRTSSM44Y72USS",
+              "MRTSSM441USS",
+              "MRTSSM441XUSS",
+              "MRTSSM4413USS"
    )
    library(purrr)
    purrr::map_dfr(series, fredr)

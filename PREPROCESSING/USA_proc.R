@@ -512,8 +512,11 @@ names(wholesale_data) <-c("Total Merchant Wholesalers, Except Manufacturers Sale
 advretail_data <-read.csv("DATA/advretail.csv")
 rownames(advretail_data) <-advretail_data[,1]
 advretail_data <- advretail_data[,-1]
-names(advretail_data) <-c("Advance Retail Sales: Retail Trade and Food Services",
-                      " Advance Retail Sales: Retail Trade and Food Services, Excluding Motor Vehicle and Parts Dealers"
+names(advretail_data) <-c("Retail Trade and Food Services",
+                      "Retail Trade and Food Services, excluding Auto",
+                      "Motor Vehicle and Parts Dealers",
+                      "Auto and Other Motor Vehicles",
+                      "Automotive Parts, Acc., and Tire Stores"
 )
 
 #autos
