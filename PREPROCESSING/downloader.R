@@ -24,8 +24,9 @@ library(httr)
 library(jsonlite)
 library(rjson)
 library(readr)
+library(dplyr)
 
-token_inegi <- "ce75aa7e-f3e7-f04e-9ab7-77105d78f178"
+token_inegi <- "e6198ee1-4481-4c00-835c-920d299e0204"
 
 #actind
 #series <- c(496326,496327,496328,496329,496330,496331,496332,496333,496334,496335,
