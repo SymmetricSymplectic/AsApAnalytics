@@ -508,16 +508,38 @@ names(wholesale_data) <-c("Total Merchant Wholesalers, Except Manufacturers Sale
 #"Inventories/Sales Ratio Miscellaneous Nondurable Goods"
 )
 
-#advance retail
-advretail_data <-read.csv("DATA/advretail.csv")
-rownames(advretail_data) <-advretail_data[,1]
-advretail_data <- advretail_data[,-1]
-names(advretail_data) <-c("Retail Trade and Food Services",
+#retail
+retail_data <-read.csv("DATA/retail.csv")
+rownames(retail_data) <-retail_data[,1]
+retail_data <- retail_data[,-1]
+names(retail_data) <-c("Retail Trade and Food Services",
                       "Retail Trade and Food Services, excluding Auto",
                       "Motor Vehicle and Parts Dealers",
                       "Auto and Other Motor Vehicles",
                       "Automotive Parts, Acc., and Tire Stores"
 )
+
+#retail
+retail_data <-read.csv("DATA/retail.csv")
+rownames(retail_data) <-retail_data[,1]
+retail_data <- retail_data[,-1]
+names(retail_data) <-c("Retail Trade and Food Services",
+                       "Retail Trade and Food Services, excluding Auto",
+                       "Motor Vehicle and Parts Dealers",
+                       "Auto and Other Motor Vehicles",
+                       "Automotive Parts, Acc., and Tire Stores"
+)
+
+#adv retail
+advretail_data <-read.csv("DATA/advretail.csv")
+rownames(advretail_data) <-advretail_data[,1]
+advretail_data <- advretail_data[,-1]
+names(advretail_data) <-c("Advance Retail Trade and Food Services",
+                       "Advance Retail Trade and Food Services, excluding Auto",
+                       "Advance Motor Vehicle and Parts Dealers",
+                       "Advance Auto and Other Motor Vehicles"
+)
+
 
 #autos
 autos_data <-read.csv("DATA/autos.csv")

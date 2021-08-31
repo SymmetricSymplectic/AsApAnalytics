@@ -106,6 +106,7 @@ database <- list(balanza_data,
                  claims_data,
                  income_data,
                  wholesale_data,
+                 retail_data,
                  advretail_data,
                  autos_data
                  )
@@ -138,6 +139,7 @@ baseperiod_function <- function(x, inputyear){
 #percentchange function for ts
 pch <- function(data, lag = 1) {
   # argument verification
+  data <- as.numeric(data)
   # return percent change
   (data / lag(data, lag) - 1)*100
 }

@@ -39,8 +39,9 @@ ind_choices <- c("Balanza Comercial" = "1",
                  "Unemployment claims" = "36",
                  "Personal Income and Consumption" = "37",
                  "Wholesale Trade" = "38",
-                 "Advance Retail" = "39",
-                 "Car Sales" = "40"
+                 "Retail" = "39",
+                 "Advance Retail" = 40,
+                 "Car Sales" = "41"
                  )
 
 

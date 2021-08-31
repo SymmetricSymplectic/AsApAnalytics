@@ -1018,8 +1018,41 @@ if (requireNamespace("purrr", quietly = TRUE)) {
    
 }
 df <-df %>% pivot_wider(id_cols = "date", names_from = "series_id")
+write.csv(df, "DATA/retail.csv", row.names = FALSE)
+rm(df,params,series)
+
+
+# adv retail
+if (requireNamespace("purrr", quietly = TRUE)) {
+   series <-c("RSAFS",
+              "RSFSXMV",
+              "RSMVPD",
+              "RSAOMV"
+   )
+   library(purrr)
+   purrr::map_dfr(series, fredr)
+   
+   # Using purrr::pmap_dfr() allows you to use varying optional parameters
+   params <- list(
+      series_id = series
+      #,frequency = c("m", "meop", "qeop")
+   )
+   
+   df <- purrr::pmap_dfr(
+      .l = params,
+      .f = ~ fredr(series_id = .x
+                   #, frequency = .y
+      )
+   )
+   
+}
+df <-df %>% pivot_wider(id_cols = "date", names_from = "series_id")
 write.csv(df, "DATA/advretail.csv", row.names = FALSE)
 rm(df,params,series)
+
+
+
+
 
 #ventas autos
 if (requireNamespace("purrr", quietly = TRUE)) {
