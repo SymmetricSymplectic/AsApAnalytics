@@ -118,10 +118,10 @@ database <- list(balanza_data,
 
 # Init DB using credentials data
 credentials <- data.frame(
-  user = c("Salvador", "Felix"),
-  password = c("asapa", "admin"),
+  user = c("Salvador", "Felix", "Gabriel", "Graciela", "Erica"),
+  password = c("asapa", "admin","d3G0c1YbhT", "gLbcyTUTe2", "i6dH7J3Z4d"),
   # password will automatically be hashed
-  admin = c(FALSE, TRUE),
+  admin = c(FALSE, TRUE, FALSE, FALSE, FALSE),
   stringsAsFactors = FALSE
 )
 
