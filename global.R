@@ -108,7 +108,8 @@ database <- list(balanza_data,
                  wholesale_data,
                  retail_data,
                  advretail_data,
-                 autos_data
+                 autos_data,
+                 cpi_int_data
                  )
 
 

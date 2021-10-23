@@ -41,7 +41,8 @@ ind_choices <- c("Balanza Comercial" = "1",
                  "Wholesale Trade" = "38",
                  "Retail" = "39",
                  "Advance Retail" = 40,
-                 "Car Sales" = "41"
+                 "Car Sales" = "41",
+                 "Consumer Price Indexes - International" = "42"
                  )
 
 

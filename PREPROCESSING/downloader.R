@@ -1086,6 +1086,39 @@ df <-df %>% pivot_wider(id_cols = "date", names_from = "series_id")
 write.csv(df, "DATA/autos.csv", row.names = FALSE)
 rm(df,params,series)
 
+#cpi international
+if (requireNamespace("purrr", quietly = TRUE)) {
+   series <-c("CHNCPIALLMINMEI",
+              "USACPIALLMINMEI",
+              "JPNCPIALLMINMEI",
+              "GBRCPIALLMINMEI",
+              "INDCPIALLMINMEI",
+              "DEUCPIALLMINMEI",
+              "BRACPIALLMINMEI",
+              "FRACPIALLMINMEI",
+              "MEXCPIALLMINMEI",
+              "RUSCPIALLMINMEI"
+   )
+   library(purrr)
+   purrr::map_dfr(series, fredr)
+   
+   # Using purrr::pmap_dfr() allows you to use varying optional parameters
+   params <- list(
+      series_id = series
+      #,frequency = c("m", "meop", "qeop")
+   )
+   
+   df <- purrr::pmap_dfr(
+      .l = params,
+      .f = ~ fredr(series_id = .x
+                   #, frequency = .y
+      )
+   )
+   
+}
+df <-df %>% pivot_wider(id_cols = "date", names_from = "series_id")
+write.csv(df, "DATA/cpi_int.csv", row.names = FALSE)
+rm(df,params,series)
 
 
 

@@ -555,4 +555,21 @@ names(autos_data) <-c("Autos  -- not seasonally adjusted (Thousands)",
                       "Total -- seasonally adjusted at annual rates (Millions)"
 )
 
+#cpi int
+
+cpi_int_data <-read.csv("DATA/cpi_int.csv")
+rownames(cpi_int_data) <-cpi_int_data[,1]
+cpi_int_data <- cpi_int_data[,-1]
+names(cpi_int_data) <-c("China",
+                      "USA",
+                      "Japan",
+                      "United Kingdom",
+                      "India",
+                      "Germany",
+                      "Brazil",
+                      "France",
+                      "Mexico",
+                      "Russian Federation"
+)
+
 
