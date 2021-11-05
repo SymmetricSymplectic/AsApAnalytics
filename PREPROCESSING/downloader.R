@@ -675,7 +675,35 @@ rm(df,gdp_index,params,series)
 #gdp dollars adjusted
 gdp <- fredr_release_series(release_id = 53)
 if (requireNamespace("purrr", quietly = TRUE)) {
-   series <-gdp$id[which (gdp$units == "Billions of Dollars"& gdp$seasonal_adjustment_short =="SAAR"  )]
+   series <-c(
+      "GDPC1",
+      "PCECC96",
+      "DGDSRX1Q020SBEA",
+      "PCDGCC96",
+      "PCNDGC96",
+      "PCESVC96",
+      "GPDIC1",
+      "FPIC1",
+      "PNFIC1",
+      "B009RX1Q020SBEA",
+      "Y033RX1Q020SBEA",
+      "Y001RX1Q020SBEA",
+      "PRFIC1",
+      "CBIC1",
+      "NETEXC",
+      "EXPGSC1",
+      "A253RX1Q020SBEA",
+      "A646RX1Q020SBEA",
+      "IMPGSC1",
+      "A255RX1Q020SBEA",
+      "B656RX1Q020SBEA",
+      "GCEC1",
+      "FGCEC1",
+      "A824RX1Q020SBEA",
+      "A825RX1Q020SBEA",
+      "SLCEC1",
+      "A960RX1Q020SBEA"
+   )
    library(purrr)
    purrr::map_dfr(series, fredr)
    
