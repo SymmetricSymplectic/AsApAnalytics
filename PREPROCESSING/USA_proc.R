@@ -283,7 +283,8 @@ names(gdp_data) <- c("Gross domestic product",
                      "National defense",
                      "Nondefense",
                      "State and local",
-                     "Residual")
+                     "Residual"
+                    )
                      
 
 #cpi
@@ -322,7 +323,7 @@ names(manuf_data) <-c("Industrial Production: Manufacturing",
 #unemp general
 unemp_data <-read.csv("DATA/unemp.csv")
 rownames(unemp_data) <-unemp_data[,1]
-unemp_data <- manuf_data[,-1]
+unemp_data <- unemp_data[,-1]
 names(unemp_data) <-c("Unemployment Rate",
 "Unemployment Level",
 "Average Weekly Hours of Production and Nonsupervisory Employees, Total Private",
