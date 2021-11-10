@@ -45,10 +45,10 @@ library(RMySQL)
 #                    dbname='SisAnaDB', 
 #                    host='143.198.144.181')
 asapadb_local = dbConnect(MySQL(), 
-                          user='felix', 
-                          password='admin', 
+                          user='root', 
+                          password='password', 
                           dbname='SisAnaDB',
-                          host='143.198.144.181'
+                          host='localhost'
                           )
 
 #source("PREPROCESSING/balanza_proc.R", local = TRUE)
