@@ -48,8 +48,9 @@ asapadb_local = dbConnect(MySQL(),
                           user='root', 
                           password='password', 
                           dbname='SisAnaDB', 
-                          host='127.0.0.1',
-                          port = 3306)
+                          host='localhost',
+                          unixsocket='/var/run/mysqld/mysqld.sock' 
+                          )
 
 #source("PREPROCESSING/balanza_proc.R", local = TRUE)
 balanza_data <-dbReadTable(asapadb_local, "balanza_comercial")
