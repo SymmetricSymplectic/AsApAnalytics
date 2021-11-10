@@ -13,6 +13,6 @@ names_balanza <- c("Exportaciones totales FOB",
                    "Saldo Total",
                    "Saldo sin exportaciones petroleras",
                    "Saldo productos petroleros",
-                   "Saldo productos no petroleros")
+                  "Saldo productos no petroleros")
 colnames(balanza_data) <-names_balanza
 rm(names_balanza)
