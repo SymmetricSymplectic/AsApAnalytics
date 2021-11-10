@@ -47,9 +47,7 @@ asapadb_remote = dbConnect(MySQL(),
 asapadb_local = dbConnect(MySQL(), 
                           user='root', 
                           password='password', 
-                          dbname='SisAnaDB', 
-                          host='143.198.144.181',
-                          port = 3306 
+                          dbname='SisAnaDB'
                           )
 
 #source("PREPROCESSING/balanza_proc.R", local = TRUE)
