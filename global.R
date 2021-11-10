@@ -48,8 +48,7 @@ asapadb_local = dbConnect(MySQL(),
                           user='felix', 
                           password='admin', 
                           dbname='SisAnaDB',
-                          host='localhost',
-                          unixsocket='/var/run/mysqld/mysqld.sock' 
+                          host='localhost'
                           )
 
 #source("PREPROCESSING/balanza_proc.R", local = TRUE)
