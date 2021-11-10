@@ -1,15 +1,15 @@
 library(RMySQL)
 
-asapadb_remote = dbConnect(MySQL(), 
+asapadb_remote = dbConnect(MySQL(),  #remote is to be used for dbms
                            user='felix', 
                            password='admin', 
                            dbname='SisAnaDB', 
                            host='143.198.144.181')
-asapadb_local = dbConnect(MySQL(), 
-                           user='root', 
-                           password='password', 
-                           dbname='SisAnaDB', 
-                           host='localhost')
+#asapadb_local = dbConnect(MySQL(),  #local is for locally hosted shiny and other apps
+#                           user='root', 
+#                           password='password', 
+#                           dbname='SisAnaDB', 
+#                           host='localhost')
 
 tables <- dbListTables(asapadb)
 
@@ -121,6 +121,4 @@ database <- list(balanza_data,
 )
 
 
-dbWriteTable(asapadb, "balanza_comercial", balanza_data, row.names = TRUE ) 
 
-lapply(database, dbWriteTable(),row.names=TRUE)

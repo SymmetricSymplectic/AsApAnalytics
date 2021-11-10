@@ -1,3 +1,12 @@
+asapadb_remote = dbConnect(MySQL(),    #only for felix testing of remote connection to db
+                    user='felix', 
+                    password='admin', 
+                    dbname='SisAnaDB', 
+                    host='143.198.144.181')
+
+
+
+
 #the downloader
 #actividad industrial
 actind_url <- "https://www.inegi.org.mx/contenidos/temas/economia/cn/imai/tabulados/ori/IMAI_1.xlsx"
@@ -758,15 +767,9 @@ rm(df,cpi,params,series)
 #ppi
 ppi <- fredr_release_series(release_id = 46)
 if (requireNamespace("purrr", quietly = TRUE)) {
-   series <-c("PPIACO",
-              "PCUOMFGOMFG",
-              "PCUATRNWRATRNWR",
-              "PCUADLVWRADLVWR",
-              "PCUOMINOMIN",
-              "PCUAWHLTRAWHLTR",
-              "PCUATRANSATRANS",
-              "PCUASHCASHC",
-              "PCUARETTRARETTR")
+   series <-c("WPSFD49207",
+              "WPUFD4131",
+              "PPIFIS")
    library(purrr)
    purrr::map_dfr(series, fredr)
    

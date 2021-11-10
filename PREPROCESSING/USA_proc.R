@@ -297,18 +297,15 @@ names(cpi_data) <- c("Consumer Price Index for All Urban Consumers: All Items in
                      )                
 
 #ppi
-ppi_data <- read.csv("DATA/ppi.csv")
-rownames(ppi_data) <- ppi_data[,1]
-ppi_data <- ppi_data[,-1]
-names(ppi_data) <-c("Producer Price Index by Commodity: All Commodities",
-                    "Producer Price Index by Industry: Total Manufacturing Industries",
-                    "Producer Price Index by Industry: Transportation and Warehousing Industries ",
-                    "Producer Price Index by Industry: Delivery and Warehouse Industries",
-                    "Producer Price Index by Industry: Total Mining Industries",
-                    "Producer Price Index by Industry: Total Wholesale Trade Industries",
-                    "Producer Price Index by Industry: Transportation Industries",
-                    "Producer Price Index by Industry: Selected Health Care Industries",
-                    "Total Retail Trade Industries")   
+#ppi_data <- read.csv("DATA/ppi.csv")
+#rownames(ppi_data) <- ppi_data[,1]
+#ppi_data <- ppi_data[,-1]
+#names(ppi_data) <-c("PPI by Commodity: Final Demand: Finished Goods",
+#                    "PPI by Commodity: Final Demand: Finished Goods Less Foods and Energy",
+#                    "PPI by Commodity: Final Demand")
+#dbWriteTable(asapadb_remote, "ppi", df, row.names = TRUE) 
+ppi_data <-dbReadTable(asapadb_local, "ppi")
+
 
 #manufacturers orders, invs and shipments id 95
 manuf_data <-read.csv("DATA/manuf.csv")

@@ -39,7 +39,7 @@ library(quantmod)
 #gestion db
 library(RMySQL)
 
-#asapadb_remote = dbConnect(MySQL(), 
+#asapadb_remote = dbConnect(MySQL(),    #only for felix testing of remote connection to db
 #                    user='felix', 
 #                    password='admin', 
 #                    dbname='SisAnaDB', 
