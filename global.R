@@ -39,11 +39,11 @@ library(quantmod)
 #gestion db
 library(RMySQL)
 
-asapadb_remote = dbConnect(MySQL(), 
-                    user='felix', 
-                    password='admin', 
-                    dbname='SisAnaDB', 
-                    host='143.198.144.181')
+#asapadb_remote = dbConnect(MySQL(), 
+#                    user='felix', 
+#                    password='admin', 
+#                    dbname='SisAnaDB', 
+#                    host='143.198.144.181')
 asapadb_local = dbConnect(MySQL(), 
                           user='felix', 
                           password='admin', 
