@@ -48,7 +48,7 @@ asapadb_local = dbConnect(MySQL(),
                           user='root', 
                           password='password', 
                           dbname='SisAnaDB', 
-                          host='127.0.0.1',
+                          host='143.198.144.181',
                           port = 3306 
                           )
 
