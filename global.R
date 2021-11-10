@@ -45,8 +45,8 @@ asapadb_remote = dbConnect(MySQL(),
                     dbname='SisAnaDB', 
                     host='143.198.144.181')
 asapadb_local = dbConnect(MySQL(), 
-                          user='root', 
-                          password='password', 
+                          user='felix', 
+                          password='admin', 
                           dbname='SisAnaDB'
                           )
 
