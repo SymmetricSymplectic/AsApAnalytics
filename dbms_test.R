@@ -11,7 +11,7 @@ asapadb_remote = dbConnect(MySQL(),  #remote is to be used for dbms
 #                           dbname='SisAnaDB', 
 #                           host='localhost')
 
-tables <- dbListTables(asapadb)
+tables <- dbListTables(asapadb_remote)
 
 
 library(shiny)

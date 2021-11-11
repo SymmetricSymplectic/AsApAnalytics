@@ -740,7 +740,7 @@ cpi <- fredr_release_series(release_id = 10)
 if (requireNamespace("purrr", quietly = TRUE)) {
    series <-c(
       "CPIAUCSL",
-      "PCEPILFE",
+      "CPILFESL",
       "PCEPI"
    )
    library(purrr)
