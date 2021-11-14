@@ -51,8 +51,8 @@ asapadb_local = dbConnect(MySQL(),
                           host='localhost'
                           )
 
-#source("PREPROCESSING/balanza_proc.R", local = TRUE)
-balanza_data <-dbReadTable(asapadb_local, "balanza_comercial")
+source("PREPROCESSING/balanza_proc.R", local = TRUE)
+#balanza_data <-dbReadTable(asapadb_local, "balanza_comercial")
 
 
 source("PREPROCESSING/igae_proc.R", local = TRUE)
