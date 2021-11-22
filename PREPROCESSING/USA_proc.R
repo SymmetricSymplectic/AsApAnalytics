@@ -511,4 +511,16 @@ names(cpi_int_data) <-c("China",
                       "Russian Federation"
 )
 
+#import export
+
+importexport_data <- read_excel("DATA/importexport.xlsx")
+importexport_data <- as.data.frame(importexport_data)
+rownames(importexport_data) <- importexport_data[,1]
+importexport_data <-importexport_data[,-1]
+names(importexport_data) <- c("Exp - All Commodities",
+                              "Exp - Agricultural",
+                              "Exp - non Agricultural",
+                              "Imp - All Commodities",
+                              "Imp - Fuels And Lubric",
+                              "Imp - All w/o Fuel")
 

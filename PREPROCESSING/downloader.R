@@ -886,7 +886,7 @@ if (requireNamespace("purrr", quietly = TRUE)) {
               "A132RC1",
               "B202RC1",
               "B040RC1M027SBEA",
-              "A041RC1",
+                 "A041RC1",
               "B042RC1",
               "A045RC1",
               "A048RC1",
@@ -905,7 +905,7 @@ if (requireNamespace("purrr", quietly = TRUE)) {
               "A068RC1",
               "PCE",
               "B069RC1",
-              "W211RC1Q027SBEA",
+              "W875RX1",
               "PMSAVE",
               "PSAVERT",
               

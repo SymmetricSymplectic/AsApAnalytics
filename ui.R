@@ -42,7 +42,8 @@ ind_choices <- c("Balanza Comercial" = "1",
                  "Retail" = "39",
                  "Advance Retail" = 40,
                  "Car Sales" = "41",
-                 "Consumer Price Indexes - International" = "42"
+                 "Consumer Price Indexes - International" = "42",
+                 "Import/Export Price Indexes" = "43"
                  )
 
 

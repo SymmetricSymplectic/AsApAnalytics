@@ -44,12 +44,12 @@ library(RMySQL)
 #                    password='admin', 
 #                    dbname='SisAnaDB', 
 #                    host='143.198.144.181')
-asapadb_local = dbConnect(MySQL(), 
-                          user='root', 
-                          password='password', 
-                          dbname='SisAnaDB',
-                          host='localhost'
-                          )
+#asapadb_local = dbConnect(MySQL(), 
+#                          user='root', 
+#                          password='password', 
+#                          dbname='SisAnaDB',
+#                          host='localhost'
+#                          )
 
 source("PREPROCESSING/balanza_proc.R", local = TRUE)
 #balanza_data <-dbReadTable(asapadb_local, "balanza_comercial")
@@ -126,7 +126,8 @@ database <- list(balanza_data,
                  retail_data,
                  advretail_data,
                  autos_data,
-                 cpi_int_data
+                 cpi_int_data,
+                 importexport_data
                  )
 
 
