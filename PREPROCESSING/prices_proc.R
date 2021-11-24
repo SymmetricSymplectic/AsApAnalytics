@@ -42,6 +42,11 @@ usa_emisoras_data <- usa_emisoras_data[,-1]
 
 usa_emisoras_mxn_data <- usa_emisoras_data*divisas_data$MXN.X
 
+#indices
+
+indices_data <-read.csv("DATA/indices.csv")
+rownames(indices_data) <-indices_data[,1]
+indices_data <- indices_data[,-1]
 
 
 

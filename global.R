@@ -145,9 +145,12 @@ database <- list(balanza_data,
                  bmv_usd_data,
                  usa_emisoras_data,
                  usa_emisoras_mxn_data,
+                 indices_data,
                  gissa_mxn,
                  gissa_usd,
-                 gissa_mlt
+                 gissa_mlt,
+                 gissa_acum,
+                 gissa_acum_usd
                  )
 
 

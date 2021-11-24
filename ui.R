@@ -50,9 +50,12 @@ ind_choices <- c("Balanza Comercial" = "1",
                  "Emisoras BMV en USD" = "47",
                  "Emisoras USA" = "48",
                  "Emisoras USA en MXN" = "49",
-                 "GIS - Datos por Accion (MXN)" = "50",
-                 "GIS - Datos por Accion (USD)" = "51",
-                 "GIS - Multiplos" = "52"
+                 "Indices Bursatiles" = "50",
+                 "GIS - Datos por Accion (MXN)" = "51",
+                 "GIS - Datos por Accion (USD)" = "52",
+                 "GIS - Multiplos" = "53",
+                 "GIS - Edo Fin Acum (MXN)" = "54",
+                 "GIS - Edo Fin Acum (USD)" = "55"
                  )
 
 
