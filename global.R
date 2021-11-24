@@ -150,7 +150,14 @@ database <- list(balanza_data,
                  gissa_usd,
                  gissa_mlt,
                  gissa_acum,
-                 gissa_acum_usd
+                 gissa_acum_usd,
+                 gissa_trim,
+                 gissa_trim_usd,
+                 gissa_udm,
+                 gissa_udm_usd,
+                 gissa_raz,
+                 gissa_raz_usd
+                 
                  )
 
 

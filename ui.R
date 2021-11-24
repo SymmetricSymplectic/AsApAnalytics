@@ -55,7 +55,13 @@ ind_choices <- c("Balanza Comercial" = "1",
                  "GIS - Datos por Accion (USD)" = "52",
                  "GIS - Multiplos" = "53",
                  "GIS - Edo Fin Acum (MXN)" = "54",
-                 "GIS - Edo Fin Acum (USD)" = "55"
+                 "GIS - Edo Fin Acum (USD)" = "55",
+                 "GIS - Trim (MXN)" = "56",
+                 "GIS - Trim (USD)" = "57",
+                 "GIS - UDM (MXN)" = "58",
+                 "GIS - UDM (USD)" = "59",
+                 "GIS - Razones Fin (MXN)" = "60",
+                 "GIS - Razones Fin (USD)" = "61"
                  )
 
 
