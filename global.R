@@ -51,6 +51,14 @@ library(RMySQL)
 #                          host='localhost'
 #                          )
 
+#función para unir df
+MyMerge <- function(x, y){
+  df <- merge(x, y, by= "Date", all.x= TRUE, all.y= TRUE)
+  return(df)
+}
+
+
+
 source("PREPROCESSING/balanza_proc.R", local = TRUE)
 #balanza_data <-dbReadTable(asapadb_local, "balanza_comercial")
 
@@ -79,6 +87,9 @@ source("PREPROCESSING/des_proc.R", local = TRUE)
 source("PREPROCESSING/construc_proc.R", local = TRUE)
 source("PREPROCESSING/automot_proc.R", local = TRUE)
 source("PREPROCESSING/USA_proc.R", local = TRUE)
+source("PREPROCESSING/analtec_proc.R", local = TRUE)
+source("PREPROCESSING/prices_proc.R", local = TRUE)
+
 
 
 
@@ -127,7 +138,16 @@ database <- list(balanza_data,
                  advretail_data,
                  autos_data,
                  cpi_int_data,
-                 importexport_data
+                 importexport_data,
+                 energy_data,
+                 bmv_data,
+                 divisas_data,
+                 bmv_usd_data,
+                 usa_emisoras_data,
+                 usa_emisoras_mxn_data,
+                 gissa_mxn,
+                 gissa_usd,
+                 gissa_mlt
                  )
 
 
@@ -180,7 +200,6 @@ elapsed_months <- function(end_date, start_date) {
   sd <- as.POSIXlt(start_date)
   12 * (ed$year - sd$year) + (ed$mon - sd$mon)
 }
-
 
 
 

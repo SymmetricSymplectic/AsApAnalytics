@@ -43,7 +43,16 @@ ind_choices <- c("Balanza Comercial" = "1",
                  "Advance Retail" = 40,
                  "Car Sales" = "41",
                  "Consumer Price Indexes - International" = "42",
-                 "Import/Export Price Indexes" = "43"
+                 "Import/Export Price Indexes" = "43",
+                 "Energy Commodities" = "44",
+                 "Emisoras BMV" = "45",
+                 "Divisas" = "46",
+                 "Emisoras BMV en USD" = "47",
+                 "Emisoras USA" = "48",
+                 "Emisoras USA en MXN" = "49",
+                 "GIS - Datos por Accion (MXN)" = "50",
+                 "GIS - Datos por Accion (USD)" = "51",
+                 "GIS - Multiplos" = "52"
                  )
 
 
