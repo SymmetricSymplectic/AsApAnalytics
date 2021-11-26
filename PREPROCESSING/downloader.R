@@ -1,8 +1,8 @@
-asapadb_remote = dbConnect(MySQL(),    #only for felix testing of remote connection to db
-                    user='felix', 
-                    password='admin', 
-                    dbname='SisAnaDB', 
-                    host='143.198.144.181')
+#asapadb_remote = dbConnect(MySQL(),    #only for felix testing of remote connection to db
+#                    user='felix', 
+#                    password='admin', 
+#                    dbname='SisAnaDB', 
+#                    host='143.198.144.181')
 
 
 
