@@ -1151,7 +1151,46 @@ df <-df %>% pivot_wider(id_cols = "date", names_from = "series_id")
 write.csv(df, "DATA/cpi_int.csv", row.names = FALSE)
 rm(df,params,series)
 
+#quandl data
+library(Quandl)
 
+Quandl.api_key("AHqoaD3sqFSfLxKBu_pF")
+
+pmi_comp <- Quandl("ISM/MAN_PMI", type = "xts")
+new_ord <- Quandl("ISM/MAN_NEWORDERS", type = "xts")[,5]
+prod <- Quandl("ISM/MAN_PROD", type = "xts")[,5]
+employ <- Quandl("ISM/MAN_EMPL", type = "xts")[,5]
+deliv <- Quandl("ISM/MAN_DELIV", type = "xts")[,5]
+maninv <-Quandl("ISM/MAN_INVENT", type = "xts")[,5]
+custinv <- Quandl("ISM/MAN_CUSTINV", type = "xts")[,5]
+prices <- Quandl("ISM/MAN_PRICES", type = "xts")[,5]
+backlog <- Quandl("ISM/MAN_BACKLOG", type = "xts")[,5]
+exports <- Quandl("ISM/MAN_EXPORTS", type = "xts")[,5]
+imports <- Quandl("ISM/MAN_IMPORTS", type = "xts")[,5]
+
+ism <- cbind(pmi_comp, 
+      new_ord, 
+      prod,
+      employ,
+      deliv, 
+      maninv, 
+      custinv,
+      prices, 
+      backlog, 
+      exports, 
+      imports)
+colnames(ism) <- c("pmi_comp", 
+                   "new_ord", 
+                   "prod",
+                   "employ",
+                   "deliv", 
+                   "maninv", 
+                   "custinv",
+                   "prices", 
+                   "backlog", 
+                   "exports", 
+                   "imports")
+write.csv(ism, "DATA/ism.csv", row.names = as.Date(index(ism)))
 
 
 

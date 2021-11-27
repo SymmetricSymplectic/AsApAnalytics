@@ -524,3 +524,19 @@ names(importexport_data) <- c("Exp - All Commodities",
                               "Imp - Fuels And Lubric",
                               "Imp - All w/o Fuel")
 
+#ism
+ism_data <-read.csv("DATA/ism.csv")
+rownames(ism_data) <-ism_data[,1]
+ism_data <- ism_data[,-1]
+names(ism_data) <-c("PMI", 
+                    "New Orders", 
+                    "Production",
+                    "Employment",
+                    "Supp. Deliveries", 
+                    "Man. Inventories", 
+                    "Cust. Inventories",
+                    "Man.Prices", 
+                    "Backlog of Ord", 
+                    "New Exports", 
+                    "Imports")
+
