@@ -140,6 +140,9 @@ database <- list(balanza_data,
                  cpi_int_data,
                  importexport_data,
                  ism_data,
+                 ism_s_data,
+                 houst_data,
+                 permits_data,
                  energy_data,
                  bmv_data,
                  divisas_data,
@@ -168,10 +171,10 @@ database <- list(balanza_data,
 
 # Init DB using credentials data
 credentials <- data.frame(
-  user = c("Salvador", "Felix", "Gabriel", "Graciela", "Erica"),
-  password = c("asapa", "admin","d3G0c1YbhT", "gLbcyTUTe2", "i6dH7J3Z4d"),
+  user = c("Salvador", "Felix", "Gabriel", "Graciela", "Erica", "ErnestoA", "ArturoG", "SaulC"),
+  password = c("asapa", "admin","d3G0c1YbhT", "gLbcyTUTe2", "i6dH7J3Z4d", "c1Pctiwh3b", "wJEAC0KCtM", "SHnbuokbvN"),
   # password will automatically be hashed
-  admin = c(FALSE, TRUE, FALSE, FALSE, FALSE),
+  admin = c(FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE),
   stringsAsFactors = FALSE
 )
 

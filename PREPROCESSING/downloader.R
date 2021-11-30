@@ -1151,6 +1151,81 @@ df <-df %>% pivot_wider(id_cols = "date", names_from = "series_id")
 write.csv(df, "DATA/cpi_int.csv", row.names = FALSE)
 rm(df,params,series)
 
+#housing starts
+if (requireNamespace("purrr", quietly = TRUE)) {
+   series <-c("HOUST",
+              "HOUST1F",
+              "HOUST5F",
+              "HOUSTNE",
+              "HOUSTNE1F",
+              "HOUSTMW",
+              "HOUSTMW1F",
+              "HOUSTS",
+              "HOUSTS1F",
+              "HOUSTW",
+              "HOUSTW1F"
+   )
+   library(purrr)
+   purrr::map_dfr(series, fredr)
+   
+   # Using purrr::pmap_dfr() allows you to use varying optional parameters
+   params <- list(
+      series_id = series
+      #,frequency = c("m", "meop", "qeop")
+   )
+   
+   df <- purrr::pmap_dfr(
+      .l = params,
+      .f = ~ fredr(series_id = .x
+                   #, frequency = .y
+      )
+   )
+   
+}
+df <-df %>% pivot_wider(id_cols = "date", names_from = "series_id")
+write.csv(df, "DATA/houst.csv", row.names = FALSE)
+rm(df,params,series) 
+
+#building permits
+if (requireNamespace("purrr", quietly = TRUE)) {
+   series <-c("PERMIT",
+              "PERMIT1",
+              "PERMIT24",
+              "PERMIT5",
+              "PERMITNE",
+              "PERMITNE1",
+              "PERMITMW",
+              "PERMITMW1",
+              "PERMITS",
+              "PERMITS1",
+              "PERMITW",
+              "PERMITW1"
+   )
+   library(purrr)
+   purrr::map_dfr(series, fredr)
+   
+   # Using purrr::pmap_dfr() allows you to use varying optional parameters
+   params <- list(
+      series_id = series
+      #,frequency = c("m", "meop", "qeop")
+   )
+   
+   df <- purrr::pmap_dfr(
+      .l = params,
+      .f = ~ fredr(series_id = .x
+                   #, frequency = .y
+      )
+   )
+   
+}
+df <-df %>% pivot_wider(id_cols = "date", names_from = "series_id")
+write.csv(df, "DATA/permits.csv", row.names = FALSE)
+rm(df,params,series) 
+
+
+
+
+
 #quandl data
 library(Quandl)
 
@@ -1192,5 +1267,39 @@ colnames(ism) <- c("pmi_comp",
                    "imports")
 write.csv(ism, "DATA/ism.csv", row.names = as.Date(index(ism)))
 
+#ism serv
+nmi <- Quandl("ISM/NONMAN_NMI", type = "xts")
+busact <- Quandl("ISM/NONMAN_BUSACT", type = "xts")[,4]
+neword <- Quandl("ISM/NONMAN_NEWORD", type = "xts")[,4]
+empl <- Quandl("ISM/NONMAN_EMPL", type = "xts")[,4]
+deliv <- Quandl("ISM/NONMAN_DELIV", type = "xts")[,4]
+invent <- Quandl("ISM/NONMAN_INVENT", type = "xts")[,4]
+prices <-Quandl("ISM/NONMAN_PRICES", type = "xts")[,4]
+backlog <- Quandl("ISM/NONMAN_BACKLOG", type = "xts")[,4]
+exports <- Quandl("ISM/NONMAN_EXPORTS", type = "xts")[,4]
+imports <- Quandl("ISM/NONMAN_IMPORTS", type = "xts")[,4]
+invsent <- Quandl("ISM/NONMAN_INVSENT", type = "xts")[,4]
 
-
+ism_s <- cbind(nmi, 
+               busact, 
+               neword, 
+               empl, 
+               deliv,
+               invent,
+               prices,
+               backlog, 
+               exports, 
+               imports, 
+               invsent)
+colnames(ism_s) <- c("nmi", 
+                   "busact", 
+                   "neword", 
+                   "empl", 
+                   "deliv",
+                   "invent",
+                   "prices",
+                   "backlog", 
+                   "exports", 
+                   "imports", 
+                   "invsent")
+write.csv(ism_s, "DATA/ism_s.csv", row.names = as.Date(index(ism_s)))

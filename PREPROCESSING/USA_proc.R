@@ -539,4 +539,53 @@ names(ism_data) <-c("PMI",
                     "Backlog of Ord", 
                     "New Exports", 
                     "Imports")
+#ism serv
+ism_s_data <-read.csv("DATA/ism_s.csv")
+rownames(ism_s_data) <-ism_s_data[,1]
+ism_s_data <- ism_s_data[,-1]
+names(ism_s_data) <-c("NMI", 
+                    "Business Activity", 
+                    "New Orders",
+                    "Employment",
+                    "Supp. Deliveries", 
+                    "Inventories", 
+                    "Prices",
+                    "Backlog of Ord", 
+                    "New Exports", 
+                    "Imports",
+                    "Inv. Sentiment")
 
+
+
+#houstarts
+
+houst_data <- read.csv("DATA/houst.csv")
+rownames(houst_data) <- houst_data[,1]
+houst_data <- houst_data[,-1]
+names(houst_data) <-c("Total",
+                      "1 unit",
+                      "5 units or more",
+                      "NE Total",
+                      "NE 1 unit",
+                      "MW Total",
+                      "MW 1 unit",
+                      "South Total",
+                      "South 1 unit",
+                      "West Total",
+                      "West 1 unit")
+#building permits
+permits_data <- read.csv("DATA/permits.csv")
+rownames(permits_data) <- permits_data[,1]
+permits_data <- permits_data[,-1]
+names(permits_data) <-c("Total",
+                      "1 unit",
+                      "2to4 units",
+                      "5 units or more",
+                      "NE Total",
+                      "NE 1 unit",
+                      "MW Total",
+                      "MW 1 unit",
+                      "South Total",
+                      "South 1 unit",
+                      "West Total",
+                      "West 1 unit")
