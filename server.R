@@ -160,7 +160,7 @@ server <- function(input, output, session){
             Xgrid = TRUE,
             Ygrid = TRUE) %>%
       layout(plot_bgcolor='transparent',
-             yaxis = list(gridcolor= "#AAAAAA", fixedrange = FALSE, tickformat = ",.2r" ),
+             yaxis = list(gridcolor= "#AAAAAA", fixedrange = FALSE, tickformat = ",.2f" ),
              xaxis = list(gridcolor= "#AAAAAA", ticktext = equis
                           #,rangeslider = list(type = "date")
              )) %>% 
