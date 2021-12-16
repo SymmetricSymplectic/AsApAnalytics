@@ -853,7 +853,8 @@ rm(df,params,series)
 
 #seguro de desempleo EEUU
 if (requireNamespace("purrr", quietly = TRUE)) {
-   series <-c("ICSA",
+   series <-c("IURSA",
+      "ICSA",
               "CCSA",
               "IC4WSA"
    )

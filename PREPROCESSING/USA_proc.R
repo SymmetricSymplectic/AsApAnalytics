@@ -335,7 +335,8 @@ names(unemp_data) <-c("Unemployment Rate",
 claims_data <-read.csv("DATA/claims.csv")
 rownames(claims_data) <-claims_data[,1]
 claims_data <- na.omit(claims_data[,-1])
-names(claims_data) <-c("Initial Claims",
+names(claims_data) <-c("Insured Unemployment Rate",
+   "Initial Claims",
                       "Continued Claims (Insured Unemployment)",
                       "4-Week Moving Average of Initial Claims"
 )
