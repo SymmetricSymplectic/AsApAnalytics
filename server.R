@@ -136,7 +136,7 @@ server <- function(input, output, session){
     req(input$series)
     data <- merged_data()
     selseries <- data[,input$series]
-    names(selseries) <- abbreviate(names(selseries), minlength = 30)
+    names(selseries) <- abbreviate(names(selseries), minlength = 45)
     don <- xts(x = selseries, order.by = as.Date(rownames(data)))
     setbasis <-switch(input$setbasis,
                       def = don,
@@ -188,7 +188,7 @@ server <- function(input, output, session){
              y0 = 0, y1 = 1, yref = "paper"),
         list(type = "rect",
              fillcolor = "blue", line = list(color = "blue"), opacity = 0.15,
-             x0 = "2020-02-01", x1 = "2021-07-01", xref = "x",
+             x0 = "2020-02-01", x1 = "2021-12-01", xref = "x",
              y0 = 0, y1 = 1, yref = "paper")
         ))%>%
       plotly::config(displaylogo = FALSE)
