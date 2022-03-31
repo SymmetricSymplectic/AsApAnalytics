@@ -1,8 +1,10 @@
-#asapadb_remote = dbConnect(MySQL(),    #only for felix testing of remote connection to db
-#                    user='felix', 
-#                    password='admin', 
-#                    dbname='SisAnaDB', 
-#                    host='143.198.144.181')
+library(RMySQL)
+
+asapadb_remote = dbConnect(MySQL(),  #remote is to be used for dbms
+                           user='asapacom_Felix', 
+                           password='zPySwGE4GUHQ7v9', 
+                           dbname='asapacom_SisAna', 
+                           host='www.asapa.com')
 
 
 
@@ -118,6 +120,7 @@ rm(bal_exp_tot,bal_imp_tot,exp_b_cons,imp_b_cons,exp_b_uso,
    imp_b_uso,exp_b_cap,imp_b_cap, s1,s2,s3,s4,sq)
 write.csv(balanza, "DATA/balanza_com.csv", row.names = FALSE)
 rm(balanza)
+
 
 #establecimientos comerciales
 mayoreo_ocup <- inegi_series("654033", token_inegi)
@@ -1304,3 +1307,6 @@ colnames(ism_s) <- c("nmi",
                    "imports", 
                    "invsent")
 write.csv(ism_s, "DATA/ism_s.csv", row.names = as.Date(index(ism_s)))
+
+
+

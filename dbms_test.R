@@ -1,10 +1,10 @@
 library(RMySQL)
 
 asapadb_remote = dbConnect(MySQL(),  #remote is to be used for dbms
-                           user='felix', 
-                           password='admin', 
-                           dbname='SisAnaDB', 
-                           host='143.198.144.181')
+                           user='asapacom_Felix', 
+                           password='zPySwGE4GUHQ7v9', 
+                           dbname='asapacom_SisAna', 
+                           host='www.asapa.com')
 #asapadb_local = dbConnect(MySQL(),  #local is for locally hosted shiny and other apps
 #                           user='root', 
 #                           password='password', 
@@ -12,6 +12,10 @@ asapadb_remote = dbConnect(MySQL(),  #remote is to be used for dbms
 #                           host='localhost')
 
 tables <- dbListTables(asapadb_remote)
+
+
+
+
 
 
 library(shiny)

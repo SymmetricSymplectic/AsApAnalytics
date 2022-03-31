@@ -39,11 +39,11 @@ library(quantmod)
 #gestion db
 library(RMySQL)
 
-#asapadb_remote = dbConnect(MySQL(),    #only for felix testing of remote connection to db
-#                    user='felix', 
-#                    password='admin', 
-#                    dbname='SisAnaDB', 
-#                    host='143.198.144.181')
+asapadb_remote = dbConnect(MySQL(),  #remote is to be used for dbms
+                           user='asapacom_Felix', 
+                           password='zPySwGE4GUHQ7v9', 
+                           dbname='asapacom_SisAna', 
+                           host='www.asapa.com')
 #asapadb_local = dbConnect(MySQL(), 
 #                          user='root', 
 #                          password='password', 
@@ -58,13 +58,15 @@ MyMerge <- function(x, y){
 }
 
 
+balanza_data <- dbReadTable(asapadb_remote, "balanza_comercial")
+igae_data <-dbReadTable(asapadb_remote, "igae")
+igae1_data <-dbReadTable(asapadb_remote, "igae1")
+#source("PREPROCESSING/balanza_proc.R", local = TRUE)
 
-source("PREPROCESSING/balanza_proc.R", local = TRUE)
-#balanza_data <-dbReadTable(asapadb_local, "balanza_comercial")
 
+#source("PREPROCESSING/igae_proc.R", local = TRUE)
+#source("PREPROCESSING/igae1_proc.R", local = TRUE)
 
-source("PREPROCESSING/igae_proc.R", local = TRUE)
-source("PREPROCESSING/igae1_proc.R", local = TRUE)
 source("PREPROCESSING/pibmex_proc.R", local = TRUE)
 source("PREPROCESSING/actind_proc.R", local = TRUE)
 source("PREPROCESSING/imai_proc.R", local = TRUE)

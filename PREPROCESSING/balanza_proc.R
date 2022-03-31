@@ -16,4 +16,6 @@ names_balanza <- c("Exportaciones totales FOB",
                   "Saldo productos no petroleros")
 colnames(balanza_data) <-names_balanza
 rm(names_balanza)
-#dbWriteTable(asapadb_remote, "balanza_comercial", balanza_data, row.names = TRUE, append = TRUE ) 
+dbWriteTable(asapadb_remote, "balanza_comercial", balanza_data, row.names = TRUE, append = TRUE ) 
+
+
