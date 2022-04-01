@@ -48,6 +48,6 @@ indices_data <-read.csv("DATA/indices.csv")
 rownames(indices_data) <-indices_data[,1]
 indices_data <- indices_data[,-1]
 
-
+#usdswaps
 
 

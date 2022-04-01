@@ -65,10 +65,15 @@ ind_choices <- c("Balanza Comercial" = "1",
                  "GIS - UDM (MXN)" = "62",
                  "GIS - UDM (USD)" = "63",
                  "GIS - Razones Fin (MXN)" = "64",
-                 "GIS - Razones Fin (USD)" = "65"
+                 "GIS - Razones Fin (USD)" = "65",
+                 "Forward promedio USDMXN, Swaps Cambiarios" = "66",
+                 "USD Interest Rate Swaps" = "67"
                  )
 
-
+rate_choices <- c(
+  "Forward promedio USDMXN, Swaps Cambiarios" = "1",
+  "USD Interest Rate Swaps" = "2"
+) 
 
 #definimos ui
 ui <-fluidPage(
@@ -194,7 +199,7 @@ ui <-fluidPage(
                                              br(),
                                              plotlyOutput("rollcorr", height = 500),
                                              br(),
-                                             plotOutput("corr", height = 900)
+                                             plotOutput("corr", height = 1200)
                                              
                                     ),
                                     id = "tabselected" #para cambiar el sidebar dependiendo del tab
@@ -202,7 +207,22 @@ ui <-fluidPage(
                       )
                       
                       
-             ), #fin tabpanel
+             ), #fin tabpanel,
+             tabPanel("Curvas de tasas",
+                      #sidebar para inputs
+                      sidebarPanel(
+                        
+                        
+                        #input: seleccionar tasas
+                        selectizeInput("termsdata", "Seleccione las tasas",
+                                       choices = rate_choices, selected = "1", multiple = TRUE,
+                                       options = list(maxItems = 5)
+                        ),
+                        actionButton("update1", "Mostrar tasas"),
+                        uiOutput("selectrates")),
+                      mainPanel(
+                        plotlyOutput("termstructure")
+                      )),
              #fin tabpanel csv
              tabPanel("Información general de la base de datos",
                       mainPanel(

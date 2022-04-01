@@ -1,7 +1,58 @@
 #yfinance data source
+library(RMySQL)
 
-library(quantmod)
+asapadb_remote = dbConnect(MySQL(),  #remote is to be used for dbms
+                           user='asapacom_Felix', 
+                           password='zPySwGE4GUHQ7v9', 
+                           dbname='asapacom_SisAna', 
+                           host='www.asapa.com')
+
+library(rusquant)
 library(tidyr)
+
+usdswaps <- c("USDSB3L1Y=",
+              "USDSB3L2Y=",
+              "USDSB3L3Y=",
+              "USDSB3L4Y=",
+              "USDSB3L5Y=",
+              "USDSB3L6Y=",
+              "USDSB3L7Y=",
+              "USDSB3L8Y=",
+              "USDSB3L10Y=",
+              "USDSB3L30Y=")
+
+stocks<-lapply(usdswaps, function(symbol) {
+  aStock<-as.data.frame(getSymbols(symbol,return.class="zoo",auto.assign = FALSE,
+                                   src = "Investing"
+  ))
+  colnames(aStock) <- c("Open","High","Low","Close")
+  aStock$Symbol<-symbol
+  aStock$Date <- as.Date(rownames(aStock),"%Y-%m-%d")
+  aStock[-1,]
+})
+stocksDf <- do.call(rbind,stocks)
+rm(stocks,aStock)
+df <- stocksDf %>% dplyr::select(Date,Close,Symbol) %>% 
+  pivot_wider(names_from = Symbol,values_from=Close,values_fn = mean)
+df <- data.frame(df)
+write.csv(df, file = "DATA/usdswaps.csv", row.names = FALSE)
+
+usdswaps_data <-read.csv("DATA/usdswaps.csv")
+rownames(usdswaps_data) <-usdswaps_data[,1]
+usdswaps_data <- usdswaps_data[,-1]
+dbWriteTable(asapadb_remote, "usdswaps", usdswaps_data, row.names = TRUE, append = TRUE ) 
+
+              
+              
+              
+
+
+
+
+
+
+
+
 
 bmv <-c("WALMEX.MX",
         "GFNORTEO.MX",
@@ -181,3 +232,11 @@ write.csv(usa, file = "DATA/usa_emisoras.csv", row.names = FALSE)
 
 
 rm(stocksDf, bmv, divisas,indices, usa)
+
+
+
+
+
+
+
+

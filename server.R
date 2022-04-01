@@ -84,6 +84,74 @@ server <- function(input, output, session){
 
   })
   
+  #input condicional: estructura de tasas a analizar, permite combinar hasta 5 bases
+  termsdataInput <- reactive({
+    if (length(input$termsdata)==2){
+      data <- merge(termstructure_db[[as.numeric(input$termsdata[1])]],
+                    termstructure_db[[as.numeric(input$termsdata[2])]],
+                    by = 0    )
+      rownames(data) <- data[,1]
+      data <- data[,-1, drop = FALSE]
+      data
+    } else if (length(input$termsdata)==3){
+      data <- merge(termstructure_db[[as.numeric(input$termsdata[1])]],
+                    termstructure_db[[as.numeric(input$termsdata[2])]],
+                    by = 0    )
+      rownames(data) <- data[,1]
+      data <- data[,-1, drop = FALSE]
+      data <- merge(termstructure_db[[as.numeric(input$termsdata[3])]],
+                    data,
+                    by= 0)
+      rownames(data) <- data[,1]
+      data <- data[,-1, drop = FALSE]
+      data
+    }else if (length(input$termsdata)==4){
+      data <- merge(termstructure_db[[as.numeric(input$termsdata[1])]],
+                    termstructure_db[[as.numeric(input$termsdata[2])]],
+                    by = 0    )
+      rownames(data) <- data[,1]
+      data <- data[,-1, drop = FALSE]
+      data <- merge(termstructure_db[[as.numeric(input$termsdata[3])]],
+                    data,
+                    by= 0)
+      rownames(data) <- data[,1]
+      data <- data[,-1, drop = FALSE]
+      data <- merge(termstructure_db[[as.numeric(input$termsdata[4])]],
+                    data,
+                    by= 0)
+      rownames(data) <- data[,1]
+      data <- data[,-1, drop = FALSE]
+      data
+    }else if (length(input$termsdata)==5){
+      data <- merge(termstructure_db[[as.numeric(input$termsdata[1])]],
+                    termstructure_db[[as.numeric(input$termsdata[2])]],
+                    by = 0    )
+      rownames(data) <- data[,1]
+      data <- data[,-1]
+      data <- merge(termstructure_db[[as.numeric(input$termsdata[3])]],
+                    data,
+                    by= 0)
+      rownames(data) <- data[,1]
+      data <- data[,-1]
+      data <- merge(termstructure_db[[as.numeric(input$termsdata[4])]],
+                    data,
+                    by= 0)
+      rownames(data) <- data[,1]
+      data <- data[,-1]
+      data <- merge(termstructure_db[[as.numeric(input$termsdata[5])]],
+                    data,
+                    by= 0)
+      rownames(data) <- data[,1]
+      data <- data[,-1]
+      data
+    }else  {
+      data <-data.frame(termstructure_db[[as.numeric(input$termsdata)]])
+      data
+    }
+    data <- data[order(as.Date(rownames(data), format="%d/%m/%Y")),]
+    
+    
+  })
   
   
   #input condicional: periodos a pronosticar
@@ -108,6 +176,14 @@ server <- function(input, output, session){
                       multiple = TRUE
     )
   })
+  #crear los checkboxes de las estructuras de tasas
+  output$selectrates <- renderUI({
+    selectizeInput("rates", "tasas a mostrar", rownames(merged_rates()),
+                   multiple = TRUE, options = list(maxOptions = 10000)
+    )
+  })
+  
+  
   #crear las listas de las series dinámicamente (pronóstico)
   output$selectforecast <- renderUI({
     selectInput("seriesforecast", "Escoja una serie para pronóstico", choices = names(merged_data()))
@@ -366,6 +442,22 @@ server <- function(input, output, session){
     
   })
   
+  #visor de estructura de tasas
+  
+  output$termstructure <- renderPlotly({
+    req(input$rates)
+    data <- merged_rates()
+    data$dates <- rownames(data)
+    data <- data.table(data)
+    data <- melt(data, id.vars = "dates")
+    data <- data[which(data$dates==input$rates)]
+    plot_ly(data, x = ~variable, y = ~value,
+            split = ~dates,
+            type = "scatter", mode = "lines+markers")%>%
+      layout(xaxis = list(categoryarray = names, categoryorder = "array"))
+  }) 
+  
+  
   #output para descarga de base de datos
   output$downloadData <- downloadHandler(
     filename = function() {
@@ -428,6 +520,15 @@ server <- function(input, output, session){
     return(datam3)
   })
   #end data uploading
+  
+  #combinar tasas
+  
+  merged_rates<-eventReactive(input$update1,{
+    data <-termsdataInput()
+    return(data)
+  })
+  
+  
   
   #bajar precio de instrumento en yfinance
   priceInput <- reactive({

@@ -61,9 +61,8 @@ MyMerge <- function(x, y){
 balanza_data <- dbReadTable(asapadb_remote, "balanza_comercial")
 igae_data <-dbReadTable(asapadb_remote, "igae")
 igae1_data <-dbReadTable(asapadb_remote, "igae1")
+
 #source("PREPROCESSING/balanza_proc.R", local = TRUE)
-
-
 #source("PREPROCESSING/igae_proc.R", local = TRUE)
 #source("PREPROCESSING/igae1_proc.R", local = TRUE)
 
@@ -92,12 +91,15 @@ source("PREPROCESSING/USA_proc.R", local = TRUE)
 source("PREPROCESSING/analtec_proc.R", local = TRUE)
 source("PREPROCESSING/prices_proc.R", local = TRUE)
 
+forward_mxn_swaps_data <-dbReadTable(asapadb_remote, "forward_mxn_swaps")
+usdswaps_data <-dbReadTable(asapadb_remote, "usdswaps")
 
 
 
 #metadata preproc
 source("PREPROCESSING/metadata.R", local = TRUE)
 
+#regular (time series display) database
 database <- list(balanza_data,
                  establecimientos_data,
                  igae1_data,
@@ -162,12 +164,17 @@ database <- list(balanza_data,
                  gissa_udm,
                  gissa_udm_usd,
                  gissa_raz,
-                 gissa_raz_usd
+                 gissa_raz_usd,
+                 forward_mxn_swaps_data,
+                 usdswaps_data
                  
                  )
 
-
-
+#term structure database
+termstructure_db <- list(
+  forward_mxn_swaps_data,
+  usdswaps_data
+)
 
 
 

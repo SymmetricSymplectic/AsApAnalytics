@@ -535,7 +535,26 @@ idSeries <- c("SE27803")
 serie <- getSeriesData(idSeries)
 write.csv(serie,"DATA/remesas_fam.csv", row.names = FALSE )
 
-rm(idSeries)
+#tipo forwards de swaps
+idSeries <- c("SF290111",	"SF290112",	"SF290113",
+              "SF290114",	"SF290115",	"SF290116",	
+              "SF290117",	"SF290118",	"SF290119",
+              "SF290120",	"SF290121",	"SF290122",	
+              "SF290123",	"SF290124",	"SF290125",
+              "SF290126",	"SF290127",	"SF290128",
+              "SF290129",	"SF290130",	"SF290131",	
+              "SF290132")
+serie <- getSeriesData(idSeries)
+serie <-data.frame(serie)
+serie <- serie[,-c(3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,
+                   37,39,41,43)]
+write.csv(serie,"DATA/forward_mxn_swaps.csv", row.names = FALSE )
+
+
+
+
+
+rm(idSeries, date)
 rm(serie)
 
 
