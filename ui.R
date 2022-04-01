@@ -67,12 +67,15 @@ ind_choices <- c("Balanza Comercial" = "1",
                  "GIS - Razones Fin (MXN)" = "64",
                  "GIS - Razones Fin (USD)" = "65",
                  "Forward promedio USDMXN, Swaps Cambiarios" = "66",
-                 "USD Interest Rate Swaps" = "67"
+                 "USD Interest Rate Swaps" = "67",
+                 "US Treasury Rates" = "68"
                  )
 
 rate_choices <- c(
   "Forward promedio USDMXN, Swaps Cambiarios" = "1",
-  "USD Interest Rate Swaps" = "2"
+  "USD Interest Rate Swaps" = "2",
+  "US Treasury Rates" = "3"
+  
 ) 
 
 #definimos ui

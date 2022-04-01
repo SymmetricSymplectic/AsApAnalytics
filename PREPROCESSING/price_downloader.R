@@ -42,6 +42,39 @@ rownames(usdswaps_data) <-usdswaps_data[,1]
 usdswaps_data <- usdswaps_data[,-1]
 dbWriteTable(asapadb_remote, "usdswaps", usdswaps_data, row.names = TRUE, append = TRUE ) 
 
+
+usrates <- c("US3MT=X",
+             "US6MT=X",
+             "US1YT=X",
+             "US2YT=X",
+             "US3YT=X",
+             "US5YT=X",
+             "US7YT=X",
+             "US10YT=X",
+             "US20YT=X",
+             "US30YT=X")
+
+stocks<-lapply(usrates, function(symbol) {
+  aStock<-as.data.frame(getSymbols(symbol,return.class="zoo",auto.assign = FALSE,
+                                   src = "Investing"
+  ))
+  colnames(aStock) <- c("Open","High","Low","Close")
+  aStock$Symbol<-symbol
+  aStock$Date <- as.Date(rownames(aStock),"%Y-%m-%d")
+  aStock[-1,]
+})
+stocksDf <- do.call(rbind,stocks)
+rm(stocks,aStock)
+df <- stocksDf %>% dplyr::select(Date,Close,Symbol) %>% 
+  pivot_wider(names_from = Symbol,values_from=Close,values_fn = mean)
+df <- data.frame(df)
+write.csv(df, file = "DATA/usrates.csv", row.names = FALSE)
+
+usrates_data <-read.csv("DATA/usrates.csv")
+rownames(usrates_data) <-usrates_data[,1]
+usrates_data <- usrates_data[,-1]
+dbWriteTable(asapadb_remote, "usrates", usrates_data, row.names = TRUE, append = TRUE ) 
+
               
               
               

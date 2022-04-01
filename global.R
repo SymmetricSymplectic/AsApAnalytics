@@ -93,6 +93,7 @@ source("PREPROCESSING/prices_proc.R", local = TRUE)
 
 forward_mxn_swaps_data <-dbReadTable(asapadb_remote, "forward_mxn_swaps")
 usdswaps_data <-dbReadTable(asapadb_remote, "usdswaps")
+usrates_data <-dbReadTable(asapadb_remote, "usrates")
 
 
 
@@ -166,14 +167,16 @@ database <- list(balanza_data,
                  gissa_raz,
                  gissa_raz_usd,
                  forward_mxn_swaps_data,
-                 usdswaps_data
+                 usdswaps_data,
+                 usrates_data
                  
                  )
 
 #term structure database
 termstructure_db <- list(
   forward_mxn_swaps_data,
-  usdswaps_data
+  usdswaps_data,
+  usrates_data
 )
 
 
