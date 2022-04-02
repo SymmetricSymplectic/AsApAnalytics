@@ -120,6 +120,24 @@ rm(bal_exp_tot,bal_imp_tot,exp_b_cons,imp_b_cons,exp_b_uso,
    imp_b_uso,exp_b_cap,imp_b_cap, s1,s2,s3,s4,sq)
 write.csv(balanza, "DATA/balanza_com.csv", row.names = FALSE)
 rm(balanza)
+balanza_data <-read.csv("DATA/balanza_com.csv")
+rownames(balanza_data)<-balanza_data[,1]
+balanza_data <- balanza_data[,-1]
+names_balanza <- c("Exportaciones totales FOB",
+                   "Importaciones totales FOB",
+                   "Exportaciones B. de Consumo",
+                   "Importaciones B. de Consumo",
+                   "Export. B. de uso intermedio",
+                   "Import. B. de uso intermedio",
+                   "Export. B. de Capital",
+                   "Import. B. de Capital",
+                   "Saldo Total",
+                   "Saldo sin exportaciones petroleras",
+                   "Saldo productos petroleros",
+                   "Saldo productos no petroleros")
+colnames(balanza_data) <-names_balanza
+rm(names_balanza)
+dbWriteTable(asapadb_remote, "balanza_comercial", balanza_data, row.names = TRUE, append = TRUE )
 
 
 #establecimientos comerciales
@@ -549,7 +567,20 @@ serie <-data.frame(serie)
 serie <- serie[,-c(3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,
                    37,39,41,43)]
 write.csv(serie,"DATA/forward_mxn_swaps.csv", row.names = FALSE )
-
+#tasas forwards mxn de swaps
+forward_mxn_swaps_data <- read.csv("DATA/forward_mxn_swaps.csv")
+rownames(forward_mxn_swaps_data) <- forward_mxn_swaps_data[,1]
+forward_mxn_swaps_data[,1] <- NULL
+colnames(forward_mxn_swaps_data) <- c("1-7d", "8-30d", "31-60d",
+                                      "61-90d", "91-120d", "121-150d",
+                                      "151-180d", "181-210d", "211-240d",
+                                      "241-270d", "271-300d", "301-330d",
+                                      "331-360d", "361-731d", "732-1096d",
+                                      "1097-1461d", "1462-1827d", "1828-2557d",
+                                      "2558-3653d", "3654-5479d", "5480-7305d",
+                                      "Over 7306d")
+forward_mxn_swaps_data <- na.omit(forward_mxn_swaps_data)
+dbWriteTable(asapadb_remote, "forward_mxn_swaps", forward_mxn_swaps_data, row.names = TRUE, append = TRUE )
 
 
 
