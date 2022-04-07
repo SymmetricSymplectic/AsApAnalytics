@@ -40,7 +40,7 @@ write.csv(df, file = "DATA/usdswaps.csv", row.names = FALSE)
 usdswaps_data <-read.csv("DATA/usdswaps.csv")
 rownames(usdswaps_data) <-usdswaps_data[,1]
 usdswaps_data <- usdswaps_data[,-1]
-dbWriteTable(asapadb_remote, "usdswaps", usdswaps_data, row.names = TRUE, append = TRUE ) 
+dbWriteTable(asapadb_remote, "usdswaps", usdswaps_data, row.names = TRUE, overwrite = TRUE ) 
 
 
 usrates <- c("US3MT=X",
@@ -73,7 +73,7 @@ write.csv(df, file = "DATA/usrates.csv", row.names = FALSE)
 usrates_data <-read.csv("DATA/usrates.csv")
 rownames(usrates_data) <-usrates_data[,1]
 usrates_data <- usrates_data[,-1]
-dbWriteTable(asapadb_remote, "usrates", usrates_data, row.names = TRUE, append = TRUE ) 
+dbWriteTable(asapadb_remote, "usrates", usrates_data, row.names = TRUE, overwrite = TRUE ) 
 
               
               

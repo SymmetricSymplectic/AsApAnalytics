@@ -23,7 +23,7 @@ names_igae1 <-c("IGAE Total",
 colnames(igae1_data) <- names_igae1
 rm(names_igae1)
 
-dbWriteTable(asapadb_remote, "igae1", igae1_data, row.names = TRUE, append = TRUE ) 
+dbWriteTable(asapadb_remote, "igae1", igae1_data, row.names = TRUE, overwrite = TRUE ) 
 
 
 
