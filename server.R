@@ -391,9 +391,18 @@ server <- function(input, output, session){
                                           input$corr2, "vs ", input$corr1))$knitr)
   })
   
-  #ecuacion ajuste lineal
-  output$lm_ec <- renderUI({
-    
+  #grafs ajuste lineal
+  output$lm_qq <- renderPlot({
+    check <- check_normality(lmInput(),panel = FALSE)
+    plot(check, type = "qq")
+  })
+  output$lm_pp <- renderPlot({
+    check <- check_normality(lmInput(),panel = FALSE)
+    plot(check, type = "pp")
+  })
+  output$lm_density <- renderPlot({
+    check <- check_normality(lmInput(),panel = FALSE)
+    plot(check, type = "density")
   })
   
   #correlaciones de la base de datos

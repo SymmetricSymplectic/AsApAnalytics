@@ -38,6 +38,10 @@ library(anytime)
 library(quantmod)
 #gestion db
 library(RMySQL)
+#visualizacion de performance
+library(performance)
+library(see)
+library(qqplotr)
 
 asapadb_remote = dbConnect(MySQL(),  #remote is to be used for dbms
                            user='asapacom_Felix', 
