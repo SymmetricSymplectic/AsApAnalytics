@@ -580,7 +580,7 @@ colnames(forward_mxn_swaps_data) <- c("1-7d", "8-30d", "31-60d",
                                       "2558-3653d", "3654-5479d", "5480-7305d",
                                       "Over 7306d")
 forward_mxn_swaps_data <- na.omit(forward_mxn_swaps_data)
-dbWriteTable(asapadb_remote, "forward_mxn_swaps", forward_mxn_swaps_data, row.names = TRUE, append = TRUE )
+dbWriteTable(asapadb_remote, "forward_mxn_swaps", forward_mxn_swaps_data, row.names = TRUE, overwrite = TRUE )
 
 
 
