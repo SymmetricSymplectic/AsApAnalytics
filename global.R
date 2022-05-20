@@ -42,6 +42,8 @@ library(RMySQL)
 library(performance)
 library(see)
 library(qqplotr)
+#annualizar series
+library(PerformanceAnalytics)
 
 asapadb_remote = dbConnect(MySQL(),  #remote is to be used for dbms
                            user='asapacom_Felix', 
@@ -212,6 +214,20 @@ pch <- function(data, lag = 1) {
   # return percent change
   (data / lag(data, lag) - 1)*100
 }
+#annualize function for ts
+
+annualize <- function(data, periods = 1) {
+  # argument verification
+  #data <- as.numeric(data)
+  # return percent change
+  ((data / lag(data, 1))^periods - 1)*100
+}
+
+
+
+
+
+
 
 #function to turn forecast objects into arrays
 gen_array <- function(forecast_obj){

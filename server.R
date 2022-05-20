@@ -199,7 +199,13 @@ server <- function(input, output, session){
   lmInput <- reactive({
     data <- na.omit(merged_data())
     data <- data[order(as.Date(rownames(data), format="%d/%m/%Y")),]
-    df <-na.omit(data[,c(input$corr1, input$corr2)])
+    df1 <-na.omit(data.frame(data[,c(input$corr1, input$corr2)]))
+    df2 <-na.omit(data.frame(c(NA,diff(log(data[,c(input$corr1)]))), c(NA,diff(log(data[,c(input$corr2)])))))
+    df3 <-na.omit(data.frame(c(NA,diff(data[,c(input$corr1)])), c(NA,diff(data[,c(input$corr2)]))))
+    df <- switch(input$regperiod,
+                         orig=df1,
+                         LogRet = df2,
+                         Ret = df3)
     colnames(df) <- c(input$corr1, input$corr2)
     lm_fit <-lm(formula = df[,2]~df[,1], data=df)
     lm_fit
@@ -219,14 +225,13 @@ server <- function(input, output, session){
                       indexed = baseperiod_function(don, input$baseyear)
       
     )
-    varmen <-pch(setbasis)
-    varan <- pch(setbasis, lag = 12)
-    vartr<- pch(setbasis, lag = 4)
+    varperct <-pch(setbasis, lag = input$periods)
+    varann <- annualize(setbasis, periods = input$periods)
     seriestype <- switch(input$sertype,
                          princ=setbasis,
-                         varmensual = varmen,
-                         varanual = varan,
-                         vartrim = vartr
+                         varpct = varperct,
+                         annualize = varann
+                         
     )
     
     equis <- rownames(data)
@@ -355,7 +360,13 @@ server <- function(input, output, session){
   #generamos el diagrama de dispersión
   output$scatterplot <- renderPlotly({
     data <- na.omit(merged_data())
-    df <-na.omit(data[,c(input$corr1, input$corr2)])
+    df1 <-na.omit(data.frame(data[,c(input$corr1, input$corr2)]))
+    df2 <-na.omit(data.frame(c(NA,diff(log(data[,c(input$corr1)]))), c(NA,diff(log(data[,c(input$corr2)])))))
+    df3 <-na.omit(data.frame(c(NA,diff(data[,c(input$corr1)])), c(NA,diff(data[,c(input$corr2)]))))
+    df <- switch(input$regperiod,
+                 orig=df1,
+                 LogRet = df2,
+                 Ret = df3)
     model <- lmInput()
     plot_ly(df, x =df[,1], y = df[,2], type = "scatter", mode = "markers")%>%
       add_lines(x = ~df[,1], y = fitted(model))%>%

@@ -100,10 +100,11 @@ ui <-fluidPage(
                                     choices = ind_choices, selected = "1", multiple = TRUE,
                                     options = list(maxItems = 5)
                         ),
-                        actionButton("update", "Mostrar series"),
-                        helpText("El botón 'Mostrar series' permite acceder al indicador en la base de datos, 
-                                 así como combinarlo con la base de datos proporcionada con el usuario
-                                 y con el precio del instrumento de mercado en una misma tabla"),
+                        actionButton("update", "Crear tabla"),
+                        helpText("El botón 'Crear tabla' permite acceder a la tabla de datos del
+                                  indicador en la base de datos, 
+                                 así como combinar tal tabla con una tabla de datos proporcionada
+                                 por el usuario, y la tabla de precios de mercado en una misma tabla"),
                         
                         #sidebars condicionales dependiendo de qué tabset selecciones
                         conditionalPanel(condition="input.tabselected==1",
@@ -117,10 +118,12 @@ ui <-fluidPage(
                                                         "Intervalo de fechas para el instrumento",
                                                         start = "2007-01-01",
                                                         end = as.character(Sys.Date())),
-                                         #input: seleccionar serie vs varmensual vs varanual                 
+                                         #input: seleccionar serie vs var porcentual vs annualizar                 
                                          radioButtons("sertype", "Tipo de serie a mostrar:",
-                                                      c("Principal" = "princ", "Variación Periodo a Periodo" = "varmensual", "Variación a 12 periodos"= "varanual",
-                                                        "Variación a 4 periodos"="vartrim")),
+                                                      c("Principal" = "princ", "Variación Porcentual" = "varpct", 
+                                                        "Anualizar" = "annualize")),
+                                         #input: num de periodos para variaciones
+                                         numericInput("periods", "Numero de Periodos para la Variacion:", 1, min = 1, max = 10000),
                                          #input: seleccionar si usar el primer año común como año base
                                          radioButtons("setbasis", "Convertir a índice con un año base",
                                                       c("No" = "def", "Sí" = "indexed")),
@@ -158,6 +161,8 @@ ui <-fluidPage(
                         conditionalPanel(condition="input.tabselected==3",
                                          uiOutput("seriescorr1"),
                                          uiOutput("seriescorr2"),
+                                         radioButtons("regperiod", "Series a correlacionar:",
+                                                      c("Original" = "orig", "LogRendimientos" = "LogRet", "Rendimientos" = "Ret")),
                                          selectInput("rollcorrperiod", "Seleccione el número de periodos para la correlación móvil",
                                                      choices =c("3","6","12","24"))
                         ),
