@@ -154,8 +154,7 @@ ui <-fluidPage(
                                          uiOutput("selectforecast"),
                                          selectInput("fctype", "Seleccione el tipo de modelo para pronosticar",
                                                      choices =c("ARIMA","ETS","ARFIMA")),
-                                         selectInput("fcperiod", "Seleccione el número de periodos a pronosticar",
-                                                     choices =c("4","6","12","24","48"))
+                                         numericInput("fcperiod", "Numero de Periodos a Pronosticar:", 1, min = 1, max = 48),
                                          
                         ), #fin del tabset condicional para pronóstico
                         conditionalPanel(condition="input.tabselected==3",
@@ -163,8 +162,8 @@ ui <-fluidPage(
                                          uiOutput("seriescorr2"),
                                          radioButtons("regperiod", "Series a correlacionar:",
                                                       c("Original" = "orig", "LogRendimientos" = "LogRet", "Rendimientos" = "Ret")),
-                                         selectInput("rollcorrperiod", "Seleccione el número de periodos para la correlación móvil",
-                                                     choices =c("3","6","12","24"))
+                                         numericInput("rollcorrperiod", "Número de periodos para la correlación móvil",
+                                                      1, min = 1, max = 48)
                         ),
                         # Input: seleccionar datos a descargar
                         # botón de descarga de los datos
