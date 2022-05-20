@@ -216,7 +216,7 @@ server <- function(input, output, session){
   #generamos la gráfica de las series principales
   output$plotly1<- renderPlotly({
     req(input$series)
-    data <- merged_data()
+    data <- na.omit(merged_data())
     selseries <- data[,input$series]
     names(selseries) <- abbreviate(names(selseries), minlength = 45)
     don <- xts(x = selseries, order.by = as.Date(rownames(data)))
@@ -282,7 +282,8 @@ server <- function(input, output, session){
     meta_data[,-1]
   })
   #tabla con los datos de la serie
-  output$tabla <- renderDataTable( rownames_to_column(datasetInput(), var = "fecha") %>% as_tibble())
+  output$tabla <- renderDataTable(
+    rownames_to_column(merged_data(), var = "fecha") %>% as_tibble())
   
   #texto que describe los modelos arima y arfima
   output$forecast_descrip <- renderText({
@@ -500,7 +501,7 @@ server <- function(input, output, session){
     #df <- read.csv(inFile$datapath, header = TRUE,sep = input$separator, encoding = "UTF-8")
     df <-data.frame(df)
     rownames(df)<- df[,1]
-    data1 <- df[,-1, drop= FALSE]
+    df <- df[,-1, drop= FALSE]
     if (input$exceldates =="Sí"){
       rownames(df)<-round_date(anydate(dmy(rownames(df))), unit="month")
     }
