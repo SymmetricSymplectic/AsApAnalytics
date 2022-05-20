@@ -161,7 +161,7 @@ ui <-fluidPage(
                                          uiOutput("seriescorr1"),
                                          uiOutput("seriescorr2"),
                                          radioButtons("regperiod", "Series a correlacionar:",
-                                                      c("Original" = "orig", "LogRendimientos" = "LogRet", "Rendimientos" = "Ret")),
+                                                      c("Original" = "orig", "LogRendimientos" = "LogRet", "Variaciones" = "Ret")),
                                          numericInput("rollcorrperiod", "Número de periodos para la correlación móvil",
                                                       1, min = 1, max = 48)
                         ),
