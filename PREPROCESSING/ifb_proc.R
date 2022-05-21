@@ -48,4 +48,6 @@ ind.df <- ind.df[,-1]
 
 #hacemos el df con las series
 ifb_data <-ind.df
+dbWriteTable(asapadb_remote, "ifb", ifb_data, row.names = TRUE, overwrite = TRUE )
+
 rm(ind.df)

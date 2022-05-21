@@ -55,4 +55,6 @@ imai.df <- imai.df[,-1]
 #hacemos el df con las series
 #data <- read_excel("igae data.xlsx")
 ifbdesest_data <-imai.df
+dbWriteTable(asapadb_remote, "ifbdesest", ifbdesest_data, row.names = TRUE, overwrite = TRUE )
+
 rm(imai.df)

@@ -512,10 +512,17 @@ server <- function(input, output, session){
     return(df)
   })
   
-  output$sample_table<- DT::renderDataTable({
-    df <- merged_data()
-    DT::datatable(df)
-  })
+  #news_table <- eventReactive(input$newssearch,{
+  #  query <-input$newssearch
+  #  table <- every_news(q= query, results = 100)
+  #  return(table)
+  #})
+  #
+  
+  #visor de noticias
+  #output$news<- DT::renderDataTable({
+  #  news_table()
+  #})
   
   #combinar datos con los datos del usuario
   merged_data<-eventReactive(input$update,{

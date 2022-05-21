@@ -2,7 +2,7 @@
 pibmex_data <- read.csv("DATA/pibmex.csv")
 rownames(pibmex_data)<-pibmex_data[,1]
 pibmex_data <- pibmex_data[,-1]
-names_pibmex <-c("Producto Interno Bruto, a precios de mercado",
+names_pibmex <-c("Producto Interno Bruto",
                    "Impuestos a los productos, netos",
                    "Valor agregado bruto a precios basicos",
                    "11 Agricultura, cria y explotacion de animales, aprovechamiento forestal, pesca y caza",
@@ -30,5 +30,3 @@ names_pibmex <-c("Producto Interno Bruto, a precios de mercado",
                  )
 colnames(pibmex_data) <- names_pibmex
 rm(names_pibmex)
-
-attr(pibmex_data,"doc") <- ""

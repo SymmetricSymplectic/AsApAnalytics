@@ -57,6 +57,12 @@ asapadb_remote = dbConnect(MySQL(),  #remote is to be used for dbms
 #                          host='localhost'
 #                          )
 
+#newsapi
+#d880ad52a6914735ad495090eea842ec
+#library(newsapi)
+#newsapi_key("d880ad52a6914735ad495090eea842ec")
+
+
 #función para unir df
 MyMerge <- function(x, y){
   df <- merge(x, y, by= "Date", all.x= TRUE, all.y= TRUE)
@@ -67,16 +73,19 @@ MyMerge <- function(x, y){
 balanza_data <- dbReadTable(asapadb_remote, "balanza_comercial")
 igae_data <-dbReadTable(asapadb_remote, "igae")
 igae1_data <-dbReadTable(asapadb_remote, "igae1")
-
+actind_data <-dbReadTable(asapadb_remote, "actind")
+imai_data <-dbReadTable(asapadb_remote, "imai")
+ifb_data <-dbReadTable(asapadb_remote, "ifb")
+ifbdesest_data <-dbReadTable(asapadb_remote, "ifbdesest")
 #source("PREPROCESSING/balanza_proc.R", local = TRUE)
 #source("PREPROCESSING/igae_proc.R", local = TRUE)
 #source("PREPROCESSING/igae1_proc.R", local = TRUE)
 
 source("PREPROCESSING/pibmex_proc.R", local = TRUE)
-source("PREPROCESSING/actind_proc.R", local = TRUE)
-source("PREPROCESSING/imai_proc.R", local = TRUE)
-source("PREPROCESSING/ifb_proc.R", local = TRUE)
-source("PREPROCESSING/ifb(desest)_proc.R", local = TRUE)
+#source("PREPROCESSING/actind_proc.R", local = TRUE)
+#source("PREPROCESSING/imai_proc.R", local = TRUE)
+#source("PREPROCESSING/ifb_proc.R", local = TRUE)
+#source("PREPROCESSING/ifb(desest)_proc.R", local = TRUE)
 source("PREPROCESSING/banxico_proc.R", local = TRUE)
 source("PREPROCESSING/estab_proc.R", local = TRUE)
 source("PREPROCESSING/imcp_proc.R", local = TRUE)
@@ -94,7 +103,7 @@ source("PREPROCESSING/des_proc.R", local = TRUE)
 source("PREPROCESSING/construc_proc.R", local = TRUE)
 source("PREPROCESSING/automot_proc.R", local = TRUE)
 source("PREPROCESSING/USA_proc.R", local = TRUE)
-source("PREPROCESSING/analtec_proc.R", local = TRUE)
+#source("PREPROCESSING/analtec_proc.R", local = TRUE)
 source("PREPROCESSING/prices_proc.R", local = TRUE)
 
 forward_mxn_swaps_data <-dbReadTable(asapadb_remote, "forward_mxn_swaps")
@@ -161,17 +170,6 @@ database <- list(balanza_data,
                  usa_emisoras_data,
                  usa_emisoras_mxn_data,
                  indices_data,
-                 gissa_mxn,
-                 gissa_usd,
-                 gissa_mlt,
-                 gissa_acum,
-                 gissa_acum_usd,
-                 gissa_trim,
-                 gissa_trim_usd,
-                 gissa_udm,
-                 gissa_udm_usd,
-                 gissa_raz,
-                 gissa_raz_usd,
                  forward_mxn_swaps_data,
                  usdswaps_data,
                  usrates_data

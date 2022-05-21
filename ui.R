@@ -55,20 +55,9 @@ ind_choices <- c("Balanza Comercial" = "1",
                  "Emisoras USA" = "52",
                  "Emisoras USA en MXN" = "53",
                  "Indices Bursatiles" = "54",
-                 "GIS - Datos por Accion (MXN)" = "55",
-                 "GIS - Datos por Accion (USD)" = "56",
-                 "GIS - Multiplos" = "57",
-                 "GIS - Edo Fin Acum (MXN)" = "58",
-                 "GIS - Edo Fin Acum (USD)" = "59",
-                 "GIS - Trim (MXN)" = "60",
-                 "GIS - Trim (USD)" = "61",
-                 "GIS - UDM (MXN)" = "62",
-                 "GIS - UDM (USD)" = "63",
-                 "GIS - Razones Fin (MXN)" = "64",
-                 "GIS - Razones Fin (USD)" = "65",
-                 "Forward promedio USDMXN, Swaps Cambiarios" = "66",
-                 "USD Interest Rate Swaps" = "67",
-                 "US Treasury Rates" = "68"
+                 "Forward promedio USDMXN, Swaps Cambiarios" = "55",
+                 "USD Interest Rate Swaps" = "56",
+                 "US Treasury Rates" = "57"
                  )
 
 rate_choices <- c(
@@ -234,7 +223,26 @@ ui <-fluidPage(
                       mainPanel(
                         plotlyOutput("termstructure")
                       )),
-             #fin tabpanel csv
+             #fin tabpanel tasas
+             tabPanel("Buscador de noticias",
+                      #sidebar para inputs
+                      sidebarPanel(
+                        
+                        
+                        #input: buscador
+                        searchInput(
+                          inputId = "newssearch", label = "Enter your text",
+                          placeholder = "BMV",
+                          btnSearch = icon("search"),
+                          btnReset = icon("remove"),
+                          width = "450px"
+                        ),
+                        br(),
+                      mainPanel(
+                        dataTableOutput("news")
+                      ))
+                      ),#fin tabpanel noticias
+             
              tabPanel("Información general de la base de datos",
                       mainPanel(
                         dataTableOutput("series_descrip"),
