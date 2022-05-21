@@ -59,9 +59,8 @@ asapadb_remote = dbConnect(MySQL(),  #remote is to be used for dbms
 
 #newsapi
 #d880ad52a6914735ad495090eea842ec
-#library(newsapi)
-#newsapi_key("d880ad52a6914735ad495090eea842ec")
-
+library(newsapi)
+newsapi_key("d880ad52a6914735ad495090eea842ec")
 
 #función para unir df
 MyMerge <- function(x, y){

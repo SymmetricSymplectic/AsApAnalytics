@@ -226,22 +226,16 @@ ui <-fluidPage(
              #fin tabpanel tasas
              tabPanel("Buscador de noticias",
                       #sidebar para inputs
-                      sidebarPanel(
+                      sidebarPanel(width = 2,
                         
                         
                         #input: buscador
-                        searchInput(
-                          inputId = "newssearch", label = "Enter your text",
-                          placeholder = "BMV",
-                          btnSearch = icon("search"),
-                          btnReset = icon("remove"),
-                          width = "450px"
-                        ),
-                        br(),
-                      mainPanel(
+                        textInput("search_news", "Busqueda de noticias"),
+                        actionButton("update2", "Buscar"),
+                        br()),
+                      mainPanel(width = 12,
                         dataTableOutput("news")
-                      ))
-                      ),#fin tabpanel noticias
+                      )),#fin tabpanel noticias
              
              tabPanel("Información general de la base de datos",
                       mainPanel(
