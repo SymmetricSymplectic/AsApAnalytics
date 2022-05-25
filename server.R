@@ -156,13 +156,8 @@ server <- function(input, output, session){
   
   #input condicional: periodos a pronosticar
   fcperiodInput <- reactive({
-    switch(input$fcperiod,
-           "4"=4,
-           "6"=6,
-           "12"=12,
-           "24"=24,
-           "48"=48)
-    
+    fcper <- input$fcperiod
+    return(fcper)
   })
   
 
@@ -226,7 +221,7 @@ server <- function(input, output, session){
       
     )
     varperct <-pch(setbasis, lag = input$periods)
-    varann <- annualize(setbasis, periods = input$periods)
+    varann <- annualize(setbasis, lag = input$periods, periods = input$periodan)
     seriestype <- switch(input$sertype,
                          princ=setbasis,
                          varpct = varperct,

@@ -214,11 +214,11 @@ pch <- function(data, lag = 1) {
 }
 #annualize function for ts
 
-annualize <- function(data, periods = 1) {
+annualize <- function(data, periods = 1, lag = 1) {
   # argument verification
   #data <- as.numeric(data)
   # return annualized percent change
-  ((data / lag(data, 1))^periods - 1)*100
+  ((data / lag(data, lag))^(periods/lag) - 1)*100
 }
 
 

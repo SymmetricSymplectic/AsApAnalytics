@@ -113,6 +113,8 @@ ui <-fluidPage(
                                                         "Anualizar" = "annualize")),
                                          #input: num de periodos para variaciones
                                          numericInput("periods", "Numero de Periodos para la Variacion:", 1, min = 1, max = 10000),
+                                         #input: num de periodos para variaciones
+                                         numericInput("periodan", "Numero de Periodos para Anualizar:", 1, min = 1, max = 10000),
                                          #input: seleccionar si usar el primer año común como año base
                                          radioButtons("setbasis", "Convertir a índice con un año base",
                                                       c("No" = "def", "Sí" = "indexed")),
