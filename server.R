@@ -211,8 +211,8 @@ server <- function(input, output, session){
   #generamos la gráfica de las series principales
   output$plotly1<- renderPlotly({
     req(input$series)
-    data <- na.omit(merged_data())
-    selseries <- data[,input$series]
+    data <- merged_data()
+    selseries <- na.omit(data[,input$series])
     names(selseries) <- abbreviate(names(selseries), minlength = 45)
     don <- xts(x = selseries, order.by = as.Date(rownames(data)))
     setbasis <-switch(input$setbasis,
