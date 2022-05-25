@@ -62,6 +62,7 @@ asapadb_remote = dbConnect(MySQL(),  #remote is to be used for dbms
 library(newsapi)
 newsapi_key("d880ad52a6914735ad495090eea842ec")
 
+
 #función para unir df
 MyMerge <- function(x, y){
   df <- merge(x, y, by= "Date", all.x= TRUE, all.y= TRUE)
@@ -216,7 +217,7 @@ pch <- function(data, lag = 1) {
 annualize <- function(data, periods = 1) {
   # argument verification
   #data <- as.numeric(data)
-  # return percent change
+  # return annualized percent change
   ((data / lag(data, 1))^periods - 1)*100
 }
 
