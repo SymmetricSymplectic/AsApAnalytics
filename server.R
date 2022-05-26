@@ -212,9 +212,9 @@ server <- function(input, output, session){
   output$plotly1<- renderPlotly({
     req(input$series)
     data <- merged_data()
-    selseries <- na.omit(data[,input$series])
+    selseries <- na.omit(data[,input$series,drop=FALSE])
     names(selseries) <- abbreviate(names(selseries), minlength = 45)
-    don <- xts(x = selseries, order.by = as.Date(rownames(data)))
+    don <- xts(x = selseries, order.by = as.Date(rownames(selseries)))
     setbasis <-switch(input$setbasis,
                       def = don,
                       indexed = baseperiod_function(don, input$baseyear)
@@ -229,7 +229,7 @@ server <- function(input, output, session){
                          
     )
     
-    equis <- rownames(data)
+    equis <- rownames(selseries)
     ts_plot(seriestype, 
             title = paste(input$series[1]),
             Xtitle = "Fecha",
