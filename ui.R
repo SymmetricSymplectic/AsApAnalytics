@@ -57,13 +57,15 @@ ind_choices <- c("Balanza Comercial" = "1",
                  "Indices Bursatiles" = "54",
                  "Forward promedio USDMXN, Swaps Cambiarios" = "55",
                  "USD Interest Rate Swaps" = "56",
-                 "US Treasury Rates" = "57"
+                 "US Treasury Rates" = "57",
+                 "Mexican Government Bond Yields"  = "58"
                  )
 
 rate_choices <- c(
   "Forward promedio USDMXN, Swaps Cambiarios" = "1",
   "USD Interest Rate Swaps" = "2",
-  "US Treasury Rates" = "3"
+  "US Treasury Rates" = "3",
+  "Mexican Government Bond Yields"  = "4"
   
 ) 
 

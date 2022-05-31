@@ -75,7 +75,38 @@ rownames(usrates_data) <-usrates_data[,1]
 usrates_data <- usrates_data[,-1]
 dbWriteTable(asapadb_remote, "usrates", usrates_data, row.names = TRUE, overwrite = TRUE ) 
 
-              
+mxbonds <- c("MX1MT=XX",
+             "MX3MT=XX",
+             "MX6MT=XX",
+             "MX1YT=XX",
+             "MX3YT=XX",
+             "MX5YT=XX",
+             "MX7YT=XX",
+             "MX10YT=XX",
+             "MX20YT=XX",
+             "MX30YT=XX")
+
+stocks<-lapply(mxbonds, function(symbol) {
+  aStock<-as.data.frame(getSymbols(symbol,return.class="zoo",auto.assign = FALSE,
+                                   src = "Investing"
+  ))
+  colnames(aStock) <- c("Open","High","Low","Close")
+  aStock$Symbol<-symbol
+  aStock$Date <- as.Date(rownames(aStock),"%Y-%m-%d")
+  aStock[-1,]
+})
+stocksDf <- do.call(rbind,stocks)
+rm(stocks,aStock)
+df <- stocksDf %>% dplyr::select(Date,Close,Symbol) %>% 
+  pivot_wider(names_from = Symbol,values_from=Close,values_fn = mean)
+df <- data.frame(df)
+write.csv(df, file = "DATA/mxbonds.csv", row.names = FALSE)
+
+mxbonds_data <-read.csv("DATA/mxbonds.csv")
+rownames(mxbonds_data) <-mxbonds_data[,1]
+mxbonds_data <- mxbonds_data[,-1]
+dbWriteTable(asapadb_remote, "mxbonds", mxbonds_data, row.names = TRUE, overwrite = TRUE ) 
+
               
               
 
