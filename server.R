@@ -509,6 +509,7 @@ server <- function(input, output, session){
   
   news_table <- eventReactive(input$update2,{
     query <-input$search_news
+    newsapi_key(Sys.getenv("NEWSAPI_KEY"))
     table <- every_news(q= query, results = 10)
     return(table)
   })
@@ -516,7 +517,7 @@ server <- function(input, output, session){
   
   #visor de noticias
   output$news<- DT::renderDT(
-    news_table(), server = TRUE
+    news_table()
   )
   
   #combinar datos con los datos del usuario
