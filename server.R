@@ -189,7 +189,31 @@ server <- function(input, output, session){
   })  
   output$seriescorr2 <- renderUI({
     selectInput("corr2", "Escoja la serie 2 para el análisis de dispersión", choices= names(merged_data()))
-  })     
+  })  
+  
+  #reactive main table transform backend
+  data_transform <- reactive({
+    req(input$series)
+    data <- merged_data()
+    selseries <- na.omit(data[,input$series,drop=FALSE])
+    don <- xts(x = selseries, order.by = as.Date(rownames(selseries)))
+    setbasis <-switch(input$setbasis,
+                      def = don,
+                      indexed = baseperiod_function(don, input$baseyear)
+    )
+    varperct <-pch(setbasis, lag = input$periods)
+    varann <- annualize(setbasis, lag = input$periods, periods = input$periodan)
+    seriestype <- switch(input$sertype,
+                         princ=setbasis,
+                         varpct = varperct,
+                         annualize = varann
+    )
+    return(seriestype)
+  })
+  
+  
+  
+  
   #linear model input
   lmInput <- reactive({
     data <- na.omit(merged_data())
@@ -210,34 +234,15 @@ server <- function(input, output, session){
   
   #generamos la gráfica de las series principales
   output$plotly1<- renderPlotly({
-    req(input$series)
-    data <- merged_data()
-    selseries <- na.omit(data[,input$series,drop=FALSE])
-    names(selseries) <- abbreviate(names(selseries), minlength = 45)
-    don <- xts(x = selseries, order.by = as.Date(rownames(selseries)))
-    setbasis <-switch(input$setbasis,
-                      def = don,
-                      indexed = baseperiod_function(don, input$baseyear)
-      
-    )
-    varperct <-pch(setbasis, lag = input$periods)
-    varann <- annualize(setbasis, lag = input$periods, periods = input$periodan)
-    seriestype <- switch(input$sertype,
-                         princ=setbasis,
-                         varpct = varperct,
-                         annualize = varann
-                         
-    )
-    
-    equis <- rownames(selseries)
-    ts_plot(seriestype, 
+    seriesselect <- data_transform()
+    ts_plot(seriesselect, 
             title = paste(input$series[1]),
             Xtitle = "Fecha",
             Xgrid = TRUE,
             Ygrid = TRUE) %>%
       layout(plot_bgcolor='transparent',
              yaxis = list(gridcolor= "#AAAAAA", fixedrange = FALSE, tickformat = ",.2f" ),
-             xaxis = list(gridcolor= "#AAAAAA", ticktext = equis
+             xaxis = list(gridcolor= "#AAAAAA" #, ticktext = index(seriesselect)
                           #,rangeslider = list(type = "date")
              )) %>% 
       layout(legend = list(x = 0.05, y = 0.95)) %>%
@@ -277,8 +282,10 @@ server <- function(input, output, session){
     meta_data[,-1]
   })
   #tabla con los datos de la serie
-  output$tabla <- renderDataTable(
-    rownames_to_column(merged_data(), var = "fecha") %>% as_tibble())
+  output$tabla <- renderDataTable({
+    series <-data_transform()
+    series %>% fortify.zoo %>% as_tibble 
+    })
   
   #texto que describe los modelos arima y arfima
   output$forecast_descrip <- renderText({
