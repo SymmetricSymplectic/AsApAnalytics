@@ -258,5 +258,7 @@ ui <-fluidPage(
 )
 
 # Wrap your UI with secure_app
-ui <- secure_app(ui)
+ui <- secure_app(ui,
+                 language = "es"
+)
 
