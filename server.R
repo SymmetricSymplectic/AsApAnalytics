@@ -268,7 +268,7 @@ server <- function(input, output, session){
         list(type = "rect",
              fillcolor = "blue", line = list(color = "blue"), opacity = 0.15,
              x0 = "2007-12-01", x1 = "2009-06-01", xref = "x",
-             y0 = 0, y1 = 1, yref = "paper",visible = input$show_recessions),
+             y0 = 0, y1 = 1, yref = "paper", visible = input$show_recessions),
         list(type = "rect",
              fillcolor = "blue", line = list(color = "blue"), opacity = 0.15,
              x0 = "2020-02-01", x1 = "2021-12-01", xref = "x",
@@ -508,7 +508,7 @@ server <- function(input, output, session){
       paste(input$dataset, ".csv", sep = "")
     },
     content = function(file) {
-      write.csv(datasetInput(), file, row.names = TRUE)
+      write.csv(as.data.frame(data_transform()), file, row.names = TRUE)
     }
   )
   observeEvent(input$updateData, {
