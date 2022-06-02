@@ -191,7 +191,7 @@ server <- function(input, output, session){
     selectInput("corr2", "Escoja la serie 2 para el análisis de dispersión", choices= names(merged_data()))
   })  
   
-  #reactive main table transform backend
+  #reactive main table xts transform backend
   data_transform <- reactive({
     req(input$series)
     data <- merged_data()
@@ -259,18 +259,21 @@ server <- function(input, output, session){
                sizey = 0.8,
                #sizing = "stretch",
                layer = "below",
-               opacity = 0.1
+               opacity = 0.1,
+               visible = input$show_logo
           ))) %>%
       #show recessions
-      layout(shapes=list(
+      layout(
+        shapes=list(
         list(type = "rect",
              fillcolor = "blue", line = list(color = "blue"), opacity = 0.15,
              x0 = "2007-12-01", x1 = "2009-06-01", xref = "x",
-             y0 = 0, y1 = 1, yref = "paper"),
+             y0 = 0, y1 = 1, yref = "paper",visible = input$show_recessions),
         list(type = "rect",
              fillcolor = "blue", line = list(color = "blue"), opacity = 0.15,
              x0 = "2020-02-01", x1 = "2021-12-01", xref = "x",
-             y0 = 0, y1 = 1, yref = "paper")
+             y0 = 0, y1 = 1, yref = "paper", visible = input$show_recessions)
+        
         ))%>%
       plotly::config(displaylogo = FALSE)
     
@@ -328,7 +331,8 @@ server <- function(input, output, session){
                sizey = 0.8,
                #sizing = "stretch",
                layer = "below",
-               opacity = 0.1
+               opacity = 0.1,
+               visible = input$show_logo
           ))) %>%
       layout(paper_bgcolor='transparent')
   })
@@ -394,7 +398,8 @@ server <- function(input, output, session){
                sizey = 0.8,
                #sizing = "stretch",
                layer = "below",
-               opacity = 0.1
+               opacity = 0.1,
+               visible = input$show_logo
           ))) %>%
       config(displaylogo = FALSE)
   })
@@ -459,7 +464,8 @@ server <- function(input, output, session){
                sizey = 0.8,
                #sizing = "stretch",
                layer = "below",
-               opacity = 0.1
+               opacity = 0.1,
+               visible = input$show_logo
           ))) %>%
       plotly::config(displaylogo = FALSE)
     
@@ -477,7 +483,22 @@ server <- function(input, output, session){
     plot_ly(data, x = ~variable, y = ~value,
             split = ~dates,
             type = "scatter", mode = "lines+markers")%>%
-      layout(xaxis = list(categoryarray = names, categoryorder = "array"))
+      layout(xaxis = list(categoryarray = names, categoryorder = "array"))%>%
+      layout(
+        images = list(
+          list(source = "https://i.ibb.co/2KDKzhg/logotipo-asapa-min-black.png",
+               xref = "paper",
+               yref = "paper",
+               x= 0.15,
+               y= 0.7,
+               sizex = 0.8,
+               sizey = 0.8,
+               #sizing = "stretch",
+               layer = "below",
+               opacity = 0.1,
+               visible = input$show_logo
+          ))) %>%
+      plotly::config(displaylogo = FALSE)
   }) 
   
   

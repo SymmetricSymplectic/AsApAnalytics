@@ -94,9 +94,11 @@ ui <-fluidPage(
                         actionButton("update", "Crear tabla"),
                         helpText("El botón 'Crear tabla' permite acceder a la tabla de datos del
                                   indicador en la base de datos, 
-                                 así como combinar tal tabla con una tabla de datos proporcionada
-                                 por el usuario, y la tabla de precios de mercado en una misma tabla"),
-                        
+                                 así como combinarla con datos proporcionados
+                                 por el usuario, y con precios OHLC de mercado en una misma tabla"),
+                        #input: seleccionar si mostrar el logotipo asapa
+                        checkboxInput("show_logo", "Mostrar Logotipo AsApA",
+                                     TRUE),
                         #sidebars condicionales dependiendo de qué tabset selecciones
                         conditionalPanel(condition="input.tabselected==1",
                                          #input: seleccionar series para gráficas principales (dinámicas)
@@ -126,8 +128,11 @@ ui <-fluidPage(
                                            label= "Seleccione el año base para el índice",
                                            value = "2000"
                                          ),
+                                         #input: mostrar recesiones
+                                         checkboxInput("show_recessions", "Mostrar Recesiones (2008, 2020)",
+                                                       FALSE),
                                          #Selector for file upload
-                                         fileInput('target_upload', 'Seleccione archivo para subir',
+                                         fileInput('target_upload', 'Seleccione archivo para subir (CSV UTF=8)',
                                                    accept = c(
                                                      'text/csv',
                                                      'text/comma-separated-values',
