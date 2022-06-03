@@ -314,10 +314,11 @@ manuf_data <-read.csv("DATA/manuf.csv")
 rownames(manuf_data) <-manuf_data[,1]
 manuf_data <- manuf_data[,-1]
 names(manuf_data) <-c("Industrial Production: Manufacturing",
-"Producer Price Index by Industry: Total Manufacturing Industries ",
+"PPI by Industry: Total Manufacturing Industries ",
 "New Orders Total Manufacturing",
-"New Orders Exc. Transp",
-"New Orders Excl. Defense")
+"Durable Goods",
+"Durable Goods Exc. Transp",
+"Durable Excl. Defense")
 
 #unemp general
 unemp_data <-read.csv("DATA/unemp.csv")

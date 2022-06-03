@@ -852,7 +852,6 @@ if (requireNamespace("purrr", quietly = TRUE)) {
               "PCUOMFGOMFG",
               "AMTMNO",
               "DGORDER",
-      
               "ADXTNO",
               "ADXDNO")
    library(purrr)
