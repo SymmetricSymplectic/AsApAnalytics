@@ -850,7 +850,9 @@ manuf <- fredr_release_series(release_id = 95)
 if (requireNamespace("purrr", quietly = TRUE)) {
    series <-c("IPMAN",
               "PCUOMFGOMFG",
-      "AMTMNO",
+              "AMTMNO",
+              "DGORDER",
+      
               "ADXTNO",
               "ADXDNO")
    library(purrr)
