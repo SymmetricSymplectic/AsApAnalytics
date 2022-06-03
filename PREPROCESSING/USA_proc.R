@@ -316,6 +316,8 @@ manuf_data <- manuf_data[,-1]
 names(manuf_data) <-c("Industrial Production: Manufacturing",
 "PPI by Industry: Total Manufacturing Industries ",
 "New Orders Total Manufacturing",
+"New Orders Excluding Defense",
+"New Orders Excluding Transport",
 "Durable Goods",
 "Durable Goods Exc. Transp",
 "Durable Excl. Defense")

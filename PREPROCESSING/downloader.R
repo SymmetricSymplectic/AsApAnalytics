@@ -851,6 +851,8 @@ if (requireNamespace("purrr", quietly = TRUE)) {
    series <-c("IPMAN",
               "PCUOMFGOMFG",
               "AMTMNO",
+              "AMXDNO",
+              "AMXTNO",
               "DGORDER",
               "ADXTNO",
               "ADXDNO")
