@@ -240,6 +240,7 @@ ui <-fluidPage(
                         
                         #input: buscador
                         textInput("search_news", "Busqueda de noticias"),
+                        #api is set from eviron
                         actionButton("update2", "Buscar"),
                         br()),
                       mainPanel(width = 12,
