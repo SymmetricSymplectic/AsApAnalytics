@@ -61,7 +61,6 @@ asapadb_remote = dbConnect(MySQL(),  #remote is to be used for dbms
 #newsapi
 #d880ad52a6914735ad495090eea842ec
 library(newsapi)
-#newsapi_key(Sys.getenv("NEWSAPI_KEY"))
 #api <-paste(Sys.getenv("NEWSAPI_KEY"))
 api <-"d880ad52a6914735ad495090eea842ec"
 

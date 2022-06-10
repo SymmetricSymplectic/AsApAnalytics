@@ -1,6 +1,8 @@
 #actind_url <- "https://www.inegi.org.mx/contenidos/temas/economia/cn/imai/tabulados/ori/IMAI_1.xlsx"
 #download.file(actind_url, destfile="DATA/actind.xlsx", mode='wb')
 #datos descargados a dataframe
+library(readxl)
+
 actind_ind <-read_excel("DATA/actind.xlsx")
 transpose <- data.table::transpose
 actind_ind <- data.table::transpose(actind_ind)
