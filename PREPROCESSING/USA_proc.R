@@ -6,12 +6,13 @@ rownames(mtis_data) <- mtis_data[,1]
 mtis_data <- mtis_data[,-1]
 names(mtis_data) <- c("Total business",
                       "Total Manufacturers",
-                      "Retail Trade",
+                      "Advance Retail Sales: Retail Trade",
                       "Merchant Wholesalers Sales",
                       "Total business Inventories",
                       "Total Manufacturers Inventories",
-                      "Retail Trade",
-                      "Merchant Wholesalers Inventories"
+                      "Retailers Inventories",
+                      "Merchant Wholesalers Inventories",
+                      "Wholesalers Inventories/Sales Ratio"
 ) 
 
 

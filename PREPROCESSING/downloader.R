@@ -603,11 +603,12 @@ if (requireNamespace("purrr", quietly = TRUE)) {
    series <- c("TOTBUSSMSA",
                "AMTMVS",
                "RSXFS",
-               "WHLSLRSMSA",
+               "S42SMSM144SCEN",
                "BUSINV",
                "AMTMTI",
                "RETAILIMSA",
-               "WHLSLRIMSA"
+               "I423IMM144SCEN",
+               "R42IRSM163SCEN"
    )
    library(purrr)
    purrr::map_dfr(series, fredr)
@@ -683,7 +684,7 @@ conscredit <- fredr_release_series(release_id = 14)
 if (requireNamespace("purrr", quietly = TRUE)) {
    series <- c(
       "TOTALSL",
-      "FLREVOLSL",
+      "REVOLSL",
       "NONREVSL"
       
    )
