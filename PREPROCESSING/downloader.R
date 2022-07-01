@@ -541,7 +541,8 @@ library(siebanxicor)
 #actualizar token en sitio de banxico cuando haga falta: https://www.banxico.org.mx/SieAPIRest/service/v1/token
 setToken("c60a5aa65615365fe1ecdd509dc96435a3e5c3cac6b27a2cbad82b747d18662a")
 #reservas internacionales MdD mensual
-idSeries <- c("SF110168")
+
+idSeries <- c("SF110168", "SF110179")
 serie <- getSeriesData(idSeries)
 write.csv(serie,"DATA/reservas.csv", row.names = FALSE )
 #reservas internacionales banxico MdD semanales

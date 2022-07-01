@@ -1,8 +1,8 @@
 #Preparación de datos: reservas internacionales de Banxico (millones de dólares) (mensual)
 reservas_data <- read.csv("DATA/reservas.csv")
 rownames(reservas_data) <- reservas_data[,1]
-reservas_data[,1] <- NULL
-colnames(reservas_data) <- "Reserva Internacional (mdd de E.U.)"
+reservas_data[,c(1,3)] <- NULL
+colnames(reservas_data) <- c("Otros activos en moneda extranjera (mdd de E.U.)","Reserva Internacional (mdd de E.U.)")
 reservas_data <- na.omit(reservas_data)
 
 #reservas internacionales (millones de dolares) (semanal)
