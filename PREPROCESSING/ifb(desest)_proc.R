@@ -2,7 +2,7 @@
 #descargamos el archivo con las series de IMAI de la base de datos del inegi
 #ifbdesest_url <- "https://www.inegi.org.mx/contenidos/temas/economia/cn/ifb/tabulados/des/ifb_indice.xlsx"
 #download.file(ifbdesest_url, destfile="DATA/ifbdesest.xlsx", mode='wb')
-
+library(readxl)
 #asignamos la base descargada a un dataframe, lo transponemos para que esté en columnas las series
 indice<- read_excel("DATA/ifbdesest.xlsx")
 indice <- transpose(indice)
@@ -55,6 +55,13 @@ imai.df <- imai.df[,-1]
 #hacemos el df con las series
 #data <- read_excel("igae data.xlsx")
 ifbdesest_data <-imai.df
+library(RMySQL)
+
+asapadb_remote = dbConnect(MySQL(),  #remote is to be used for dbms
+                           user='asapacom_Felix', 
+                           password='zPySwGE4GUHQ7v9', 
+                           dbname='asapacom_SisAna', 
+                           host='www.asapa.com')
 dbWriteTable(asapadb_remote, "ifbdesest", ifbdesest_data, row.names = TRUE, overwrite = TRUE )
 
 rm(imai.df)

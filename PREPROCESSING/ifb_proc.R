@@ -3,6 +3,7 @@
 #download.file(ifb_url, destfile="DATA/ifb.xlsx", mode='wb')
 
 #datos descargados a dataframe
+library(readxl)
 ind <-read_excel("DATA/ifb.xlsx")
 ind <- transpose(ind)
 #quitamos filas basura de dato anual
@@ -48,6 +49,13 @@ ind.df <- ind.df[,-1]
 
 #hacemos el df con las series
 ifb_data <-ind.df
+library(RMySQL)
+
+asapadb_remote = dbConnect(MySQL(),  #remote is to be used for dbms
+                           user='asapacom_Felix', 
+                           password='zPySwGE4GUHQ7v9', 
+                           dbname='asapacom_SisAna', 
+                           host='www.asapa.com')
 dbWriteTable(asapadb_remote, "ifb", ifb_data, row.names = TRUE, overwrite = TRUE )
 
 rm(ind.df)
