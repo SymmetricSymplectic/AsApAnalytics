@@ -292,10 +292,11 @@ names(gdp_data) <- c("Gross domestic product",
 cpi_data <- read.csv("DATA/cpi.csv")
 rownames(cpi_data) <- cpi_data[,1]
 cpi_data <- cpi_data[,-1]
-names(cpi_data) <- c("Consumer Price Index for All Urban Consumers: All Items in U.S. City Average",
-                     "Consumer Price Index for All Urban Consumers: All Items Less Food and Energy in U.S. City Average ",
-                     "Personal Consumption Expenditures: Chain-type Price Index "
-                     )
+names(cpi_data) <- c("CPI: All Items (Seasonally Adjusted)",
+                     "CPI: All Items Less Food and Energy(Seasonally Adjusted)",
+                     "Personal Consumption Expenditures: Chain-type Price Index ",
+                     "CPI: All Items (Not Seasonally Adjusted)",
+                     "CPI: All Items Less Food and Energy(Not Seasonally Adjusted)")
 #dbWriteTable(asapadb_remote, "ppi", ppi_data, row.names = TRUE, append= TRUE) 
 
 

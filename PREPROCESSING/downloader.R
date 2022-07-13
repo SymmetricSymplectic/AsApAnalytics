@@ -796,7 +796,9 @@ if (requireNamespace("purrr", quietly = TRUE)) {
    series <-c(
       "CPIAUCSL",
       "CPILFESL",
-      "PCEPI"
+      "PCEPI",
+      "CPIAUCNS",
+      "CPILFENS"
    )
    library(purrr)
    purrr::map_dfr(series, fredr)
