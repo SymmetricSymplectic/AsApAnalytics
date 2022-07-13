@@ -85,6 +85,14 @@ colnames(actind_data) <- c("Total",
                            "339 - Otras industrias" )
 
 rm(actind.df)
+library(RMySQL)
+
+asapadb_remote = dbConnect(MySQL(),  #remote is to be used for dbms
+                           user='asapacom_Felix', 
+                           password='zPySwGE4GUHQ7v9', 
+                           dbname='asapacom_SisAna', 
+                           host='www.asapa.com')
+
 dbWriteTable(asapadb_remote, "actind", actind_data, row.names = TRUE, overwrite = TRUE )
 
 

@@ -80,5 +80,13 @@ colnames(imai_data) <- c("Total",
                            "336 - Equipo de transporte",                                                                                   
                            "337 - Muebles, colchones y persianas",                                                                         
                            "339 - Otras industrias" )
+library(RMySQL)
+
+asapadb_remote = dbConnect(MySQL(),  #remote is to be used for dbms
+                           user='asapacom_Felix', 
+                           password='zPySwGE4GUHQ7v9', 
+                           dbname='asapacom_SisAna', 
+                           host='www.asapa.com')
+
 dbWriteTable(asapadb_remote, "imai", imai_data, row.names = TRUE, overwrite = TRUE )
 
