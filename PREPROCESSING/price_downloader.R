@@ -209,7 +209,7 @@ stocks<-lapply(divisas, function(symbol) {
 })
 stocksDf <- do.call(rbind,stocks)
 rm(stocks,aStock)
-divisas <- stocksDf %>% dplyr::select(Date,Close,Symbol) %>% 
+divisas <- na.omit(stocksDf) %>% dplyr::select(Date,Close,Symbol) %>% 
   pivot_wider(names_from = Symbol,values_from=Close,values_fn = mean)
 divisas <- data.frame(divisas)
 write.csv(divisas, file = "DATA/divisas.csv", row.names = FALSE)
