@@ -230,7 +230,8 @@ ui <-fluidPage(
                         actionButton("update1", "Mostrar tasas"),
                         uiOutput("selectrates")),
                       mainPanel(
-                        plotlyOutput("termstructure")
+                        plotlyOutput("termstructure"),
+                        dataTableOutput("ratestable")
                       )),
              #fin tabpanel tasas
              tabPanel("Buscador de noticias",

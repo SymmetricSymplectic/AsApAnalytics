@@ -160,10 +160,10 @@ source("PREPROCESSING/USA_proc.R", local = TRUE)
 #source("PREPROCESSING/analtec_proc.R", local = TRUE)
 source("PREPROCESSING/prices_proc.R", local = TRUE)
 
-forward_mxn_swaps_data <-dbReadTable(asapadb_remote, "forward_mxn_swaps")
-usdswaps_data <-dbReadTable(asapadb_remote, "usdswaps")
-usrates_data <-dbReadTable(asapadb_remote, "usrates")
-mxbonds_data <-dbReadTable(asapadb_remote, "mxbonds")
+forward_mxn_swaps_data <-dbReadTable(asapadb_remote, "forward_mxn_swaps", check.names = FALSE)
+usdswaps_data <-dbReadTable(asapadb_remote, "usdswaps", check.names = FALSE)
+usrates_data <-dbReadTable(asapadb_remote, "usrates", check.names = FALSE)
+mxbonds_data <-dbReadTable(asapadb_remote, "mxbonds", check.names = FALSE)
 
 
 #metadata preproc

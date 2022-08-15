@@ -480,6 +480,7 @@ server <- function(input, output, session){
     data <- data.table(data)
     data <- melt(data, id.vars = "dates")
     data <- data[which(data$dates==input$rates)]
+    data %>% rename(tenor = variable)
     plot_ly(data, x = ~variable, y = ~value,
             split = ~dates,
             type = "scatter", mode = "lines+markers")%>%
@@ -500,6 +501,16 @@ server <- function(input, output, session){
           ))) %>%
       plotly::config(displaylogo = FALSE)
   }) 
+  #tabla con los datos de la serie
+  output$ratestable <- renderDataTable({
+    req(input$rates)
+    data <- merged_rates()
+    data$dates <- rownames(data)
+    data <- data.table(data)
+    data <- melt(data, id.vars = "dates")
+    data <- data[which(data$dates==input$rates)]
+    data%>% fortify.zoo %>% as_tibble %>% rename(tenor = variable)  
+  })
   
   
   #output para descarga de base de datos
