@@ -11,8 +11,8 @@ asapadb_remote = dbConnect(MySQL(),  #remote is to be used for dbms
 
 #the downloader
 #actividad industrial
-actind_url <- "https://www.inegi.org.mx/contenidos/temas/economia/cn/imai/tabulados/ori/IMAI_1.xlsx"
-download.file(actind_url, destfile="DATA/actind.xlsx", mode='wb')
+#actind_url <- "https://www.inegi.org.mx/contenidos/temas/economia/cn/imai/tabulados/ori/IMAI_1.xlsx"
+#download.file(actind_url, destfile="DATA/actind.xlsx", mode='wb')
 #inversion fija buta
 ifbdesest_url <- "https://www.inegi.org.mx/contenidos/temas/economia/cn/ifb/tabulados/des/ifb_indice.xlsx"
 download.file(ifbdesest_url, destfile="DATA/ifbdesest.xlsx", mode='wb')
@@ -36,53 +36,11 @@ library(jsonlite)
 library(rjson)
 library(readr)
 library(dplyr)
+library(inegiR)
 
 token_inegi <- "e6198ee1-4481-4c00-835c-920d299e0204"
 
 #actind
-#series <- c(496326,496327,496328,496329,496330,496331,496332,496333,496334,496335,
-#496336,496337,496338,496339,496340,496341,496342,496343,496344,496345,
-#496346,496347,496348,496349,496350,496351,496352,496353,496354,496355,
-#496356,496357,496358,496359)
-#names <- c("Total",
-#"21 - Minería",
-#"211 - Extracción de petróleo y gas",
-#"212 - Minería de minerales metálicos y no metálicos, excepto petróleo y gas",
-#"213 - Servicios relacionados con la minería",
-#"22 - Generación, transmisión y distribución de energía eléctrica, suministro de agua y de gas por ductos al consumidor final",
-#"221 - Generación, transmisión y distribución de energía eléctrica",
-#"222 - Suministro de agua y suministro de gas por ductos al consumidor final",
-#"23 - Construcción",
-#"236 - Edificación",
-#"237 - Construcción de obras de ingeniería civil",
-#"238 - Trabajos especializados para la construcción",
-#"31-33 - Industrias manufactureras",
-#"311 - Industria alimentaria",
-#"312 - Industria de las bebidas y del tabaco",
-#"313 - Fabricación de insumos textiles y acabado de textiles",
-#"314 - Fabricación de productos textiles, excepto prendas de vestir",
-#"315 - Fabricación de prendas de vestir",
-#"316 - Curtido y acabado de cuero y piel, y fabricación de productos de cuero, piel y materiales sucedáneos",
-#"321 - Industria de la madera",
-#"322 - Industria del papel",
-#"323 - Impresión e industrias conexas",
-#"324 - Fabricación de productos derivados del petróleo y del carbón",
-#"325 - Industria química",
-#"326 - Industria del plástico y del hule",
-#"327 - Fabricación de productos a base de minerales no metálicos",
-#"331 - Industrias metálicas básicas",
-#"332 - Fabricación de productos metálicos",
-#"333 - Fabricación de maquinaria y equipo",
-#"334 - Fabricación de equipo de computación, comunicación, medición y de otros equipos, componentes y accesorios electrónicos",
-#"335 - Fabricación de accesorios, aparatos eléctricos y equipo de generación de energía eléctrica",
-#"336 - Fabricación de equipo de transporte",
-#"337 - Fabricación de muebles, colchones y persianas",
-#"339 - Otras industrias manufactureras")
-
-#data <- lapply(series, inegi_series, token_inegi)
-#names(data) <- names
-#write.csv(data, "test.csv")
-#rm(series, names)
 
 
 

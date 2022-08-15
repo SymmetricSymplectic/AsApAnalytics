@@ -297,6 +297,7 @@ write.csv(usa, file = "DATA/usa_emisoras.csv", row.names = FALSE)
 
 rm(stocksDf, bmv, divisas,indices, usa)
 
+#libor rates
 
 
 

@@ -56,7 +56,11 @@ asapadb_remote = dbConnect(MySQL(),  #remote is to be used for dbms
 #                          dbname='SisAnaDB',
 #                          host='localhost'
 #                          )
-
+dbDisconnectAll <- function(){
+  ile <- length(dbListConnections(MySQL())  )
+  lapply( dbListConnections(MySQL()), function(x) dbDisconnect(x) )
+  cat(sprintf("%s connection(s) closed.\n", ile))
+}
 
 #newsapi
 #d880ad52a6914735ad495090eea842ec

@@ -37,9 +37,9 @@ actind.df <- data.frame(Periodo[1:length(actind_ind$V6)], actind_ind)
 colnames(actind.df) <- c("Periodo",
                          names_actind)
 #borramos todo lo innecesario
-rm(actind_ind)
-rm(names_actind)
-rm(Periodo)
+#rm(actind_ind)
+#rm(names_actind)
+#rm(Periodo)
 #arreglamos la cuenta de filas del df
 row.names(actind.df) <- NULL
 #arreglamos las fechas como rownames del df
