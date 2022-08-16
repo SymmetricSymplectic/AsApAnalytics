@@ -401,7 +401,7 @@ server <- function(input, output, session){
                opacity = 0.1,
                visible = input$show_logo
           ))) %>%
-      config(displaylogo = FALSE)
+      plotly::config(displaylogo = FALSE)
   })
   
   #info del ajuste lineal usando sjPlot
