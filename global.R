@@ -35,7 +35,7 @@ library(broom)
 #para detectar multiples fechas
 library(anytime)
 #para bajar precios
-library(quantmod)
+library(rusquant)
 #gestion db
 library(RMySQL)
 #visualizacion de performance

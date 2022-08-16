@@ -105,8 +105,10 @@ ui <-fluidPage(
                                          uiOutput("selectseries"),
                                          #input: seleccionar instrumento
                                          
-                                         textInput("symb", "Seleccione un instrumento cotizado para agregarlo a la visualización"),
-                                         helpText("Utilizar el ticker de Yahoo Finance"),
+                                         textInput("symb", "Seleccione un instrumento o indicador de otra fuente para agregarlo a la visualización"),
+                                         radioButtons("quotesource", "Fuente para la cotización:",
+                                                      c("Investing.com" = "Investing", "Yahoo Finance" = "yahoo", "FRED"= "FRED")),
+                                         helpText("Utilizar la clave del proveedor de datos"),
                                          dateRangeInput("ydates",
                                                         "Intervalo de fechas para el instrumento",
                                                         start = "2007-01-01",

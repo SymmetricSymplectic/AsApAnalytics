@@ -564,6 +564,7 @@ server <- function(input, output, session){
   merged_data<-eventReactive(input$update,{
     data2 <-datasetInput()
     data1 <-df_products_upload()
+    data1[is.na(data1)] <- 0
     data3 <-priceInput()
     if (is.null(data1)){
       if (is.null(data3))
@@ -596,7 +597,7 @@ server <- function(input, output, session){
   
   #bajar precio de instrumento en yfinance
   priceInput <- reactive({
-    as.data.frame(getSymbols(input$symb, src = "yahoo",
+    as.data.frame(getSymbols(input$symb, src = input$quotesource,
                from = input$ydates[1],
                to = input$ydates[2],
                auto.assign = FALSE))
