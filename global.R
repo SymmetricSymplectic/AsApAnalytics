@@ -164,7 +164,7 @@ forward_mxn_swaps_data <-dbReadTable(asapadb_remote, "forward_mxn_swaps", check.
 usdswaps_data <-dbReadTable(asapadb_remote, "usdswaps", check.names = FALSE)
 usrates_data <-dbReadTable(asapadb_remote, "usrates", check.names = FALSE)
 mxbonds_data <-dbReadTable(asapadb_remote, "mxbonds", check.names = FALSE)
-
+libor_data <-dbReadTable(asapadb_remote, "LIBORUSD_data", check.names = FALSE)
 
 #metadata preproc
 source("PREPROCESSING/metadata.R", local = TRUE)
@@ -227,7 +227,8 @@ database <- list(balanza_data,
                  forward_mxn_swaps_data,
                  usdswaps_data,
                  usrates_data,
-                 mxbonds_data
+                 mxbonds_data,
+                 libor_data
                  )
 
 #term structure database
@@ -235,7 +236,8 @@ termstructure_db <- list(
   forward_mxn_swaps_data,
   usdswaps_data,
   usrates_data,
-  mxbonds_data
+  mxbonds_data,
+  libor_data
 )
 
 

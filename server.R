@@ -216,9 +216,12 @@ server <- function(input, output, session){
   
   #linear model input
   lmInput <- reactive({
-    data <- na.omit(merged_data())
+    data <- data.frame(coredata(data_transform()))
+    rownames(data) <- index(data_transform())
     data <- data[order(as.Date(rownames(data), format="%d/%m/%Y")),]
-    df1 <-na.omit(data.frame(data[,c(input$corr1, input$corr2)]))
+    v1 <-as.numeric(data[,c(input$corr1)])
+    v2 <-as.numeric(data[,c(input$corr2)])
+    df1 <-na.omit(data.frame(v1, v2))
     df2 <-na.omit(data.frame(c(NA,diff(log(data[,c(input$corr1)]))), c(NA,diff(log(data[,c(input$corr2)])))))
     df3 <-na.omit(data.frame(c(NA,diff(data[,c(input$corr1)])), c(NA,diff(data[,c(input$corr2)]))))
     df <- switch(input$regperiod,
@@ -367,6 +370,7 @@ server <- function(input, output, session){
   #generamos el diagrama de dispersión
   output$scatterplot <- renderPlotly({
     data <- na.omit(merged_data())
+    data[is.na(data)] <- 0
     df1 <-na.omit(data.frame(data[,c(input$corr1, input$corr2)]))
     df2 <-na.omit(data.frame(c(NA,diff(log(data[,c(input$corr1)]))), c(NA,diff(log(data[,c(input$corr2)])))))
     df3 <-na.omit(data.frame(c(NA,diff(data[,c(input$corr1)])), c(NA,diff(data[,c(input$corr2)]))))

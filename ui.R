@@ -58,14 +58,16 @@ ind_choices <- c("Balanza Comercial" = "1",
                  "Forward promedio USDMXN, Swaps Cambiarios" = "55",
                  "USD Interest Rate Swaps" = "56",
                  "US Treasury Rates" = "57",
-                 "Mexican Government Bond Yields"  = "58"
+                 "Mexican Government Bond Yields"  = "58",
+                 "Tasa LIBOR (USD)" = "59"
                  )
 
 rate_choices <- c(
   "Forward promedio USDMXN, Swaps Cambiarios" = "1",
   "USD Interest Rate Swaps" = "2",
   "US Treasury Rates" = "3",
-  "Mexican Government Bond Yields"  = "4"
+  "Mexican Government Bond Yields"  = "4",
+  "Tasa LIBOR (USD)" = "5"
   
 ) 
 
