@@ -59,7 +59,8 @@ ind_choices <- c("Balanza Comercial" = "1",
                  "USD Interest Rate Swaps" = "56",
                  "US Treasury Rates" = "57",
                  "Mexican Government Bond Yields"  = "58",
-                 "Tasa LIBOR (USD)" = "59"
+                 "Tasa LIBOR (USD)" = "59",
+                 "Natural Gas Futures (3y)" = "60"
                  )
 
 rate_choices <- c(

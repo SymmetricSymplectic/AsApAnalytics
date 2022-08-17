@@ -216,8 +216,7 @@ server <- function(input, output, session){
   
   #linear model input
   lmInput <- reactive({
-    data <- data.frame(coredata(data_transform()))
-    rownames(data) <- index(data_transform())
+    data <- na.omit(merged_data())
     data <- data[order(as.Date(rownames(data), format="%d/%m/%Y")),]
     v1 <-as.numeric(data[,c(input$corr1)])
     v2 <-as.numeric(data[,c(input$corr2)])

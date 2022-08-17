@@ -165,6 +165,7 @@ usdswaps_data <-dbReadTable(asapadb_remote, "usdswaps", check.names = FALSE)
 usrates_data <-dbReadTable(asapadb_remote, "usrates", check.names = FALSE)
 mxbonds_data <-dbReadTable(asapadb_remote, "mxbonds", check.names = FALSE)
 libor_data <-dbReadTable(asapadb_remote, "LIBORUSD_data", check.names = FALSE)
+ng_data <-dbReadTable(asapadb_remote, "ng_data", check.names = FALSE)
 
 #metadata preproc
 source("PREPROCESSING/metadata.R", local = TRUE)
@@ -228,7 +229,8 @@ database <- list(balanza_data,
                  usdswaps_data,
                  usrates_data,
                  mxbonds_data,
-                 libor_data
+                 libor_data,
+                 ng_data
                  )
 
 #term structure database
