@@ -287,6 +287,7 @@ database <- list(balanza_data,
 #term structure database
 termstructure_db <- list(
   forward_mxn_swaps_data,
+  forward_mxn_data,
   usdswaps_data,
   usrates_data,
   mxbonds_data,
