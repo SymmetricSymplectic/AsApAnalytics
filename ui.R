@@ -55,12 +55,13 @@ ind_choices <- c("Balanza Comercial" = "1",
                  "Emisoras USA" = "49",
                  "Emisoras USA en MXN" = "50",
                  "Indices Bursatiles" = "51",
-                 "Forward promedio USDMXN, Swaps Cambiarios" = "52",
-                 "USD Interest Rate Swaps" = "53",
-                 "US Treasury Rates" = "54",
-                 "Mexican Government Bond Yields"  = "55",
-                 "Tasa LIBOR (USD)" = "56",
-                 "Natural Gas Futures (3y)" = "57"
+                 "Tasa Forward promedio USDMXN, Swaps Cambiarios" = "52",
+                 "Tasa Forward promedio USDMXN" = "53",
+                 "USD Interest Rate Swap Rate" = "54",
+                 "US Treasury Rates" = "55",
+                 "Mexican Government Bond Yields"  = "56",
+                 "Tasa LIBOR (USD)" = "57",
+                 "Natural Gas Futures (3y)" = "58"
                  )
 
 rate_choices <- c(

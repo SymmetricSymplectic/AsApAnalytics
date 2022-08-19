@@ -209,6 +209,8 @@ indices_data<- dbReadTable(asapadb_remote, "indices_data")
 #source("PREPROCESSING/prices_proc.R", local = TRUE)
 
 forward_mxn_swaps_data <-dbReadTable(asapadb_remote, "forward_mxn_swaps_data", check.names = FALSE)
+forward_mxn_data <-dbReadTable(asapadb_remote, "forward_mxn_data", check.names = FALSE)
+
 usdswaps_data <-dbReadTable(asapadb_remote, "usdswaps", check.names = FALSE)
 usrates_data <-dbReadTable(asapadb_remote, "usrates", check.names = FALSE)
 mxbonds_data <-dbReadTable(asapadb_remote, "mxbonds", check.names = FALSE)
@@ -274,6 +276,7 @@ database <- list(balanza_data,
                  usa_emisoras_mxn_data,
                  indices_data,
                  forward_mxn_swaps_data,
+                 forward_mxn_data,
                  usdswaps_data,
                  usrates_data,
                  mxbonds_data,
