@@ -1,6 +1,0 @@
-ifb e ifb_desest son el modelo a seguir para scripts futuros
-la descarga es a través del archivo downloader, activado con un boton de acción en la app
-las series de banxico usan la API de banxico a través de la libreria de R correspondiente,
-con token que actualizas en el sitio de banxico
-#20 enero 2021
-enlace con API de inegi operativo, por si se busca eficientar acceso a series que se hicieron bajo el método viejo
