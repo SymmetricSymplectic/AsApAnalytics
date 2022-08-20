@@ -75,12 +75,11 @@ MyMerge <- function(x, y){
 }
 
 # function for setting initial common period as base period: 
-baseperiod_function <- function(x, inputyear){
+baseperiod_function <- function(x, inputdate){
   # input: x: xts object
   # output: x_indexed, modified xts
-  x <-x[paste(inputyear, "/", sep = "")]
-  x_indexed <- as.xts(apply(na.omit(x), 2, function(v) 100*v/v[1]))
-  
+  #x <-x[paste(inputdate, "/", sep = "")] if one wants inputdate to be starting year 
+  x_indexed <- as.xts(apply(na.omit(x), 2, function(v) 100*v/v[paste(inputdate)]))
   return(x_indexed)
   
 }
@@ -210,7 +209,8 @@ indices_data<- dbReadTable(asapadb_remote, "indices_data")
 
 forward_mxn_swaps_data <-dbReadTable(asapadb_remote, "forward_mxn_swaps_data", check.names = FALSE)
 forward_mxn_data <-dbReadTable(asapadb_remote, "forward_mxn_data", check.names = FALSE)
-
+forward_eurmxn_swaps_data <-dbReadTable(asapadb_remote, "forward_eurmxn_swaps_data", check.names = FALSE)
+forward_eurmxn_data <-dbReadTable(asapadb_remote, "forward_eurmxn_data", check.names = FALSE)
 usdswaps_data <-dbReadTable(asapadb_remote, "usdswaps", check.names = FALSE)
 usrates_data <-dbReadTable(asapadb_remote, "usrates", check.names = FALSE)
 mxbonds_data <-dbReadTable(asapadb_remote, "mxbonds", check.names = FALSE)
@@ -277,6 +277,8 @@ database <- list(balanza_data,
                  indices_data,
                  forward_mxn_swaps_data,
                  forward_mxn_data,
+                 forward_eurmxn_swaps_data,
+                 forward_eurmxn_data,
                  usdswaps_data,
                  usrates_data,
                  mxbonds_data,
@@ -288,6 +290,8 @@ database <- list(balanza_data,
 termstructure_db <- list(
   forward_mxn_swaps_data,
   forward_mxn_data,
+  forward_eurmxn_swaps_data,
+  forward_eurmxn_data,
   usdswaps_data,
   usrates_data,
   mxbonds_data,
