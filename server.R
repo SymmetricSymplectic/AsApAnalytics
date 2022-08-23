@@ -486,8 +486,13 @@ server <- function(input, output, session){
     data %>% rename(tenor = variable)
     plot_ly(data, x = ~variable, y = ~value,
             split = ~dates,
-            type = "scatter", mode = "lines+markers")%>%
-      layout(xaxis = list(categoryarray = names, categoryorder = "array"))%>%
+            type = "scatter", mode = "lines+markers"
+            )%>%
+      layout(xaxis = list(title="Tenor", 
+                          categoryarray = names, categoryorder = "array"))%>%
+      layout(title = 'Estructura de Tasas',
+             yaxis = list(title= "Valor"))%>%
+      
       layout(
         images = list(
           list(source = "https://i.ibb.co/2KDKzhg/logotipo-asapa-min-black.png",
