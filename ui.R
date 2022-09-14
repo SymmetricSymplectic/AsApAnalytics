@@ -63,7 +63,12 @@ ind_choices <- c("Balanza Comercial" = "1",
                  "US Treasury Rates" = "57",
                  "Mexican Government Bond Yields"  = "58",
                  "Tasa LIBOR (USD)" = "59",
-                 "Henry Hub Natural Gas Futures (3y)" = "60"
+                 "Henry Hub Natural Gas Futures (3y)" = "60",
+                 #emisoras
+                 "Grupo Pochteca" = "61",
+                 "Grupo Industrial Saltillo"  = "62",
+                 "Corporacion Moctezuma"  = "63"
+                 
                  )
 
 rate_choices <- c(

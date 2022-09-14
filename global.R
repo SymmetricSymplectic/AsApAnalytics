@@ -178,6 +178,18 @@ bmv_usd_data<- dbReadTable(asapadb_remote, "bmv_usd_data")
 usa_emisoras_data<- dbReadTable(asapadb_remote, "usa_emisoras_data")
 usa_emisoras_mxn_data<- dbReadTable(asapadb_remote, "usa_emisoras_mxn_data")
 indices_data<- dbReadTable(asapadb_remote, "indices_data")
+#emisoras
+pochteca_data<- dbReadTable(asapadb_remote, "pochteca_data")
+gis_data<- dbReadTable(asapadb_remote, "gis_data")
+cmoctez_data<- dbReadTable(asapadb_remote, "cmoctez_data")
+
+
+
+
+
+
+
+
 #source("PREPROCESSING/balanza_proc.R", local = TRUE)
 #source("PREPROCESSING/igae_proc.R", local = TRUE)
 #source("PREPROCESSING/igae1_proc.R", local = TRUE)
@@ -216,6 +228,8 @@ usrates_data <-dbReadTable(asapadb_remote, "usrates", check.names = FALSE)
 mxbonds_data <-dbReadTable(asapadb_remote, "mxbonds", check.names = FALSE)
 libor_data <-dbReadTable(asapadb_remote, "LIBORUSD_data", check.names = FALSE)
 ng_data <-dbReadTable(asapadb_remote, "ng_data", check.names = FALSE)
+
+
 
 #metadata preproc
 #source("PREPROCESSING/metadata.R", local = TRUE)
@@ -283,7 +297,10 @@ database <- list(balanza_data,
                  usrates_data,
                  mxbonds_data,
                  libor_data,
-                 ng_data
+                 ng_data,
+                 pochteca_data,
+                 gis_data,
+                 cmoctez_data
                  )
 
 #term structure database
