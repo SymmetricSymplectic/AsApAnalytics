@@ -223,11 +223,11 @@ forward_mxn_swaps_data <-dbReadTable(asapadb_remote, "forward_mxn_swaps_data", c
 forward_mxn_data <-dbReadTable(asapadb_remote, "forward_mxn_data", check.names = FALSE)
 forward_eurmxn_swaps_data <-dbReadTable(asapadb_remote, "forward_eurmxn_swaps_data", check.names = FALSE)
 forward_eurmxn_data <-dbReadTable(asapadb_remote, "forward_eurmxn_data", check.names = FALSE)
-usdswaps_data <-dbReadTable(asapadb_remote, "usdswaps", check.names = FALSE)
-usrates_data <-dbReadTable(asapadb_remote, "usrates", check.names = FALSE)
-mxbonds_data <-dbReadTable(asapadb_remote, "mxbonds", check.names = FALSE)
+#usdswaps_data <-dbReadTable(asapadb_remote, "usdswaps", check.names = FALSE)
+#usrates_data <-dbReadTable(asapadb_remote, "usrates", check.names = FALSE)
+#mxbonds_data <-dbReadTable(asapadb_remote, "mxbonds", check.names = FALSE)
 libor_data <-dbReadTable(asapadb_remote, "LIBORUSD_data", check.names = FALSE)
-ng_data <-dbReadTable(asapadb_remote, "ng_data", check.names = FALSE)
+#ng_data <-dbReadTable(asapadb_remote, "ng_data", check.names = FALSE)
 
 
 
@@ -293,11 +293,11 @@ database <- list(balanza_data,
                  forward_mxn_data,
                  forward_eurmxn_swaps_data,
                  forward_eurmxn_data,
-                 usdswaps_data,
-                 usrates_data,
-                 mxbonds_data,
+                 #usdswaps_data,
+                 #usrates_data,
+                 #mxbonds_data,
                  libor_data,
-                 ng_data,
+                 #ng_data,
                  pochteca_data,
                  gis_data,
                  cmoctez_data
