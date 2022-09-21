@@ -309,9 +309,9 @@ termstructure_db <- list(
   forward_mxn_data,
   forward_eurmxn_swaps_data,
   forward_eurmxn_data,
-  usdswaps_data,
-  usrates_data,
-  mxbonds_data,
+  #usdswaps_data,
+  #usrates_data,
+  #mxbonds_data,
   libor_data
 )
 
