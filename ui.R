@@ -59,15 +59,15 @@ ind_choices <- c("Balanza Comercial" = "1",
                  "Tasa Forward promedio USDMXN" = "53",
                  "Tasa Forward promedio EURMXN, Swaps Cambiarios" = "54",
                  "Tasa Forward promedio EURMXN" = "55",
-                 "USD Interest Rate Swap Rate" = "56",
-                 "US Treasury Rates" = "57",
-                 "Mexican Government Bond Yields"  = "58",
-                 "Tasa LIBOR (USD)" = "59",
-                 "Henry Hub Natural Gas Futures (3y)" = "60",
+                 #"USD Interest Rate Swap Rate" = "56",
+                 #"US Treasury Rates" = "57",
+                 #"Mexican Government Bond Yields"  = "58",
+                 "Tasa LIBOR (USD)" = "56",
+                 "Henry Hub Natural Gas Futures (3y)" = "57",
                  #emisoras
-                 "Grupo Pochteca" = "61",
-                 "Grupo Industrial Saltillo"  = "62",
-                 "Corporacion Moctezuma"  = "63"
+                 "Grupo Pochteca" = "58",
+                 "Grupo Industrial Saltillo"  = "59",
+                 "Corporacion Moctezuma"  = "60"
                  
                  )
 
@@ -76,9 +76,9 @@ rate_choices <- c(
   "Tasa Forward promedio USDMXN" = "2",
   "Tasa Forward promedio EURMXN, Swaps Cambiarios" = "3",
   "Tasa Forward promedio EURMXN" = "4",
-  "USD Interest Rate Swaps" = "5",
-  "US Treasury Rates" = "6",
-  "Mexican Government Bond Yields"  = "7",
+  #"USD Interest Rate Swaps" = "5",
+  #"US Treasury Rates" = "6",
+  #"Mexican Government Bond Yields"  = "7",
   "Tasa LIBOR (USD)" = "8"
   
 ) 

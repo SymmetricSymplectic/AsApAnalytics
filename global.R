@@ -15,6 +15,7 @@ library(sweep)
 library(zoo)
 library(scales)
 library(data.table)
+library(tidyverse)
 library(ggplot2)
 library(ggfortify)
 library(ggpubr)
@@ -27,6 +28,7 @@ library(corrplot)
 library(tsibble)
 library(tibble)
 library(readr)
+library(tidyr)
 #sjplot for model info visualization
 library(sjPlot)
 library(sjmisc)
@@ -88,7 +90,7 @@ pch <- function(data, lag = 1) {
   # argument verification
   #data <- as.numeric(data)
   # return percent change
-  (data / lag(data, lag) - 1)*100
+  (data / stats::lag(data, lag) - 1)*100
 }
 #annualize function for ts
 
@@ -96,7 +98,7 @@ annualize <- function(data, periods = 1, lag = 1) {
   # argument verification
   #data <- as.numeric(data)
   # return annualized percent change
-  ((data / lag(data, lag))^(periods/lag) - 1)*100
+  ((data / stats::lag(data, lag))^(periods/lag) - 1)*100
 }
 
 
