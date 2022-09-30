@@ -237,6 +237,13 @@ server <- function(input, output, session){
   #generamos la gráfica de las series principales
   output$plotly1<- renderPlotly({
     seriesselect <- data_transform()
+    #p <- seriesselect %>%
+     # zoo::fortify.zoo() %>%
+     # as_tibble() %>%
+     # tidyr::pivot_longer(-Index, names_to = "series", values_to = "values") %>%
+     # ggplot(aes(x = Index, y = values, color = series)) + 
+    #  geom_point()
+    #ggplotly(p)%>%
     ts_plot(seriesselect, 
             title = paste(input$series[1]),
             Xtitle = "Fecha",
