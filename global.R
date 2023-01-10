@@ -49,10 +49,11 @@ library(qqplotr)
 library(PerformanceAnalytics)
 
 asapadb_remote = dbConnect(MySQL(),  #remote is to be used for dbms
-                           user='asapacom_Felix', 
-                           password='zPySwGE4GUHQ7v9', 
-                           dbname='asapacom_SisAna', 
-                           host='www.asapa.com')
+                           user='Felix', 
+                           password='XkxY1BgiwXFpTWvF', 
+                           dbname='SisAna', 
+                           host='146.190.57.35',
+                           port = as.numeric("3306"))
 #asapadb_local = dbConnect(MySQL(), 
 #                          user='root', 
 #                          password='password', 
@@ -126,65 +127,7 @@ elapsed_months <- function(end_date, start_date) {
   12 * (ed$year - sd$year) + (ed$mon - sd$mon)
 }
 
-balanza_data <- dbReadTable(asapadb_remote, "balanza_com_data")
-igae_data <-dbReadTable(asapadb_remote, "igae_data")
-igae1_data <-dbReadTable(asapadb_remote, "igae1_data")
-actind_data <-dbReadTable(asapadb_remote, "actind")
-imai_data <-dbReadTable(asapadb_remote, "imai")
-ifb_data <-dbReadTable(asapadb_remote, "ifb")
-ifbdesest_data <-dbReadTable(asapadb_remote, "ifbdesest")
-pibmex_data<-dbReadTable(asapadb_remote, "pibmex_data")
-reservas_data<- dbReadTable(asapadb_remote, "reservas_data")
-reservas_semanales_data <- dbReadTable(asapadb_remote, "reservas_semanales_data")
-remesas_fam_data<- dbReadTable(asapadb_remote, "remesas_fam_data")
-establecimientos_data <- dbReadTable(asapadb_remote, "establecimientoscomerciales_data")
-imcp_data <- dbReadTable(asapadb_remote, "IMCP_originales_data")
-imcp_desest_data<- dbReadTable(asapadb_remote, "IMCP_desest_data")
-confianza_data <- dbReadTable(asapadb_remote, "confianza_data")
-inpc_mensual_data<- dbReadTable(asapadb_remote, "inpc_mensual_data")
-inpc_q_data<- dbReadTable(asapadb_remote, "inpc_q_data")
-inf_mensual_data<- dbReadTable(asapadb_remote, "inf_mensual_data")
-inf_mensual_interanual_data<- dbReadTable(asapadb_remote, "inf_mensual_interanual_data")
-inf_anual_data<- dbReadTable(asapadb_remote, "inf_anual_data")
-inf_q_data<- dbReadTable(asapadb_remote, "inf_q_data")
-pibmex_data<- dbReadTable(asapadb_remote, "pibmex_data")
-sic_data<- dbReadTable(asapadb_remote, "sic_data")
-des_data<- dbReadTable(asapadb_remote, "des_data")
-construc_data<- dbReadTable(asapadb_remote, "construc_data")
-automot_data<- dbReadTable(asapadb_remote, "automot_data")
-mtis_data<- dbReadTable(asapadb_remote, "mtis_data")
-consurvey_data<- dbReadTable(asapadb_remote, "consurvey_data")
-conspending_data<- dbReadTable(asapadb_remote, "conspending_data")
-conscredit_data<- dbReadTable(asapadb_remote, "conscredit_data")
-#gdpindex_data,
-gdp_data<- dbReadTable(asapadb_remote, "gdp_data")
-cpi_data<- dbReadTable(asapadb_remote, "cpi_data")
-ppi_data<- dbReadTable(asapadb_remote, "ppi_data")
-manuf_data<- dbReadTable(asapadb_remote, "manuf_data")
-unemp_data<- dbReadTable(asapadb_remote, "unemp_data")
-claims_data<- dbReadTable(asapadb_remote, "claims_data")
-income_data<- dbReadTable(asapadb_remote, "income_data")
-wholesale_data<- dbReadTable(asapadb_remote, "wholesale_data")
-retail_data<- dbReadTable(asapadb_remote, "retail_data")
-advretail_data<- dbReadTable(asapadb_remote, "advretail_data")
-autos_data<- dbReadTable(asapadb_remote, "autos_data")
-cpi_int_data<- dbReadTable(asapadb_remote, "cpi_int_data")
-#importexport_data
-ism_data<- dbReadTable(asapadb_remote, "ism_data")
-ism_s_data<- dbReadTable(asapadb_remote, "ism_s_data")
-houst_data<- dbReadTable(asapadb_remote, "houst_data")
-permits_data<- dbReadTable(asapadb_remote, "permits_data")
-#energy_data
-bmv_data<- dbReadTable(asapadb_remote, "bmv_data")
-divisas_data<- dbReadTable(asapadb_remote, "divisas_data")
-bmv_usd_data<- dbReadTable(asapadb_remote, "bmv_usd_data")
-usa_emisoras_data<- dbReadTable(asapadb_remote, "usa_emisoras_data")
-usa_emisoras_mxn_data<- dbReadTable(asapadb_remote, "usa_emisoras_mxn_data")
-indices_data<- dbReadTable(asapadb_remote, "indices_data")
-#emisoras
-pochteca_data<- dbReadTable(asapadb_remote, "pochteca_data")
-gis_data<- dbReadTable(asapadb_remote, "gis_data")
-cmoctez_data<- dbReadTable(asapadb_remote, "cmoctez_data")
+
 
 
 
@@ -221,102 +164,6 @@ cmoctez_data<- dbReadTable(asapadb_remote, "cmoctez_data")
 #source("PREPROCESSING/USA_proc.R", local = TRUE)
 #source("PREPROCESSING/analtec_proc.R", local = TRUE)
 #source("PREPROCESSING/prices_proc.R", local = TRUE)
-
-forward_mxn_swaps_data <-dbReadTable(asapadb_remote, "forward_mxn_swaps_data", check.names = FALSE)
-forward_mxn_data <-dbReadTable(asapadb_remote, "forward_mxn_data", check.names = FALSE)
-forward_eurmxn_swaps_data <-dbReadTable(asapadb_remote, "forward_eurmxn_swaps_data", check.names = FALSE)
-forward_eurmxn_data <-dbReadTable(asapadb_remote, "forward_eurmxn_data", check.names = FALSE)
-#usdswaps_data <-dbReadTable(asapadb_remote, "usdswaps", check.names = FALSE)
-#usrates_data <-dbReadTable(asapadb_remote, "usrates", check.names = FALSE)
-#mxbonds_data <-dbReadTable(asapadb_remote, "mxbonds", check.names = FALSE)
-libor_data <-dbReadTable(asapadb_remote, "LIBORUSD_data", check.names = FALSE)
-#ng_data <-dbReadTable(asapadb_remote, "ng_data", check.names = FALSE)
-
-
-
-#metadata preproc
-#source("PREPROCESSING/metadata.R", local = TRUE)
-
-#regular (time series display) database
-database <- list(balanza_data,
-                 establecimientos_data,
-                 igae1_data,
-                 igae_data,
-                 actind_data,
-                 imai_data,
-                 imcp_data,
-                 imcp_desest_data,
-                 confianza_data,
-                 inpc_mensual_data,
-                 inpc_q_data,
-                 inf_mensual_data,
-                 inf_mensual_interanual_data,
-                 inf_anual_data,
-                 inf_q_data,
-                 ifb_data,
-                 ifbdesest_data,
-                 pibmex_data,
-                 reservas_data,
-                 reservas_semanales_data,
-                 remesas_fam_data,
-                 sic_data,
-                 des_data,
-                 construc_data,
-                 automot_data,
-                 mtis_data,
-                 consurvey_data,
-                 conspending_data,
-                 conscredit_data,
-                 #gdpindex_data,
-                 gdp_data,
-                 cpi_data,
-                 ppi_data,
-                 manuf_data,
-                 unemp_data,
-                 claims_data,
-                 income_data,
-                 wholesale_data,
-                 retail_data,
-                 advretail_data,
-                 autos_data,
-                 cpi_int_data,
-                 #importexport_data,
-                 ism_data,
-                 ism_s_data,
-                 houst_data,
-                 permits_data,
-                 #energy_data,
-                 bmv_data,
-                 divisas_data,
-                 bmv_usd_data,
-                 usa_emisoras_data,
-                 usa_emisoras_mxn_data,
-                 indices_data,
-                 forward_mxn_swaps_data,
-                 forward_mxn_data,
-                 forward_eurmxn_swaps_data,
-                 forward_eurmxn_data,
-                 #usdswaps_data,
-                 #usrates_data,
-                 #mxbonds_data,
-                 libor_data,
-                 #ng_data,
-                 pochteca_data,
-                 gis_data,
-                 cmoctez_data
-                 )
-
-#term structure database
-termstructure_db <- list(
-  forward_mxn_swaps_data,
-  forward_mxn_data,
-  forward_eurmxn_swaps_data,
-  forward_eurmxn_data,
-  #usdswaps_data,
-  #usrates_data,
-  #mxbonds_data,
-  libor_data
-)
 
 
 
