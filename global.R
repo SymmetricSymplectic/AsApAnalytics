@@ -129,44 +129,6 @@ elapsed_months <- function(end_date, start_date) {
 
 
 
-
-
-
-
-
-
-
-#source("PREPROCESSING/balanza_proc.R", local = TRUE)
-#source("PREPROCESSING/igae_proc.R", local = TRUE)
-#source("PREPROCESSING/igae1_proc.R", local = TRUE)
-
-#source("PREPROCESSING/pibmex_proc.R", local = TRUE)
-#source("PREPROCESSING/actind_proc.R", local = TRUE)
-#source("PREPROCESSING/imai_proc.R", local = TRUE)
-#source("PREPROCESSING/ifb_proc.R", local = TRUE)
-#source("PREPROCESSING/ifb(desest)_proc.R", local = TRUE)
-#source("PREPROCESSING/banxico_proc.R", local = TRUE)
-#source("PREPROCESSING/estab_proc.R", local = TRUE)
-#source("PREPROCESSING/imcp_proc.R", local = TRUE)
-#source("PREPROCESSING/imcp_desest_proc.R", local = TRUE)
-#source("PREPROCESSING/confianza_proc.R", local= TRUE)
-#source("PREPROCESSING/inpc_mensual_proc.R", local = TRUE)
-#source("PREPROCESSING/inf_mensual_proc.R", local = TRUE)
-#source("PREPROCESSING/inf_mensual_interanual_proc.R", local = TRUE)
-#source("PREPROCESSING/inf_anual_proc.R", local = TRUE)
-
-#source("PREPROCESSING/inpc_q_proc.R", local = TRUE)
-#source("PREPROCESSING/inf_q_proc.R", local = TRUE)
-#source("PREPROCESSING/sic_proc.R", local = TRUE)
-#source("PREPROCESSING/des_proc.R", local = TRUE)
-#source("PREPROCESSING/construc_proc.R", local = TRUE)
-#source("PREPROCESSING/automot_proc.R", local = TRUE)
-#source("PREPROCESSING/USA_proc.R", local = TRUE)
-#source("PREPROCESSING/analtec_proc.R", local = TRUE)
-#source("PREPROCESSING/prices_proc.R", local = TRUE)
-
-
-
 # Init DB using credentials data
 credentials <- data.frame(
   user = c("Salvador", "Felix", "Gabriel", "Graciela", "Erica", "ErnestoA", "ArturoM", "SaulC", "Johann", "AmaroR" ),
@@ -193,3 +155,19 @@ back_image <- png::readPNG("www/asapa_back.png")
 #config del tema de ggplot2
 #escala del texto en las gráficas de ggplot2
 theme_set(theme_linedraw(base_size=19))
+
+
+
+tablelist <- dbReadTable(asapadb_remote, "tablelist")
+rateslist <- filter(tablelist, rate == 1)
+rateslist$index <- rownames(rateslist)
+
+#create named vectors for shiny selectizer
+rate_choices <- rateslist$index
+names(rate_choices) <-rateslist$tablename
+
+ind_choices <- tablelist$index
+names(ind_choices) <-tablelist$tablename
+
+
+
