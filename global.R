@@ -134,7 +134,7 @@ credentials <- data.frame(
   user = c("Salvador", "Felix", "Gabriel", "Graciela", "Erica", "ErnestoA", "ArturoM", "SaulC", "Johann", "AmaroR", "GabyOlv", "JALoaeza" ),
   password = c("asapa", "admin","d3G0c1YbhT", "gLbcyTUTe2", "i6dH7J3Z4d", "c1Pctiwh3b", "wJEAC0KCtM", "SHnbuokbvN", "eIlgXWzCvi", "jfhiIEkksh", "H3pKCjfbXJ", "vCNDr2pbYy"),
   # password will automatically be hashed
-  admin = c(FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE),
+  admin = c(FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE),
   stringsAsFactors = FALSE
 )
 
