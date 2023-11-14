@@ -646,10 +646,12 @@ server <- function(input, output, session){
   
   #bajar precio de instrumento en yfinance
   priceInput <- reactive({
-    as.data.frame(getSymbols(input$symb, src = input$quotesource,
+    stocks <- new.env()
+    getSymbols(unlist(strsplit(input$symb, ",")), src = input$quotesource,
                from = input$ydates[1],
                to = input$ydates[2],
-               auto.assign = FALSE))
+               env = stocks)
+    return(as.data.frame( do.call(cbind,eapply(stocks, Cl))))
   })
   
   

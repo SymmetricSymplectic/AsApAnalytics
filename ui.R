@@ -39,7 +39,7 @@ ui <-fluidPage(
                                          
                                          textInput("symb", "Seleccione un instrumento o indicador de otra fuente para agregarlo a la visualización"),
                                          radioButtons("quotesource", "Fuente para la cotización:",
-                                                      c("Investing.com" = "Investing", "Yahoo Finance" = "yahoo", "FRED"= "FRED"
+                                                      c("Yahoo Finance" = "yahoo", "FRED"= "FRED"
                                                         )),
                                          helpText("Utilizar la clave del proveedor de datos"),
                                          dateRangeInput("ydates",
