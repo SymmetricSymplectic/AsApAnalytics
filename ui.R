@@ -27,7 +27,7 @@ ui <-fluidPage(
                                   indicador en la base de datos, 
                                  así como combinarla con datos proporcionados
                                  por el usuario, y con precios OHLC de mercado en una misma tabla"),
-                        actionButton("refresh", "Actualizar BDD"),
+                        actionButton("refresh", "Reiniciar Aplicación"),
                         #input: seleccionar si mostrar el logotipo asapa
                         checkboxInput("show_logo", "Mostrar Logotipo AsApA",
                                      TRUE),
@@ -187,8 +187,7 @@ ui <-fluidPage(
                       mainPanel(
                         dataTableOutput("series_descrip"),
                         br(),
-                        actionButton("updateData", "Actualizar Bases de Datos")
-                                     
+                        actionButton("refresh_data", "Actualizar Bases de Datos")
                       ))
 
   )#fin navbars

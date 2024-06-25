@@ -6,21 +6,15 @@
 server <- function(input, output, session){
   # call the server part
   
+  # Descargar los datos de las tablas según la lista de tablas  
+  database <- reactiveVal(descargar_datos_db(db_driver, db_host, db_port, db_name, db_user, db_password, tablelist))
+  termstructure_db <- reactiveVal(descargar_datos_db(db_driver, db_host, db_port, db_name, db_user, db_password,rateslist))
 
-
-  
-  #initial db load call
-  database<-descargar_datos_db(db_driver, db_host, db_port, db_name, db_user, db_password,tablelist)
-  
-  termstructure_db <- descargar_datos_db(db_driver, db_host, db_port, db_name, db_user, db_password,rateslist)
-
-  # Descargar los datos de las tablas según la lista de tablas
-  #database <- reactiveVal(descargar_datos_db(db_driver, db_host, db_port, db_name, db_user, db_password, tablelist()))
-  
-  # Actualizar los datos cuando se presiona el botón
-  #observeEvent(input$refresh_data, {
-  #  datos_db(descargar_datos_db(db_driver, db_host, db_port, db_name, db_user, db_password, tablelist()))
-  #})
+    # Actualizar los datos cuando se presiona el botón
+  observeEvent(input$refresh_data, {
+    database(descargar_datos_db(db_driver, db_host, db_port, db_name, db_user, db_password, tablelist))
+    termstructure_db(descargar_datos_db(db_driver, db_host, db_port, db_name, db_user, db_password, rateslist))
+  })
   
   # check_credentials returns a function to authenticate users
   res_auth <- secure_server(
@@ -31,148 +25,57 @@ server <- function(input, output, session){
     reactiveValuesToList(res_auth)
   })
   
-  #boton para reiniciar app y actualizar series BDD
+  #boton para reiniciar app
   observeEvent(input$refresh, {
     refresh()
   })
   
   # your classic server logic
-  #input condicional: serie de datos a analizar, permite combinar hasta 5 bases
+  # Función para combinar las tablas seleccionadas
+  
   datasetInput <- reactive({
-    if (length(input$dataset)==2){
-      data <- merge(database[[as.numeric(input$dataset[1])]],
-                      database[[as.numeric(input$dataset[2])]],
-                      by = 0    )
-      rownames(data) <- data[,1]
-      data <- data[,-1, drop = FALSE]
-      data
-    } else if (length(input$dataset)==3){
-      data <- merge(database[[as.numeric(input$dataset[1])]],
-                    database[[as.numeric(input$dataset[2])]],
-                    by = 0    )
-      rownames(data) <- data[,1]
-      data <- data[,-1, drop = FALSE]
-      data <- merge(database[[as.numeric(input$dataset[3])]],
-                    data,
-                    by= 0)
-      rownames(data) <- data[,1]
-      data <- data[,-1, drop = FALSE]
-      data
-    }else if (length(input$dataset)==4){
-      data <- merge(database[[as.numeric(input$dataset[1])]],
-                    database[[as.numeric(input$dataset[2])]],
-                    by = 0    )
-      rownames(data) <- data[,1]
-      data <- data[,-1, drop = FALSE]
-      data <- merge(database[[as.numeric(input$dataset[3])]],
-                    data,
-                    by= 0)
-      rownames(data) <- data[,1]
-      data <- data[,-1, drop = FALSE]
-      data <- merge(database[[as.numeric(input$dataset[4])]],
-                    data,
-                    by= 0)
-      rownames(data) <- data[,1]
-      data <- data[,-1, drop = FALSE]
-      data
-    }else if (length(input$dataset)==5){
-      data <- merge(database[[as.numeric(input$dataset[1])]],
-                    database[[as.numeric(input$dataset[2])]],
-                    by = 0    )
-      rownames(data) <- data[,1]
-      data <- data[,-1]
-      data <- merge(database[[as.numeric(input$dataset[3])]],
-                    data,
-                    by= 0)
-      rownames(data) <- data[,1]
-      data <- data[,-1]
-      data <- merge(database[[as.numeric(input$dataset[4])]],
-                    data,
-                    by= 0)
-      rownames(data) <- data[,1]
-      data <- data[,-1]
-      data <- merge(database[[as.numeric(input$dataset[5])]],
-                    data,
-                    by= 0)
-      rownames(data) <- data[,1]
-      data <- data[,-1]
-      data
-    }else  {
-      data <-data.frame(database[[as.numeric(input$dataset)]])
-      data
-    }
-    data <- data[order(as.Date(rownames(data), format="%Y/%m/%d")),]
+    selected_indices <- as.numeric(input$dataset)
+    database <- database()
     
-
+    if (length(selected_indices) == 0) {
+      return(NULL)
+    }
+    
+    data <- database[[selected_indices[1]]]
+    
+    if (length(selected_indices) > 1) {
+      for (i in 2:length(selected_indices)) {
+        data <- merge(data, database[[selected_indices[i]]], by = 0)
+        rownames(data) <- data[, 1]
+        data <- data[, -1, drop = FALSE]
+      }
+    }
+    
+    data <- data[order(as.Date(rownames(data), format="%Y/%m/%d")), ]
+    return(data)
   })
   
-  #input condicional: estructura de tasas a analizar, permite combinar hasta 5 bases
+  # Función para combinar las tasas seleccionadas
   termsdataInput <- reactive({
-    if (length(input$termsdata)==2){
-      data <- merge(termstructure_db[[as.numeric(input$termsdata[1])]],
-                    termstructure_db[[as.numeric(input$termsdata[2])]],
-                    by = 0    )
-      rownames(data) <- data[,1]
-      data <- data[,-1, drop = FALSE]
-      data
-    } else if (length(input$termsdata)==3){
-      data <- merge(termstructure_db[[as.numeric(input$termsdata[1])]],
-                    termstructure_db[[as.numeric(input$termsdata[2])]],
-                    by = 0    )
-      rownames(data) <- data[,1]
-      data <- data[,-1, drop = FALSE]
-      data <- merge(termstructure_db[[as.numeric(input$termsdata[3])]],
-                    data,
-                    by= 0)
-      rownames(data) <- data[,1]
-      data <- data[,-1, drop = FALSE]
-      data
-    }else if (length(input$termsdata)==4){
-      data <- merge(termstructure_db[[as.numeric(input$termsdata[1])]],
-                    termstructure_db[[as.numeric(input$termsdata[2])]],
-                    by = 0    )
-      rownames(data) <- data[,1]
-      data <- data[,-1, drop = FALSE]
-      data <- merge(termstructure_db[[as.numeric(input$termsdata[3])]],
-                    data,
-                    by= 0)
-      rownames(data) <- data[,1]
-      data <- data[,-1, drop = FALSE]
-      data <- merge(termstructure_db[[as.numeric(input$termsdata[4])]],
-                    data,
-                    by= 0)
-      rownames(data) <- data[,1]
-      data <- data[,-1, drop = FALSE]
-      data
-    }else if (length(input$termsdata)==5){
-      data <- merge(termstructure_db[[as.numeric(input$termsdata[1])]],
-                    termstructure_db[[as.numeric(input$termsdata[2])]],
-                    by = 0    )
-      rownames(data) <- data[,1]
-      data <- data[,-1]
-      data <- merge(termstructure_db[[as.numeric(input$termsdata[3])]],
-                    data,
-                    by= 0)
-      rownames(data) <- data[,1]
-      data <- data[,-1]
-      data <- merge(termstructure_db[[as.numeric(input$termsdata[4])]],
-                    data,
-                    by= 0)
-      rownames(data) <- data[,1]
-      data <- data[,-1]
-      data <- merge(termstructure_db[[as.numeric(input$termsdata[5])]],
-                    data,
-                    by= 0)
-      rownames(data) <- data[,1]
-      data <- data[,-1]
-      data
-    }else  {
-      data <-data.frame(termstructure_db[[as.numeric(input$termsdata)]])
-      data
+    selected_indices <- as.numeric(input$termsdata)
+    database <- termstructure_db()
+    
+    if (length(selected_indices) == 0) {
+      return(NULL)
     }
-    data <- data[order(as.Date(rownames(data), format="%d/%m/%Y")),]
     
+    data <- database[[selected_indices[1]]]
     
+    if (length(selected_indices) > 1) {
+      for (i in 2:length(selected_indices)) {
+        data <- merge(data, database[[selected_indices[i]]], by = 0)
+        rownames(data) <- data[, 1]
+        data <- data[, -1, drop = FALSE]
+      }
+    }
+    
+    data <- data[order(as.Date(rownames(data), format="%d/%m/%Y")), ]
+    return(data)
   })
   
   

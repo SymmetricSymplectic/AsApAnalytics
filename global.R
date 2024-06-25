@@ -48,6 +48,8 @@ library(qqplotr)
 #annualizar series
 library(PerformanceAnalytics)
 
+
+
 asapadb_remote = dbConnect(MySQL(),  #remote is to be used for dbms
                            user='Felix', 
                            password='XkxY1BgiwXFpTWvF', 
@@ -212,6 +214,13 @@ names(rate_choices) <-rateslist$tablename
 
 ind_choices <- tablelist$index
 names(ind_choices) <-tablelist$tablename
+
+#descargar metadata para actualización
+
+
+#descargar tabla de metadatos sobre la bdd
+meta_data <- dbReadTable(asapadb_remote, "cat_global")
+
 
 
 
