@@ -5,34 +5,22 @@
 #definimos servidor para graficar las series de tiempo
 server <- function(input, output, session){
   # call the server part
+  
+
 
   
   #initial db load call
-  database <-list()
-  for (i in 1:length(tablelist$index)){
-    table <- dbReadTable(conn=asapadb_remote, name=paste(tablelist$dbname[i]))
-    assign(paste(tablelist$dfname[i]), table )
-    database[[i]] <-get(tablelist$dfname[i])
-    rm(list=paste(tablelist$dfname[i]))
-    rm(table)
-  }
+  database<-descargar_datos_db(db_driver, db_host, db_port, db_name, db_user, db_password,tablelist)
   
-  termstructure_db <- list()
-  for (i in 1:length(rateslist$index)){
-    table <- dbReadTable(conn=asapadb_remote, name=paste(rateslist$dbname[i]))
-    assign(paste(rateslist$dfname[i]), table )
-    termstructure_db[[i]] <-get(rateslist$dfname[i])
-    rm(list=paste(rateslist$dfname[i]))
-    rm(table)
-  }
-  #create named vectors for shiny selectizer
-  rate_choices <- rateslist$index
-  names(rate_choices) <-rateslist$tablename
+  termstructure_db <- descargar_datos_db(db_driver, db_host, db_port, db_name, db_user, db_password,rateslist)
+
+  # Descargar los datos de las tablas según la lista de tablas
+  #database <- reactiveVal(descargar_datos_db(db_driver, db_host, db_port, db_name, db_user, db_password, tablelist()))
   
-  ind_choices <- tablelist$index
-  names(ind_choices) <-tablelist$tablename
-  
-  
+  # Actualizar los datos cuando se presiona el botón
+  #observeEvent(input$refresh_data, {
+  #  datos_db(descargar_datos_db(db_driver, db_host, db_port, db_name, db_user, db_password, tablelist()))
+  #})
   
   # check_credentials returns a function to authenticate users
   res_auth <- secure_server(

@@ -66,6 +66,7 @@ dbDisconnectAll <- function(){
   cat(sprintf("%s connection(s) closed.\n", ile))
 }
 
+
 #newsapi
 #d880ad52a6914735ad495090eea842ec
 library(newsapi)
@@ -139,9 +140,52 @@ credentials <- data.frame(
 )
 
 
+# Función para descargar la lista de tablas de la base de datos
+descargar_lista_tablas <- function(db_driver, db_host, db_port, db_name, db_user, db_password, table_name) {
+  # Abrir la conexión a la base de datos
+  conexion_db <- dbConnect(db_driver, host = db_host, port = db_port, dbname = db_name, user = db_user, password = db_password)
+  
+  # Manejo de errores para asegurar que la conexión se cierre
+  on.exit(dbDisconnect(conexion_db))
+  
+  # Descargar la lista de tablas
+  tablelist <- dbReadTable(conn = conexion_db, name = table_name)
+  
+  return(tablelist)
+}
 
 
+# Función para descargar datos de las tablas según la lista de tablas
+descargar_datos_db <- function(db_driver, db_host, db_port, db_name, db_user, db_password, tablelist) {
+  # Abrir la conexión a la base de datos
+  conexion_db <- dbConnect(db_driver, host = db_host, port = db_port, dbname = db_name, user = db_user, password = db_password)
+  
+  # Manejo de errores para asegurar que la conexión se cierre
+  on.exit(dbDisconnect(conexion_db))
+  
+  # Crear una lista para almacenar las tablas
+  database <- list()
+  
+  # Loop para cargar cada tabla de la lista
+  for (i in 1:length(tablelist$index)) {
+    table <- dbReadTable(conn = conexion_db, name = paste(tablelist$dbname[i]))
+    assign(paste(tablelist$dfname[i]), table)
+    database[[i]] <- get(tablelist$dfname[i])
+    rm(list = paste(tablelist$dfname[i]))
+    rm(table)
+  }
+  
+  return(database)
+}
 
+# Variables para la conexión a la base de datos
+db_driver <- MySQL()
+db_host <- "146.190.57.35"
+db_port <- as.numeric("3306")
+db_name <- "SisAna"
+db_user <- "Felix"
+db_password <- "XkxY1BgiwXFpTWvF"
+table_list_name <- "tablelist"  # Nombre de la tabla que contiene la lista de tablas
 
 
 #logotipos y cosas gráficas extras
@@ -156,9 +200,9 @@ back_image <- png::readPNG("www/asapa_back.png")
 #escala del texto en las gráficas de ggplot2
 theme_set(theme_linedraw(base_size=19))
 
+# Descargar la lista de tablas al iniciar la aplicación
+tablelist <- descargar_lista_tablas(db_driver, db_host, db_port, db_name, db_user, db_password, table_list_name) 
 
-
-tablelist <- dbReadTable(asapadb_remote, "tablelist")
 rateslist <- filter(tablelist, rate == 1)
 rateslist$index <- rownames(rateslist)
 
@@ -168,6 +212,8 @@ names(rate_choices) <-rateslist$tablename
 
 ind_choices <- tablelist$index
 names(ind_choices) <-tablelist$tablename
+
+
 
 
 
